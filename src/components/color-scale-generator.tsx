@@ -2,11 +2,11 @@
 import chroma from "chroma-js";
 import { useState } from "react";
 import {
-    generateColorScaleUsingTailwindLightness,
+    generateColorScaleUsingTailwindOKLAB,
     getAPCA,
     getClosestAPCAShade,
     getClosestTailwindColor,
-    printHSL,
+    printHSL
 } from "../lib/color-utils";
 import ColorScale from "./color-scale";
 import TailwindColorScales from "./tailwind-color-scale";
@@ -14,7 +14,7 @@ import TailwindColorScales from "./tailwind-color-scale";
 function ColorScaleGenerator() {
   const [inputColor, setInputColor] = useState<string>("#ff8647");
   const [colorScale, setColorScale] = useState<string[]>(
-    generateColorScaleUsingTailwindLightness(inputColor)
+    generateColorScaleUsingTailwindOKLAB(inputColor)
   );
   const closestColor = getClosestTailwindColor(inputColor, "deltaE");
   const closestAPCA = getClosestAPCAShade(inputColor);
@@ -25,7 +25,7 @@ function ColorScaleGenerator() {
         value={inputColor}
         onChange={(e) => {
           setInputColor(e.target.value);
-          const newScale = generateColorScaleUsingTailwindLightness(
+          const newScale = generateColorScaleUsingTailwindOKLAB(
             e.target.value
           );
           setColorScale(newScale);

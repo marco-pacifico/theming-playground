@@ -75,8 +75,7 @@ function averageColorScales(scaleA: string[], scaleB: string[]): string[] {
 
     const newH = chroma(colorA).get("hsl.h");
     const avgS =
-      (chroma(colorA).get("hsl.s") + chroma(colorB).get("hsl.s")) /
-      colorBLuminance;
+      (chroma(colorA).get("hsl.s") + chroma(colorB).get("hsl.s")) / 2;
     const avgL =
       (chroma(colorA).get("hsl.l") + chroma(colorB).get("hsl.l")) / 2;
 
@@ -282,6 +281,50 @@ export function findIndexBasedOnLightness(inputHex: string, scale: string[]) {
   return closestIndex;
 }
 
+export function findIndexBasedOnOKLAB(inputHex: string, scale: string[]) {
+  if (chroma.valid(inputHex) === false) {
+    throw new Error("Invalid input color");
+  }
+
+  const inputLightness = chroma(inputHex).get("oklab.l");
+  let closestIndex = 0;
+  let smallestDifference = Infinity;
+
+  scale.forEach((hex, index) => {
+    const itemLightness = chroma(hex).get("oklab.l");
+    const difference = Math.abs(inputLightness - itemLightness);
+
+    if (difference < smallestDifference) {
+      smallestDifference = difference;
+      closestIndex = index;
+    }
+  });
+
+  return closestIndex;
+}
+
+export function findIndexBasedOnOKLCH(inputHex: string, scale: string[]) {
+    if (chroma.valid(inputHex) === false) {
+      throw new Error("Invalid input color");
+    }
+  
+    const inputLightness = chroma(inputHex).get("oklch.l");
+    let closestIndex = 0;
+    let smallestDifference = Infinity;
+  
+    scale.forEach((hex, index) => {
+      const itemLightness = chroma(hex).get("oklch.l");
+      const difference = Math.abs(inputLightness - itemLightness);
+  
+      if (difference < smallestDifference) {
+        smallestDifference = difference;
+        closestIndex = index;
+      }
+    });
+  
+    return closestIndex;
+  }
+
 function findIndexBasedOnDistance(closestTailwindColor: ClosestTailwindColor) {
   const shadeToUse =
     closestTailwindColor.calibratedShade !== null
@@ -291,6 +334,107 @@ function findIndexBasedOnDistance(closestTailwindColor: ClosestTailwindColor) {
   return SHADE_NUMBERS.indexOf(shadeToUse);
 }
 
+export function generateColorScaleUsingTailwindOKLCH(inputHex: string) {
+    if (chroma.valid(inputHex) === false) {
+      throw new Error("Invalid input color");
+    }
+  
+    // Get the closest tailwind color and its scale based on deltaE distance
+    // returns object with color, shade, distance, hexcode, calibratedShade
+    const closestTailwindColor = getClosestTailwindColor(inputHex, "deltaE");
+  
+    // Get the closest Tailwind scale based on closestTailwindColor
+    const tailwindColorScale = getTailwindColorScaleByName(
+      closestTailwindColor?.color
+    );
+    // If the tailwindColorScale is a string, throw an error
+    if (typeof tailwindColorScale === "string") {
+      throw new Error(tailwindColorScale);
+    }
+  
+    const inputShadeIndex = findIndexBasedOnOKLCH(inputHex, tailwindColorScale);
+  
+    // Calculate the delta between input color and the closest tailwind color
+    const inputOKLCH = chroma(inputHex).oklch();
+    const closestTailwindColorOKLCH = chroma(
+      closestTailwindColor?.hexcode
+    ).oklch();
+  
+    const deltaC = inputOKLCH[1] - closestTailwindColorOKLCH[1];
+    const deltaH = inputOKLCH[2] - closestTailwindColorOKLCH[2];
+  
+    // Create empty array of length tailwindColorScale.length
+    let scale: string[] = Array(tailwindColorScale.length).fill(null);
+  
+    scale = scale.map((_, index) => {
+      //  Keep the input color at its position, do not modify it
+      if (index === inputShadeIndex) return inputHex;
+  
+      const tailwindIndexColorOKLCH= chroma(tailwindColorScale[index]).oklch();
+      // Keep same L value as cloesest tailwind color scale
+      const newL = tailwindIndexColorOKLCH[0];
+      // Adjust C
+      const newC = tailwindIndexColorOKLCH[1] + deltaC;
+      // Adjust H
+      const newH = tailwindIndexColorOKLCH[2] + deltaH;
+      
+      return chroma.oklch(newL, newC, newH).hex();
+    });
+  
+    return scale;
+  }
+  
+
+export function generateColorScaleUsingTailwindOKLAB(inputHex: string) {
+  if (chroma.valid(inputHex) === false) {
+    throw new Error("Invalid input color");
+  }
+
+  // Get the closest tailwind color and its scale based on deltaE distance
+  // returns object with color, shade, distance, hexcode, calibratedShade
+  const closestTailwindColor = getClosestTailwindColor(inputHex, "deltaE");
+
+  // Get the closest Tailwind scale based on closestTailwindColor
+  const tailwindColorScale = getTailwindColorScaleByName(
+    closestTailwindColor?.color
+  );
+  // If the tailwindColorScale is a string, throw an error
+  if (typeof tailwindColorScale === "string") {
+    throw new Error(tailwindColorScale);
+  }
+
+  const inputShadeIndex = findIndexBasedOnOKLAB(inputHex, tailwindColorScale);
+
+  // Calculate the delta between input color and the closest tailwind color
+  const inputOKLAB = chroma(inputHex).oklab();
+  const closestTailwindColorOKLAB = chroma(
+    closestTailwindColor?.hexcode
+  ).oklab();
+
+  const deltaA = inputOKLAB[1] - closestTailwindColorOKLAB[1];
+  const deltaB = inputOKLAB[2] - closestTailwindColorOKLAB[2];
+
+  // Create empty array of length tailwindColorScale.length
+  let scale: string[] = Array(tailwindColorScale.length).fill(null);
+
+  scale = scale.map((_, index) => {
+    //  Keep the input color at its position, do not modify it
+    if (index === inputShadeIndex) return inputHex;
+
+    const tailwindIndexColorOKLAB = chroma(tailwindColorScale[index]).oklab();
+    // Keep same L value as cloesest tailwind color scale
+    const newL = tailwindIndexColorOKLAB[0];
+    // Adjust A
+    const newA = tailwindIndexColorOKLAB[1] + deltaA;
+    // Adjust B
+    const newB = tailwindIndexColorOKLAB[2] + deltaB;
+    
+    return chroma.oklab(newL, newA, newB).hex();
+  });
+
+  return scale;
+}
+
 export function generateColorScaleUsingTailwindLightness(inputHex: string) {
   if (chroma.valid(inputHex) === false) {
     throw new Error("Invalid input color");
@@ -298,7 +442,7 @@ export function generateColorScaleUsingTailwindLightness(inputHex: string) {
   // Get the closest tailwind color and its scale
   const closestTailwindColor = getClosestTailwindColor(inputHex, "deltaE");
   let tailwindColorScale: string[] | string = [];
-  if (closestTailwindColor.distance > 11) {
+  if (closestTailwindColor.distance > 110) {
     console.log("Using average of two closest scales");
     tailwindColorScale = getAverageOfTwoClosestTailwindScales(
       inputHex,
@@ -310,7 +454,7 @@ export function generateColorScaleUsingTailwindLightness(inputHex: string) {
       closestTailwindColor?.color
     );
   }
-  
+
   if (typeof tailwindColorScale === "string") {
     throw new Error(tailwindColorScale);
   }
@@ -349,12 +493,15 @@ export function generateColorScaleUsingTailwindLightness(inputHex: string) {
         chroma(tailwindColorScale[index + 2]).hsl()[0];
       newH = nextH + deltaH;
     } else {
-      newH = (tailwindH_atIndex + indexDeltaH + 360) % 360;
+      newH = (tailwindH_atIndex + deltaH + 360) % 360;
     }
 
     // Adjust S by adding the delta S (with a minimum of 0.05)
     const indexDeltaS = inputHSL[1] - tailwindHSLatIndex[1];
-    const newS = Math.min(1, Math.max(0.05, tailwindHSLatIndex[1] + deltaS));
+    const newS = Math.min(
+      1,
+      Math.max(0.05, tailwindHSLatIndex[1] + indexDeltaS)
+    );
     // const newS = Math.min(1, Math.max(0.05, tailwindHSLatIndex[1] + deltaS));
     // Keep L as is
     const newL = tailwindHSLatIndex[2];
