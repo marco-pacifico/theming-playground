@@ -73,13 +73,14 @@ function averageColorScales(scaleA: string[], scaleB: string[]): string[] {
     const colorALuminance = chroma(colorA).luminance() * 100;
     const colorBLuminance = chroma(colorB).luminance() * 100;
 
-
     const newH = chroma(colorA).get("hsl.h");
-    const avgS = (chroma(colorA).get("hsl.s") + chroma(colorB).get("hsl.s")) / colorBLuminance;
-    const avgL = (chroma(colorA).get("hsl.l") + chroma(colorB).get("hsl.l")) / 2;
+    const avgS =
+      (chroma(colorA).get("hsl.s") + chroma(colorB).get("hsl.s")) /
+      colorBLuminance;
+    const avgL =
+      (chroma(colorA).get("hsl.l") + chroma(colorB).get("hsl.l")) / 2;
 
     return chroma.hsl(newH, avgS, avgL).hex();
-
   });
 
   return scaleAverage;
@@ -260,6 +261,10 @@ export function generateColorScaleUsingAPCA(
 }
 
 export function findIndexBasedOnLightness(inputHex: string, scale: string[]) {
+  if (chroma.valid(inputHex) === false) {
+    throw new Error("Invalid input color");
+  }
+
   const inputLightness = chroma(inputHex).get("hsl.l");
   let closestIndex = 0;
   let smallestDifference = Infinity;
@@ -287,17 +292,25 @@ function findIndexBasedOnDistance(closestTailwindColor: ClosestTailwindColor) {
 }
 
 export function generateColorScaleUsingTailwindLightness(inputHex: string) {
+  if (chroma.valid(inputHex) === false) {
+    throw new Error("Invalid input color");
+  }
   // Get the closest tailwind color and its scale
   const closestTailwindColor = getClosestTailwindColor(inputHex, "deltaE");
   let tailwindColorScale: string[] | string = [];
   if (closestTailwindColor.distance > 11) {
     console.log("Using average of two closest scales");
-    tailwindColorScale = getAverageOfTwoClosestTailwindScales(inputHex, TAILWIND_REFERENCE_COLORS, "deltaE");
+    tailwindColorScale = getAverageOfTwoClosestTailwindScales(
+      inputHex,
+      TAILWIND_REFERENCE_COLORS,
+      "deltaE"
+    );
   } else {
     tailwindColorScale = getTailwindColorScaleByName(
       closestTailwindColor?.color
     );
   }
+  
   if (typeof tailwindColorScale === "string") {
     throw new Error(tailwindColorScale);
   }
@@ -308,10 +321,14 @@ export function generateColorScaleUsingTailwindLightness(inputHex: string) {
   );
 
   // Create empty array of length tailwindColorScale.length
-  let scale = Array(tailwindColorScale.length).fill(null);
+  let scale: string[] = Array(tailwindColorScale.length).fill(null);
 
   // Calculate the delta H and S between the input color and the closest tailwind color
   const inputHSL = chroma(inputHex).hsl();
+
+  if (chroma.valid(closestTailwindColor?.hexcode) === false) {
+    throw new Error("Invalid closest tailwind color");
+  }
   const closestTailwindColorHSL = chroma(closestTailwindColor?.hexcode).hsl();
   const deltaH = inputHSL[0] - closestTailwindColorHSL[0];
   const deltaS = inputHSL[1] - closestTailwindColorHSL[1];
@@ -326,11 +343,11 @@ export function generateColorScaleUsingTailwindLightness(inputHex: string) {
     const tailwindH_atIndex = tailwindHSLatIndex[0] || 0; // If tailwind hue is 0 chroma returns undefined, so default to 0
     const indexDeltaH = inputH - tailwindH_atIndex;
     let newH;
-    if (tailwindH_atIndex === 0) {
-      const nextColor = tailwindColorScale[index + 1] || "#FFFFFF";
-      const nextH = chroma(nextColor).hsl()[0] || chroma(tailwindColorScale[index + 2]).hsl()[0];
-      newH = nextH  + deltaH;
-      console.log( {index, tailwindHSLatIndex, tailwindH_atIndex, nextColor, nextH, newH });
+    if (tailwindH_atIndex === 0 && index < tailwindColorScale.length - 2) {
+      const nextH =
+        chroma(tailwindColorScale[index + 1]).hsl()[0] ||
+        chroma(tailwindColorScale[index + 2]).hsl()[0];
+      newH = nextH + deltaH;
     } else {
       newH = (tailwindH_atIndex + indexDeltaH + 360) % 360;
     }
