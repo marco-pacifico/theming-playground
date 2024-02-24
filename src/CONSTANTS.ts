@@ -1,5 +1,5 @@
 export const SHADE_NUMBERS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-export const APCA_SHADES = [{
+export const APCA_CONTRAST_TARGETS = [{
   number: 50,
   apcaOnWhite: 0,
   apcaOnBlack: -103
@@ -45,6 +45,7 @@ export const APCA_SHADES = [{
   apcaOnBlack: 0
 }];
 
+export const TAILWIND_NEUTRALS = ["slate", "gray", "zinc", "neutral", "stone"];
 export const TAILWIND_REFERENCE_COLORS = [{
   name: "Slate",
   id: "slate",

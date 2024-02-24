@@ -2,21 +2,21 @@
 import chroma from "chroma-js";
 import { useState } from "react";
 import {
-    generateColorScaleUsingTailwindOKLAB,
-    getAPCA,
-    getClosestAPCAShade,
-    getClosestTailwindColor,
-    printHSL
+  generateColorScale,
+  getAPCA,
+  getClosestAPCAShade,
+  getClosestColor,
+  printHSL
 } from "../lib/color-utils";
 import ColorScale from "./color-scale";
 import TailwindColorScales from "./tailwind-color-scale";
 
 function ColorScaleGenerator() {
-  const [inputColor, setInputColor] = useState<string>("#ff8647");
+  const [inputColor, setInputColor] = useState<string>("#a56f8e");
   const [colorScale, setColorScale] = useState<string[]>(
-    generateColorScaleUsingTailwindOKLAB(inputColor)
+    generateColorScale(inputColor)
   );
-  const closestColor = getClosestTailwindColor(inputColor, "deltaE");
+  const closestColor = getClosestColor(inputColor);
   const closestAPCA = getClosestAPCAShade(inputColor);
   return (
     <div className="pt-4 w-full">
@@ -25,7 +25,7 @@ function ColorScaleGenerator() {
         value={inputColor}
         onChange={(e) => {
           setInputColor(e.target.value);
-          const newScale = generateColorScaleUsingTailwindOKLAB(
+          const newScale = generateColorScale(
             e.target.value
           );
           setColorScale(newScale);
@@ -56,7 +56,7 @@ function ColorScaleGenerator() {
               <tr>
                 <td>Tailwind</td>
                 <td>
-                  {closestColor.color} {closestColor.shade}
+                  {closestColor.hueName} {closestColor.shadeNumber}
                 </td>
                 <td>{printHSL(closestColor.hexcode)}</td>
                 <td>{Math.round(+getAPCA(closestColor.hexcode))}</td>
@@ -80,7 +80,7 @@ function ColorScaleGenerator() {
           </p>
         </div>
       )}
-      <TailwindColorScales closestColor={closestColor.color} />
+      <TailwindColorScales closestColor={closestColor.hueName} />
     </div>
   );
 }
