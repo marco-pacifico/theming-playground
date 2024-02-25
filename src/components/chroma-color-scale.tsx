@@ -8,7 +8,7 @@ export default function ChromaColorScale() {
     <div className="mt-4 ">
       <h2>Chroma Color Scale (Blues)</h2>
       <div className="flex space-x-2 overflow-x-auto">
-        <ColorScale colorScale={scale} />
+        <ColorScale scale={scale} />
       </div>
     </div>
   );
