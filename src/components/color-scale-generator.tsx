@@ -7,14 +7,17 @@ import {
   getAPCA,
   printHSL
 } from "../lib/color-utils";
-import { NewColor } from "../lib/types";
+import { NewColor, ReferenceColor } from "../lib/types";
 import ColorScale from "./color-scale";
 import ReferenceColorScales from "./reference-color-scale";
 
 function ColorScaleGenerator() {
   const [inputColor, setInputColor] = useState<string>("#a56f8e");
+  const [referenceColors, setReferenceColors] = useState<ReferenceColor[]>(TAILWIND_REFERENCE_COLORS);
+  const [lockInputColor, setLockInputColor] = useState<boolean>(true);
+  const [filterNeutrals, setFilterNeutrals] = useState<boolean>(true);
   const [newColor, setNewColor] = useState<NewColor>(
-    generateColor(inputColor)
+    generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor)
   );
   const closestColor = newColor.closestColor;
 
@@ -24,9 +27,13 @@ function ColorScaleGenerator() {
         type="color"
         value={inputColor}
         onChange={(e) => {
-          setInputColor(e.target.value);
+          const newHex = e.target.value;
+          setInputColor(newHex);
           setNewColor(generateColor(
-            e.target.value
+            newHex,
+            referenceColors,
+            filterNeutrals,
+            lockInputColor
           ));
         }}
         className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
@@ -81,7 +88,7 @@ function ColorScaleGenerator() {
           </p>
         </div>
       )}
-      <ReferenceColorScales closestColor={closestColor.hueName} referenceColors={TAILWIND_REFERENCE_COLORS}/>
+      <ReferenceColorScales closestColor={closestColor.hueName} referenceColors={referenceColors}/>
     </div>
   );
 }
