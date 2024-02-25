@@ -1,5 +1,5 @@
 "use client";
-import { RADIX_REFERENCE_COLORS, SHADE_NUMBERS } from "@/CONSTANTS";
+import { SHADE_NUMBERS, TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
 import chroma from "chroma-js";
 import { useState } from "react";
 import {
@@ -81,7 +81,7 @@ function ColorScaleGenerator() {
           </p>
         </div>
       )}
-      <ReferenceColorScales closestColor={closestColor.hueName} referenceColors={RADIX_REFERENCE_COLORS}/>
+      <ReferenceColorScales closestColor={closestColor.hueName} referenceColors={TAILWIND_REFERENCE_COLORS}/>
     </div>
   );
 }
