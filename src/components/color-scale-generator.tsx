@@ -1,33 +1,39 @@
 "use client";
-import { RADIX_REFERENCE_COLORS } from "@/CONSTANTS";
+import { SHADE_NUMBERS, TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
 import chroma from "chroma-js";
 import { useState } from "react";
 import {
   generateColor,
   getAPCA,
-  getClosestAPCAShade,
   printHSL
 } from "../lib/color-utils";
-import { NewColor } from "../lib/types";
+import { NewColor, ReferenceColor } from "../lib/types";
 import ColorScale from "./color-scale";
 import ReferenceColorScales from "./reference-color-scale";
 
 function ColorScaleGenerator() {
   const [inputColor, setInputColor] = useState<string>("#a56f8e");
+  const [referenceColors, setReferenceColors] = useState<ReferenceColor[]>(TAILWIND_REFERENCE_COLORS);
+  const [lockInputColor, setLockInputColor] = useState<boolean>(true);
+  const [filterNeutrals, setFilterNeutrals] = useState<boolean>(true);
   const [newColor, setNewColor] = useState<NewColor>(
-    generateColor(inputColor)
+    generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor)
   );
   const closestColor = newColor.closestColor;
-  const closestAPCA = getClosestAPCAShade(inputColor);
+
   return (
     <div className="pt-4 w-full">
       <input
         type="color"
         value={inputColor}
         onChange={(e) => {
-          setInputColor(e.target.value);
+          const newHex = e.target.value;
+          setInputColor(newHex);
           setNewColor(generateColor(
-            e.target.value
+            newHex,
+            referenceColors,
+            filterNeutrals,
+            lockInputColor
           ));
         }}
         className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
@@ -54,7 +60,7 @@ function ColorScaleGenerator() {
                 <td>{Math.round(chroma(inputColor).luminance() * 100)}</td>
               </tr>
               <tr>
-                <td>Closest Tailwind</td>
+                <td>Closest Color</td>
                 <td>
                   {closestColor.hueName} {closestColor.shadeNumber}
                 </td>
@@ -65,22 +71,24 @@ function ColorScaleGenerator() {
                 </td>
               </tr>
               <tr>
-                <td>APCA Shade</td>
-                <td>{closestAPCA && closestAPCA.shade}</td>
-                <td>N/A</td>
-                <td>{closestAPCA && closestAPCA.referenceAPCA}</td>
+                <td>Lightness Index</td>
                 <td>
-                  N/A
+                  {SHADE_NUMBERS[closestColor.inputIndex]}
+                </td>
+                <td>{printHSL(closestColor.indexHexcode)}</td>
+                <td>{Math.round(+getAPCA(closestColor.indexHexcode))}</td>
+                <td>
+                  {Math.round(chroma(closestColor.indexHexcode).luminance() * 100)}
                 </td>
               </tr>
             </tbody>
           </table>
           <p>
-            <strong>Tailwind Distance:</strong> {closestColor.distance}
+            <strong>Delta E Distance:</strong> {closestColor.distance}
           </p>
         </div>
       )}
-      <ReferenceColorScales closestColor={closestColor.hueName} referenceColors={RADIX_REFERENCE_COLORS}/>
+      <ReferenceColorScales closestColor={closestColor.hueName} referenceColors={referenceColors}/>
     </div>
   );
 }
