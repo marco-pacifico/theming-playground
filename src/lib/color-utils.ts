@@ -1,4 +1,4 @@
-import { TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
+import { SHADE_NUMBERS, TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
 import { calcAPCA } from "apca-w3";
 import chroma from "chroma-js";
 import { ClosestColor, NewColor, ReferenceColor } from "./types";
@@ -25,6 +25,20 @@ export function generateColor(
     closestColor,
     lockInputColor
   );
+
+  // Clear existing variables
+  // const cssVarPattern = /^--color-custom-/; // Adjust this pattern to match your variable names
+  Array.from(document.documentElement.style).forEach(variable => {
+    // if (cssVarPattern.test(variable)) {
+      document.documentElement.style.removeProperty(variable);
+    // }
+  });
+
+  // Convert adjusted scale to css variables in root element
+
+  adjustedScale.forEach((shade, index) => {
+    document.documentElement.style.setProperty(`--color-${closestColor.hueName.toLowerCase()}-${SHADE_NUMBERS[index]}`, shade);
+  });
 
   return {
     closestColor: closestColor,
