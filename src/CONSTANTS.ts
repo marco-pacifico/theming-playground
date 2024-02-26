@@ -1206,7 +1206,7 @@ export const RADIX_REFERENCE_COLORS = [
   {
     name: "Mauve",
     id: "mauve",
-    isNeutral: false,
+    isNeutral: true,
     shades: [
       { number: 1, hexcode: "#fdfcfd" },
       { number: 2, hexcode: "#faf9fb" },
@@ -1244,7 +1244,7 @@ export const RADIX_REFERENCE_COLORS = [
   {
     name: "Sage",
     id: "sage",
-    isNeutral: false,
+    isNeutral: true,
     shades: [
       { number: 1, hexcode: "#fbfdfc" },
       { number: 2, hexcode: "#f7f9f8" },

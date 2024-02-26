@@ -44,7 +44,7 @@ export function adjustScaleUsingHSLDifference(
   // GET SATURATION RATIO between the input color and the closest color
   const saturationRatio =
     chroma(inputHex).get("hsl.s") /
-    chroma(closestColor.indexHexcode).get("hsl.s");
+    chroma(closestColor.indexHexcode).get("hsl.s") || 1;
   // ADJUST THE CLOSEST COLOR SCALE BASED ON THE INPUT COLOR HUE DIFFERENCE AND SATURATION RATIO
   const adjustedScale = closestColor.scale.map((shade, index) => {
     // If input color is locked, leave the input color unchanged, and place it in the correct index within the scale
@@ -61,6 +61,7 @@ export function adjustScaleUsingHSLDifference(
     shadeHex = chroma(shadeHex).set("hsl.s", adjustedSaturation).hex();
     shadeHex = chroma(shadeHex).set("hsl.h", adjustedHue).hex();
     // Lightness in the adjusted scale is the same as the closest color scale
+    shadeHex = chroma(shadeHex).set("hsl.l", chroma(shade.hexcode).get("hsl.l")).hex();
     return shadeHex;
   });
 
