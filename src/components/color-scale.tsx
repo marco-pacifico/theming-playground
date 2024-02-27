@@ -14,7 +14,7 @@ export default function ColorScale({ scale, inputHex }: ColorScaleProps) {
         <div key={index} className="flex flex-col flex-1">
           <div
             className={`w-full h-36 rounded shadow ${
-              color === inputHex ? "ring-8 ring-white" : ""
+              color === inputHex ? "ring-8 ring-[rgb(var(--foreground-rgb))]" : ""
             }`}
             style={{ backgroundColor: color }}
             title={`Color ${index}: ${color}`}
