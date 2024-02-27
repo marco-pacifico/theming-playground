@@ -45,7 +45,7 @@ export default function ShoppingCartTailwind() {
               <div className="mt-8 flex flex-col bg-white">
                 <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                   <div className="flex items-start justify-between">
-                    <h2 className="text-lg font-medium text-[var(--color-brand-900)]">Shopping cart</h2>
+                    <h2 className="text-lg font-medium text-[var(--color-brand-950)]">Shopping cart</h2>
                     <div className="ml-3 flex h-7 items-center">
                       <button
                         type="button"
@@ -59,10 +59,10 @@ export default function ShoppingCartTailwind() {
 
                   <div className="mt-8">
                     <div className="flow-root">
-                      <ul role="list" className="-my-6 divide-y divide-[var(--color-brand-200)]">
+                      <ul role="list" className="-my-6 divide-y divide-gray-200">
                         {products.map((product) => (
                           <li key={product.id} className="flex py-6">
-                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-[var(--color-brand-200)]">
+                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                               <Image
                                 src={product.imageSrc}
                                 alt={product.imageAlt}
@@ -74,16 +74,16 @@ export default function ShoppingCartTailwind() {
 
                             <div className="ml-4 flex flex-1 flex-col">
                               <div>
-                                <div className="flex justify-between text-base font-medium text-[var(--color-brand-900)]">
+                                <div className="flex justify-between text-base font-medium text-[var(--color-brand-950)]">
                                   <h3>
                                     <a href={product.href}>{product.name}</a>
                                   </h3>
                                   <p className="ml-4">{product.price}</p>
                                 </div>
-                                <p className="mt-1 text-sm text-[var(--color-brand-800)]">{product.color}</p>
+                                <p className="mt-1 text-sm text-[var(--color-brand-900)]">{product.color}</p>
                               </div>
                               <div className="flex flex-1 items-end justify-between text-sm">
-                                <p className="text-[var(--color-brand-800)]">Qty {product.quantity}</p>
+                                <p className="text-[var(--color-brand-900)]">Qty {product.quantity}</p>
 
                                 <div className="flex">
                                   <button
@@ -102,12 +102,12 @@ export default function ShoppingCartTailwind() {
                   </div>
                 </div>
 
-                <div className="border-t border-[var(--color-brand-200)] px-4 py-6 sm:px-6">
-                  <div className="flex justify-between text-base font-medium text-[var(--color-brand-900)]">
+                <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                  <div className="flex justify-between text-base font-medium text-[var(--color-brand-950)]">
                     <p>Subtotal</p>
                     <p>$262.00</p>
                   </div>
-                  <p className="mt-0.5 text-sm text-[var(--color-brand-500)]">Shipping and taxes calculated at checkout.</p>
+                  <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                   <div className="mt-6">
                     <a
                       href="#"
