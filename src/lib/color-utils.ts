@@ -1,4 +1,4 @@
-import { TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
+import { SHADE_NUMBERS, TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
 import { calcAPCA } from "apca-w3";
 import chroma from "chroma-js";
 import { ClosestColor, NewColor, ReferenceColor } from "./types";
@@ -26,6 +26,26 @@ export function generateColor(
     lockInputColor
   );
 
+  if (typeof window !== "undefined") {
+    // Clear existing variables
+    Array.from(document.documentElement.style).forEach((variable) => {
+      document.documentElement.style.removeProperty(variable);
+      // }
+    });
+
+    // Convert adjusted scale to css variables in root element
+
+    adjustedScale.forEach((shade, index) => {
+      if (lockInputColor && index === closestColor.inputIndex) {
+        document.documentElement.style.setProperty(`--color-input`, shade);
+      };
+      document.documentElement.style.setProperty(
+        `--color-brand-${SHADE_NUMBERS[index]}`,
+        shade
+      );
+    });
+  }
+
   return {
     closestColor: closestColor,
     scale: adjustedScale,
@@ -44,7 +64,7 @@ export function adjustScaleUsingHSLDifference(
   // GET SATURATION RATIO between the input color and the closest color
   const saturationRatio =
     chroma(inputHex).get("hsl.s") /
-    chroma(closestColor.indexHexcode).get("hsl.s");
+      chroma(closestColor.indexHexcode).get("hsl.s") || 1;
   // ADJUST THE CLOSEST COLOR SCALE BASED ON THE INPUT COLOR HUE DIFFERENCE AND SATURATION RATIO
   const adjustedScale = closestColor.scale.map((shade, index) => {
     // If input color is locked, leave the input color unchanged, and place it in the correct index within the scale
@@ -61,11 +81,14 @@ export function adjustScaleUsingHSLDifference(
     shadeHex = chroma(shadeHex).set("hsl.s", adjustedSaturation).hex();
     shadeHex = chroma(shadeHex).set("hsl.h", adjustedHue).hex();
     // Lightness in the adjusted scale is the same as the closest color scale
+    shadeHex = chroma(shadeHex)
+      .set("hsl.l", chroma(shade.hexcode).get("hsl.l"))
+      .hex();
     return shadeHex;
   });
 
   return adjustedScale;
-};
+}
 
 // FIND THE CLOSEST HUE AND SHADE FROM ARRAY OF REFERENCE COLOR SCALES AND RETURN THE CLOSEST COLOR SCALE THAT WILL BE ADJUSTED BASE ON THE INPUT COLOR
 // Function to get closest color based on distance
