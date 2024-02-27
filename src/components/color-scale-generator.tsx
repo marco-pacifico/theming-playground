@@ -1,11 +1,18 @@
 "use client";
-import { RADIX_REFERENCE_COLORS, SHADE_NUMBERS, TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
+import {
+  RADIX_REFERENCE_COLORS,
+  SHADE_NUMBERS,
+  TAILWIND_REFERENCE_COLORS,
+} from "@/CONSTANTS";
 import chroma from "chroma-js";
 import { useEffect, useState } from "react";
 import { generateColor, getAPCA, printHSL } from "../lib/color-utils";
 import { NewColor, ReferenceColor } from "../lib/types";
+import BuyBoxTailwind from "./buy-box-tailwind";
 import ColorScale from "./color-scale";
 import ReferenceColorScales from "./reference-color-scale";
+import ShoppingCartTailwind from "./shopping-cart-tailwind";
+import HeroSectionTailwind from "./hero-section-tailwind";
 
 function ColorScaleGenerator() {
   const [inputColor, setInputColor] = useState<string>("#a56f8e");
@@ -22,9 +29,10 @@ function ColorScaleGenerator() {
 
   // Watch for changes in input color, reference colors, and filterNeutrals
   useEffect(() => {
-    setNewColor(generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor));
+    setNewColor(
+      generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor)
+    );
   }, [inputColor, referenceColors, filterNeutrals, lockInputColor]);
-  
 
   return (
     <div className="pt-4 w-full">
@@ -46,7 +54,7 @@ function ColorScaleGenerator() {
         className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
       />
       <ColorScale scale={newColor.scale} inputHex={inputColor} />
-      <div className="my-10 flex justify-center gap-3">
+      <div className="my-10 flex justify-center gap-3 flex-wrap">
         {/* Show closest color toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm"
@@ -56,26 +64,39 @@ function ColorScaleGenerator() {
         >
           {showClosestColor ? "Hide" : "Show"} Closest Color
         </button>
-         {/* Filter neutrals color toggle */}
+        {/* Filter neutrals color toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm"
           onClick={() => {
             setFilterNeutrals(!filterNeutrals);
-          }}>{filterNeutrals ? "Include" : "Filter"} Neutrals</button>
-           {/* Reference colors toggle */}
-        <button className="px-4 py-2 bg-slate-100 rounded-full shadow-sm" onClick={() => {
-          setReferenceColors(
-            referenceColors === TAILWIND_REFERENCE_COLORS
-              ? RADIX_REFERENCE_COLORS
-              : TAILWIND_REFERENCE_COLORS
-          );
-        }}> Use {referenceColors === TAILWIND_REFERENCE_COLORS ? "Radix" : "Tailwind"}</button>
+          }}
+        >
+          {filterNeutrals ? "Include" : "Filter"} Neutrals
+        </button>
+        {/* Reference colors toggle */}
+        <button
+          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm"
+          onClick={() => {
+            setReferenceColors(
+              referenceColors === TAILWIND_REFERENCE_COLORS
+                ? RADIX_REFERENCE_COLORS
+                : TAILWIND_REFERENCE_COLORS
+            );
+          }}
+        >
+          {" "}
+          Use{" "}
+          {referenceColors === TAILWIND_REFERENCE_COLORS ? "Radix" : "Tailwind"}
+        </button>
         {/* Lock Input Color Toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm"
           onClick={() => {
             setLockInputColor(!lockInputColor);
-          }} >{lockInputColor ? "Unlock" : "Lock"} Input Color</button>
+          }}
+        >
+          {lockInputColor ? "Unlock" : "Lock"} Input Color
+        </button>
       </div>
       {showClosestColor && closestColor && (
         <>
@@ -133,6 +154,12 @@ function ColorScaleGenerator() {
           />
         </>
       )}
+      <div className="mt-16 overflow-hidden">
+        <h2 className="mb-8 text-xl font-semibold">Sample UI</h2>
+        <HeroSectionTailwind />
+        <BuyBoxTailwind />
+        <ShoppingCartTailwind />
+      </div>
     </div>
   );
 }

@@ -28,9 +28,7 @@ export function generateColor(
 
   if (typeof window !== "undefined") {
     // Clear existing variables
-    // const cssVarPattern = /^--color-custom-/; // Adjust this pattern to match your variable names
     Array.from(document.documentElement.style).forEach((variable) => {
-      // if (cssVarPattern.test(variable)) {
       document.documentElement.style.removeProperty(variable);
       // }
     });
@@ -38,8 +36,11 @@ export function generateColor(
     // Convert adjusted scale to css variables in root element
 
     adjustedScale.forEach((shade, index) => {
+      if (lockInputColor && index === closestColor.inputIndex) {
+        document.documentElement.style.setProperty(`--color-input`, shade);
+      };
       document.documentElement.style.setProperty(
-        `--color-${closestColor.hueName.toLowerCase()}-${SHADE_NUMBERS[index]}`,
+        `--color-brand-${SHADE_NUMBERS[index]}`,
         shade
       );
     });
