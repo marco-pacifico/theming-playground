@@ -21,9 +21,15 @@ body {
   background: linear-gradient(
       to bottom,
       transparent,
+      var(--color-brand-50)
+    )
+    rgb(var(--background-end-rgb));
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 @layer utilities {

@@ -154,7 +154,7 @@ function ColorScaleGenerator() {
           />
         </>
       )}
-      <div className="mt-16 overflow-hidden">
+      <div className="mt-16">
         <h2 className="mb-8 text-xl font-semibold">Sample UI</h2>
         <HeroSectionTailwind />
         <BuyBoxTailwind />
