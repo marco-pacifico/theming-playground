@@ -34,7 +34,7 @@ export default function HeroSectionTailwind() {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[var(--color-brand-950)]"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
@@ -46,7 +46,7 @@ export default function HeroSectionTailwind() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-semibold leading-6 text-gray-900"
+                className="text-sm font-semibold leading-6 text-[var(--color-brand-950)] hover:text-[var(--color-brand-700)]"
               >
                 {item.name}
               </a>
@@ -55,7 +55,7 @@ export default function HeroSectionTailwind() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
               href="#"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-sm font-semibold leading-6 text-text-[var(--color-brand-950)] hover:text-[var(--color-brand-700)]"
             >
               Log in <span aria-hidden="true">&rarr;</span>
             </a>
@@ -82,7 +82,7 @@ export default function HeroSectionTailwind() {
               </a>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                className="-m-2.5 rounded-md p-2.5 text-[var(--color-brand-950)] hover:text-[var(--color-brand-700)]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
@@ -96,7 +96,7 @@ export default function HeroSectionTailwind() {
                     <a
                       key={item.name}
                       href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-[var(--color-brand-950)] hover:text-[var(--color-brand-800)] hover:bg-[var(--color-brand-50)]"
                     >
                       {item.name}
                     </a>
@@ -105,7 +105,7 @@ export default function HeroSectionTailwind() {
                 <div className="py-6">
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[var(--color-brand-950)] hover:text-[var(--color-brand-800)] hover:bg-[var(--color-brand-50)]"
                   >
                     Log in
                   </a>
