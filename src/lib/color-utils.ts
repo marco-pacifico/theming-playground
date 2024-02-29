@@ -71,6 +71,7 @@ export function adjustScaleUsingHSLDifference(
     if (lockInputColor && index === closestColor.inputIndex) return inputHex;
     // Ajust the unlocked shades
     let shadeHex = shade.hexcode;
+    const referenceShadeAPCA = getAPCA(shadeHex);
     // Adjust saturation by the saturation ratio of input color to closest color
     const adjustedSaturation = chroma(shadeHex).get("hsl.s") * saturationRatio;
     // Adjust hue by the difference in hue between input color and closest color
@@ -84,6 +85,10 @@ export function adjustScaleUsingHSLDifference(
     shadeHex = chroma(shadeHex)
       .set("hsl.l", chroma(shade.hexcode).get("hsl.l"))
       .hex();
+
+    // Adjust APCA of adjusted shade to roughly match APCA contrast of reference shade
+    
+
     return shadeHex;
   });
 
