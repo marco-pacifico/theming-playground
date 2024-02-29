@@ -37,8 +37,8 @@ export function generateColor(
 
     adjustedScale.forEach((shade, index) => {
       if (lockInputColor && index === closestColor.inputIndex) {
-        document.documentElement.style.setProperty(`--color-input`, shade);
-      };
+        document.documentElement.style.setProperty(`--color-input, var(--color-brand-500)`, shade);
+      }
       document.documentElement.style.setProperty(
         `--color-brand-${SHADE_NUMBERS[index]}`,
         shade
@@ -61,35 +61,65 @@ export function adjustScaleUsingHSLDifference(
   const hueDifference =
     chroma(inputHex).get("hsl.h") -
     (chroma(closestColor.indexHexcode).get("hsl.h") || 0); // Default to 0 if comparisonHue is undefined or NaN (e.g. white or black)
+
   // GET SATURATION RATIO between the input color and the closest color
   const saturationRatio =
     chroma(inputHex).get("hsl.s") /
-      chroma(closestColor.indexHexcode).get("hsl.s") || 1;
+    chroma(closestColor.indexHexcode).get("hsl.s");
+    
   // ADJUST THE CLOSEST COLOR SCALE BASED ON THE INPUT COLOR HUE DIFFERENCE AND SATURATION RATIO
   const adjustedScale = closestColor.scale.map((shade, index) => {
     // If input color is locked, leave the input color unchanged, and place it in the correct index within the scale
     if (lockInputColor && index === closestColor.inputIndex) return inputHex;
     // Ajust the unlocked shades
-    let shadeHex = shade.hexcode;
-    const referenceShadeAPCA = getAPCA(shadeHex);
+    const referenceShadeHex = shade.hexcode;
+    const referenceShadeContrast = Math.round(+getAPCA(referenceShadeHex) * 10);
+
     // Adjust saturation by the saturation ratio of input color to closest color
-    const adjustedSaturation = chroma(shadeHex).get("hsl.s") * saturationRatio;
+    const adjustedSaturation =
+      chroma(referenceShadeHex).get("hsl.s") * saturationRatio;
     // Adjust hue by the difference in hue between input color and closest color
-    let adjustedHue = chroma(shadeHex).get("hsl.h") + hueDifference;
+    let adjustedHue = chroma(referenceShadeHex).get("hsl.h") + hueDifference;
     // Correct hue to be within the 0-360 range, if it goes below 0 or above 360
     adjustedHue = (adjustedHue + 360) % 360;
+    
+    
     // Apply hue and saturation adjustments to the shade in the closest color scale
-    shadeHex = chroma(shadeHex).set("hsl.s", adjustedSaturation).hex();
+    let shadeHex = shade.hexcode;
+    shadeHex = chroma(shadeHex)
+    .set("hsl.s", adjustedSaturation)
+    .hex();
     shadeHex = chroma(shadeHex).set("hsl.h", adjustedHue).hex();
     // Lightness in the adjusted scale is the same as the closest color scale
     shadeHex = chroma(shadeHex)
-      .set("hsl.l", chroma(shade.hexcode).get("hsl.l"))
+      .set("hsl.l", chroma(referenceShadeHex).get("hsl.l"))
       .hex();
 
-    // Adjust APCA of adjusted shade to roughly match APCA contrast of reference shade
-    
+    let constrastAjustedShadeHex = shadeHex;
 
-    return shadeHex;
+    //TO-DO: Extract into a function
+    //TO-DO: Check if contrast of shade needs to be adjusted at all before adjusting
+    // - if the absolute lift in contrast is less than a certain amount, don't adjust
+    // - e.g. 1056-1000 = 56, 56/1000 = 0.056, 0.056*100 = 5.6% lift in contrast
+    // - e.g. 0 - 7 = -7, -7/7 = -1, -1*100 = -100% lift in contrast
+    //TO-DO: Adjust lightness in direction/range needed, not 0 to 100
+
+    // Adjust APCA of adjusted shade to roughly match APCA contrast of reference shade
+    for (let lightness = 5; lightness <= 100; lightness++) {
+      constrastAjustedShadeHex = chroma(constrastAjustedShadeHex)
+      .set("oklch.l", lightness / 100)
+      .hex();
+      constrastAjustedShadeHex = chroma(constrastAjustedShadeHex)
+      .set("oklch.c", chroma(shadeHex).get("oklch.c"))
+      .hex();
+      constrastAjustedShadeHex = chroma(constrastAjustedShadeHex).set("oklch.h", chroma(shadeHex).get("oklch.h")).hex();
+      let shadeContrast = Math.round(+getAPCA(constrastAjustedShadeHex) * 10);
+      if (Math.abs(shadeContrast - referenceShadeContrast) < 50) {
+        return constrastAjustedShadeHex;
+      }
+    }
+
+    return constrastAjustedShadeHex;
   });
 
   return adjustedScale;
@@ -194,6 +224,15 @@ export function printHSL(hex: string) {
   const lightness = Math.round(hsl[2] * 100);
 
   return `H${hue} S${saturation}% L${lightness}%`;
+}
+
+export function printOKLCH(hex: string) {
+  const oklch = chroma(hex).oklch();
+  const l = Math.round(oklch[0]*100); // Default hue to 0 if NaN
+  const c = Math.round(oklch[1]*100);
+  const h = isNaN(oklch[2]) ? 0 : Math.round(oklch[2]); // Default hue to 0 if NaN
+
+  return `L${l} C${c} H${h}`;
 }
 
 // Get Color Scales from a tailwind reference families object
