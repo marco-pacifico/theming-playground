@@ -1,6 +1,11 @@
 export const SHADE_NUMBERS = [
   50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950, 1000,
 ];
+
+export const CONTRAST_TARGETS = [
+  1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, ];
+
+  
 export const APCA_CONTRAST_TARGETS = [
   {
     number: 50,

@@ -13,6 +13,7 @@ import {
   printOKLCH,
 } from "../lib/color-utils";
 import { NewColor, ReferenceColor } from "../lib/types";
+import ButtonToggle from "./button-toggle";
 import BuyBoxTailwind from "./buy-box-tailwind";
 import ColorScale from "./color-scale";
 import HeroSectionTailwind from "./hero-section-tailwind";
@@ -87,15 +88,7 @@ function ColorScaleGenerator() {
         >
           {showClosestColor ? "Hide" : "Show"} Closest Color
         </button>
-        {/* Filter neutrals color toggle */}
-        <button
-          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
-          onClick={() => {
-            setFilterNeutrals(!filterNeutrals);
-          }}
-        >
-          Neutrals {filterNeutrals ? "Filtered" : "Included"}
-        </button>
+        
         {/* Reference colors toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
@@ -110,25 +103,6 @@ function ColorScaleGenerator() {
           Using{" "}
           {referenceColors === TAILWIND_REFERENCE_COLORS ? "Tailwind" : "Radix"}
         </button>
-        {/* Lock Input Color Toggle */}
-        <button
-          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
-          onClick={() => {
-            setLockInputColor(!lockInputColor);
-          }}
-        >
-          Input Color {lockInputColor ? "Locked" : "Unlocked"}
-        </button>
-        {/* Adjust Contrast Toggle */}
-        <button
-          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
-          onClick={() => {
-            setAdjustContrast(!adjustContrast);
-          }}
-        >
-          Contrast {adjustContrast ? "Adjusted" : "Not Adjusted"}
-        </button>
-        {/* Print Color Space Toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
           onClick={() => {
@@ -138,6 +112,17 @@ function ColorScaleGenerator() {
           {printColorSpace === "hsl" ? "Displaying HSL" : "Displaying OKLCH"}
         </button>
       </div>
+      <div className="mb-10 flex justify-center gap-3 flex-wrap">
+        
+          {/* Lock Input Color Toggle */}
+          <ButtonToggle stateValue={lockInputColor} setStateValue={setLockInputColor}>Input Locked</ButtonToggle>
+        {/* Adjust Contrast Toggle */}
+        <ButtonToggle stateValue={adjustContrast} setStateValue={setAdjustContrast}>Adjust Contrast</ButtonToggle>
+        {/* Print Color Space Toggle */}
+        {/* Filter neutrals color toggle */}
+        <ButtonToggle stateValue={filterNeutrals} setStateValue={setFilterNeutrals}>Neutrals filtered</ButtonToggle>
+      </div>
+      
       {showClosestColor && closestColor && (
         <>
           <div className="flex flex-col gap-3">
