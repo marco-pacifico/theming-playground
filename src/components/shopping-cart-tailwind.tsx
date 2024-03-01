@@ -42,7 +42,7 @@ export default function ShoppingCartTailwind() {
 
       
 
-              <div className="mt-8 flex flex-col">
+              <div className="mt-8 flex flex-col lg:max-w-7xl lg:px-8">
                 <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                   <div className="flex items-start justify-between">
                     <h2 className="text-lg font-medium text-[var(--color-brand-950)]">Shopping cart</h2>

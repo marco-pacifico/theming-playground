@@ -62,7 +62,7 @@ function ColorScaleGenerator() {
   ]);
 
   return (
-    <div className="pt-4 w-full">
+    <div className="pt-4 w-full lg:max-w-7xl lg:px-8">
       <input
         type="color"
         value={inputColor}
