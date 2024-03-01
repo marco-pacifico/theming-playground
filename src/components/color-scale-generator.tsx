@@ -6,7 +6,7 @@ import {
 } from "@/CONSTANTS";
 import chroma from "chroma-js";
 import { useEffect, useState } from "react";
-import { generateColor, getAPCA, printHSL } from "../lib/color-utils";
+import { generateColor, getAPCA, printHSL, printOKLCH } from "../lib/color-utils";
 import { NewColor, ReferenceColor } from "../lib/types";
 import BuyBoxTailwind from "./buy-box-tailwind";
 import ColorScale from "./color-scale";
@@ -23,6 +23,7 @@ function ColorScaleGenerator() {
   const [filterNeutrals, setFilterNeutrals] = useState<boolean>(true);
   const [showClosestColor, setShowClosestColor] = useState<boolean>(true);
   const [adjustContrast, setAdjustContrast] = useState<boolean>(true);
+  const [printColorSpace, setPrintColorSpace] = useState<"hsl" | "oklch">("hsl");
   const [newColor, setNewColor] = useState<NewColor>(
     generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor, adjustContrast)
   );
@@ -43,19 +44,10 @@ function ColorScaleGenerator() {
         onChange={(e) => {
           const newHex = e.target.value;
           setInputColor(newHex);
-          // setNewColor(
-          //   generateColor(
-          //     newHex,
-          //     referenceColors,
-          //     filterNeutrals,
-          //     lockInputColor,
-          //     adjustContrast
-          //   )
-          // );
         }}
         className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
       />
-      <ColorScale scale={newColor.scale} inputHex={inputColor} />
+      <ColorScale scale={newColor.scale} inputHex={inputColor} printColorSpace={printColorSpace}/>
       <div className="my-10 flex justify-center gap-3 flex-wrap">
         {/* Show closest color toggle */}
         <button
@@ -73,7 +65,7 @@ function ColorScaleGenerator() {
             setFilterNeutrals(!filterNeutrals);
           }}
         >
-          {filterNeutrals ? "Include" : "Filter"} Neutrals
+          Neutrals {filterNeutrals ? "Filtered" : "Included"}
         </button>
         {/* Reference colors toggle */}
         <button
@@ -87,8 +79,8 @@ function ColorScaleGenerator() {
           }}
         >
           {" "}
-          Use{" "}
-          {referenceColors === TAILWIND_REFERENCE_COLORS ? "Radix" : "Tailwind"}
+          Using{" "}
+          {referenceColors === TAILWIND_REFERENCE_COLORS ? "Tailwind" : "Radix"}
         </button>
         {/* Lock Input Color Toggle */}
         <button
@@ -97,7 +89,7 @@ function ColorScaleGenerator() {
             setLockInputColor(!lockInputColor);
           }}
         >
-          {lockInputColor ? "Unlock" : "Lock"} Input Color
+          Input Color {lockInputColor ? "Locked" : "Unlocked"}
         </button>
         {/* Adjust Contrast Toggle */}
         <button
@@ -105,7 +97,15 @@ function ColorScaleGenerator() {
           onClick={() => {
             setAdjustContrast(!adjustContrast);
           }}>
-          {adjustContrast ? "Remove" : "Add"} Contrast Adjustment
+          Contrast {adjustContrast ? "Adjusted" : "Not Adjusted"}
+          </button>
+        {/* Print Color Space Toggle */}
+        <button
+          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm"
+          onClick={() => {
+            setPrintColorSpace(printColorSpace === "hsl" ? "oklch" : "hsl");
+          }}>
+          {printColorSpace === "hsl" ? "Displaying HSL" : "Displaying OKLCH"}
           </button>
       </div>
       {showClosestColor && closestColor && (
@@ -117,7 +117,7 @@ function ColorScaleGenerator() {
                 <tr>
                   <th></th>
                   <th>Color</th>
-                  <th>HSL</th>
+                  <th>{printColorSpace === "hsl" ? "HSL" : "OKLCH"}</th>
                   <th>APCA</th>
                   <th>Luminance</th>
                 </tr>
@@ -126,7 +126,7 @@ function ColorScaleGenerator() {
                 <tr>
                   <td>Input</td>
                   <td>{inputColor.toUpperCase()}</td>
-                  <td>{printHSL(inputColor)}</td>
+                  <td>{printColorSpace === "hsl" ? printHSL(inputColor) : printOKLCH(inputColor)}</td>
                   <td>{Math.round(+getAPCA(inputColor))}</td>
                   <td>{Math.round(chroma(inputColor).luminance() * 100)}</td>
                 </tr>
@@ -161,6 +161,7 @@ function ColorScaleGenerator() {
           <ReferenceColorScales
             closestColor={closestColor.hueName}
             referenceColors={referenceColors}
+            printColorSpace={printColorSpace}
           />
         </>
       )}

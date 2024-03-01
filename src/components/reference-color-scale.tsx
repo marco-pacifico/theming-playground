@@ -3,7 +3,15 @@ import { getColorScalesFromReference } from "@/lib/color-utils";
 import ColorScale from "./color-scale";
 import { ReferenceColor } from "@/lib/types";
 
-export default function ReferenceColorScales({ closestColor, referenceColors = TAILWIND_REFERENCE_COLORS } : { closestColor?: string, referenceColors: ReferenceColor[]  } ) {
+export default function ReferenceColorScales({
+  closestColor,
+  referenceColors = TAILWIND_REFERENCE_COLORS,
+  printColorSpace,
+}: {
+  closestColor?: string;
+  referenceColors: ReferenceColor[];
+  printColorSpace: "hsl" | "oklch";
+}) {
   const allReferenceColorScales = getColorScalesFromReference(referenceColors);
 
   // Filter color scales based on the closestColor prop
@@ -16,11 +24,9 @@ export default function ReferenceColorScales({ closestColor, referenceColors = T
       {filteredColorScales.map(({ name, scale }) => (
         <div key={name}>
           <h2>{name}</h2> {/* Display the name of the color */}
-          <ColorScale scale={scale} />
+          <ColorScale scale={scale} printColorSpace={printColorSpace} />
         </div>
       ))}
     </div>
   );
 }
-
-
