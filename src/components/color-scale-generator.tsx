@@ -22,17 +22,18 @@ function ColorScaleGenerator() {
   const [lockInputColor, setLockInputColor] = useState<boolean>(true);
   const [filterNeutrals, setFilterNeutrals] = useState<boolean>(true);
   const [showClosestColor, setShowClosestColor] = useState<boolean>(true);
+  const [adjustContrast, setAdjustContrast] = useState<boolean>(true);
   const [newColor, setNewColor] = useState<NewColor>(
-    generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor)
+    generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor, adjustContrast)
   );
   const closestColor = newColor.closestColor;
 
   // Watch for changes in input color, reference colors, and filterNeutrals
   useEffect(() => {
     setNewColor(
-      generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor)
+      generateColor(inputColor, referenceColors, filterNeutrals, lockInputColor, adjustContrast)
     );
-  }, [inputColor, referenceColors, filterNeutrals, lockInputColor]);
+  }, [inputColor, referenceColors, filterNeutrals, lockInputColor, adjustContrast]);
 
   return (
     <div className="pt-4 w-full">
@@ -42,14 +43,15 @@ function ColorScaleGenerator() {
         onChange={(e) => {
           const newHex = e.target.value;
           setInputColor(newHex);
-          setNewColor(
-            generateColor(
-              newHex,
-              referenceColors,
-              filterNeutrals,
-              lockInputColor
-            )
-          );
+          // setNewColor(
+          //   generateColor(
+          //     newHex,
+          //     referenceColors,
+          //     filterNeutrals,
+          //     lockInputColor,
+          //     adjustContrast
+          //   )
+          // );
         }}
         className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
       />
@@ -97,6 +99,14 @@ function ColorScaleGenerator() {
         >
           {lockInputColor ? "Unlock" : "Lock"} Input Color
         </button>
+        {/* Adjust Contrast Toggle */}
+        <button
+          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm"
+          onClick={() => {
+            setAdjustContrast(!adjustContrast);
+          }}>
+          {adjustContrast ? "Remove" : "Add"} Contrast Adjustment
+          </button>
       </div>
       {showClosestColor && closestColor && (
         <>

@@ -59,7 +59,7 @@ function createCSSVariables(adjustedScale: string[], lockInputColor: boolean, cl
     // Convert adjusted scale to css variables in root element
     adjustedScale.forEach((shade, index) => {
       if (lockInputColor && index === closestColor.inputIndex) {
-        document.documentElement.style.setProperty(`--color-input, var(--color-brand-500)`, shade);
+        document.documentElement.style.setProperty(`--color-input`, shade);
       }
       document.documentElement.style.setProperty(
         `--color-brand-${SHADE_NUMBERS[index]}`,
@@ -127,7 +127,7 @@ function adjustScaleContrast(
     if (referenceShadeContrast === 0) return shade;
     // If absolute lift in contrast is less than a certain amount, don't adjust
     const contrastLift = (Math.abs((HSLAdjustedShadeContrast - referenceShadeContrast)) / referenceShadeContrast) * 100; 
-    const LIFT_THRESHOLD = 10;
+    const LIFT_THRESHOLD = 30;
     if (contrastLift < LIFT_THRESHOLD) return shade;
 
     // ADJUST OKLCH LIGHTNESS OF SHADE TO MATCH CONTRAST OF REFERENCE SHADE
@@ -135,8 +135,9 @@ function adjustScaleContrast(
 
     if (HSLAdjustedShadeContrast > referenceShadeContrast) {
       const referenceShadeLightness = chroma(closestColor.scale[index].hexcode).get("oklch.l");
+      console.log({ referenceShadeLightness });
       // If the adjusted shade has higher contrast than the reference shade, decrease the lightness
-      for (let lightness = referenceShadeLightness; lightness >= 0; lightness--) {
+      for (let lightness = referenceShadeLightness * 100; lightness >= 0; lightness--) {
         // Incrementally adjust OKLCH lightness of the HSL adjusted shade
         contrastAdjustedShade = chroma(contrastAdjustedShade)
           .set("oklch.l", lightness / 100)
@@ -151,6 +152,7 @@ function adjustScaleContrast(
         // When the contrast is close to the reference shade, return the adjusted shade
         const CONTRAST_THRESHOLD = 50;
         let adjustedShadeContrast = Math.round(+getAPCA(contrastAdjustedShade) * 10); // Contrast is an integer like 0, 1, 8, 1058)
+        console.log({ adjustedShadeContrast })
         if (Math.abs(adjustedShadeContrast - referenceShadeContrast) < CONTRAST_THRESHOLD) {
           return contrastAdjustedShade;
         }
@@ -160,7 +162,7 @@ function adjustScaleContrast(
     if (HSLAdjustedShadeContrast < referenceShadeContrast) {
       const referenceShadeLightness = chroma(closestColor.scale[index].hexcode).get("oklch.l");
       // If the adjusted shade has lower contrast than the reference shade, increase the lightness
-      for (let lightness = referenceShadeLightness; lightness <= 100; lightness++) {
+      for (let lightness = referenceShadeLightness * 100 ; lightness <= 100; lightness++) {
         // Incrementally adjust OKLCH lightness of the HSL adjusted shade
         contrastAdjustedShade = chroma(contrastAdjustedShade)
           .set("oklch.l", lightness / 100)
