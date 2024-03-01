@@ -1,13 +1,14 @@
 import { SHADE_NUMBERS } from "@/CONSTANTS";
-import { getAPCA, printHSL } from "@/lib/color-utils";
+import { getAPCA, printHSL, printOKLCH } from "@/lib/color-utils";
 import chroma from "chroma-js";
 
 type ColorScaleProps = {
   scale: string[];
   inputHex?: string; // Added prop for the inputHex to compare with
+  printColorSpace?: "hsl" | "oklch"
 };
 
-export default function ColorScale({ scale, inputHex }: ColorScaleProps) {
+export default function ColorScale({ scale, inputHex, printColorSpace = "hsl" }: ColorScaleProps) {
   return (
     <div className="flex mt-4 space-x-2 w-full">
       {scale.map((color, index) => (
@@ -22,7 +23,7 @@ export default function ColorScale({ scale, inputHex }: ColorScaleProps) {
           <p className="text-xs mt-4 w-2">{color}</p>
           <p className="mt-3 w-2">{SHADE_NUMBERS[index]}</p>
           <p className="mt-3 w-2">C{Math.round(+getAPCA(color)*10)}</p>
-          <p className="mt-3 w-2">{printHSL(color)}</p>
+          <p className="mt-3 w-2">{printColorSpace === "hsl" ? printHSL(color) : printOKLCH(color)}</p>
           <p className="mt-3 w-2">
             Lm{Math.round(chroma(color).luminance() * 100)}
           </p>

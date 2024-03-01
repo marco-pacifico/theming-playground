@@ -6,8 +6,9 @@ import { ClosestColor, NewColor, ReferenceColor } from "./types";
 export function generateColor(
   inputHex: string,
   referenceColors: ReferenceColor[] = TAILWIND_REFERENCE_COLORS,
-  filterNeutrals: Boolean = true,
-  lockInputColor: Boolean = true
+  filterNeutrals: boolean = true,
+  lockInputColor: boolean = true,
+  adjustContrast: boolean = true
 ): NewColor {
   // GET CLOESET COLOR FROM REFERENCE COLOR SCALES, USING THE SPECIFIED DISTANCE CALCULATION METHOD
   // DETERMINE WHAT INDEX THE INPUT COLOR SHOULD BE IN WITHIN THE CLOSEST COLOR SCALE, BASED ON THE SPECIFIED LIGHTNESS VALUE BY COLOR SPACE
@@ -20,12 +21,34 @@ export function generateColor(
   // ADJUST THE CLOSEST COLOR SCALE BASED ON THE INPUT COLOR
   // Go through the closest color scale and adjust each shade based on the input color
   // The closest shade will be replaced with the input color, and the other shades will be adjusted based on the input color
-  const adjustedScale = adjustScaleUsingHSLDifference(
+  let adjustedScale = adjustScaleUsingHSLDifference(
     inputHex,
     closestColor,
     lockInputColor
   );
 
+  // OPTIONALLY ADJUST THE CONTRAST OF THE ADJUSTED SCALE TO MATCH THE REFERENCE SCALE CONTRAST
+  if (adjustContrast) {
+    adjustedScale = adjustScaleContrast(
+      inputHex,
+      closestColor,
+      lockInputColor,
+      adjustedScale
+    );
+  };
+
+  // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
+  createCSSVariables(adjustedScale, lockInputColor, closestColor);
+
+  return {
+    closestColor: closestColor,
+    scale: adjustedScale,
+  };
+}
+
+
+
+function createCSSVariables(adjustedScale: string[], lockInputColor: boolean, closestColor: ClosestColor) {
   if (typeof window !== "undefined") {
     // Clear existing variables
     Array.from(document.documentElement.style).forEach((variable) => {
@@ -34,25 +57,19 @@ export function generateColor(
     });
 
     // Convert adjusted scale to css variables in root element
-
     adjustedScale.forEach((shade, index) => {
       if (lockInputColor && index === closestColor.inputIndex) {
         document.documentElement.style.setProperty(`--color-input`, shade);
-      };
+      }
       document.documentElement.style.setProperty(
         `--color-brand-${SHADE_NUMBERS[index]}`,
         shade
       );
     });
   }
-
-  return {
-    closestColor: closestColor,
-    scale: adjustedScale,
-  };
 }
 
-export function adjustScaleUsingHSLDifference(
+function adjustScaleUsingHSLDifference(
   inputHex: string,
   closestColor: ClosestColor,
   lockInputColor: Boolean
@@ -89,6 +106,86 @@ export function adjustScaleUsingHSLDifference(
 
   return adjustedScale;
 }
+
+function adjustScaleContrast(
+  inputHex: string,
+  closestColor: ClosestColor,
+  lockInputColor: boolean,
+  HSLAdjustedScale: string[]
+) {
+
+  const contrastAdjustedScale = HSLAdjustedScale.map((shade, index) => {
+    // If input color is locked, leave the input color unchanged, and place it in the correct index within the scale
+    if (lockInputColor && index === closestColor.inputIndex) return inputHex;
+
+    // DOES CONTRAST NEED TO BE ADJUSTED?
+    // Get contrast of the reference shade from the closest color scale
+    const referenceShadeContrast = Math.round(+getAPCA(closestColor.scale[index].hexcode) * 10);
+    // Get contrast of the adjusted shade
+    const HSLAdjustedShadeContrast = Math.round(+getAPCA(shade) * 10);
+    // If referenceShadeContrast is 0, don't adjust
+    if (referenceShadeContrast === 0) return shade;
+    // If absolute lift in contrast is less than a certain amount, don't adjust
+    const contrastLift = (Math.abs((HSLAdjustedShadeContrast - referenceShadeContrast)) / referenceShadeContrast) * 100; 
+    const LIFT_THRESHOLD = 30;
+    if (contrastLift < LIFT_THRESHOLD) return shade;
+
+    // ADJUST OKLCH LIGHTNESS OF SHADE TO MATCH CONTRAST OF REFERENCE SHADE
+    let contrastAdjustedShade = shade;
+
+    if (HSLAdjustedShadeContrast > referenceShadeContrast) {
+      const referenceShadeLightness = chroma(closestColor.scale[index].hexcode).get("oklch.l");
+      // If the adjusted shade has higher contrast than the reference shade, decrease the lightness
+      for (let lightness = referenceShadeLightness * 100; lightness >= 0; lightness--) {
+        // Incrementally adjust OKLCH lightness of the HSL adjusted shade
+        contrastAdjustedShade = chroma(contrastAdjustedShade)
+          .set("oklch.l", lightness / 100)
+          .hex();
+        // Set the OKLCH chroma to match the HSLadjusted shade
+        contrastAdjustedShade = chroma(contrastAdjustedShade)
+          .set("oklch.c", chroma(shade).get("oklch.c"))
+          .hex();
+        // Set the OKLCH hue to match the input color
+        contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(inputHex).get("oklch.h")).hex();
+
+        // When the contrast is close to the reference shade, return the adjusted shade
+        const CONTRAST_THRESHOLD = 50;
+        let adjustedShadeContrast = Math.round(+getAPCA(contrastAdjustedShade) * 10); // Contrast is an integer like 0, 1, 8, 1058)
+    
+        if (Math.abs(adjustedShadeContrast - referenceShadeContrast) < CONTRAST_THRESHOLD) {
+          return contrastAdjustedShade;
+        }
+      }
+    }
+
+    if (HSLAdjustedShadeContrast < referenceShadeContrast) {
+      const referenceShadeLightness = chroma(closestColor.scale[index].hexcode).get("oklch.l");
+      // If the adjusted shade has lower contrast than the reference shade, increase the lightness
+      for (let lightness = referenceShadeLightness * 100 ; lightness <= 100; lightness++) {
+        // Incrementally adjust OKLCH lightness of the HSL adjusted shade
+        contrastAdjustedShade = chroma(contrastAdjustedShade)
+          .set("oklch.l", lightness / 100)
+          .hex();
+        // Set the OKLCH chroma to match the HSLadjusted shade
+        contrastAdjustedShade = chroma(contrastAdjustedShade)
+          .set("oklch.c", chroma(shade).get("oklch.c"))
+          .hex();
+        // Set the OKLCH hue to match the input color
+        contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(inputHex).get("oklch.h")).hex();
+
+        // When the contrast is close to the reference shade, return the adjusted shade
+        const CONTRAST_THRESHOLD = 50;
+        let adjustedShadeContrast = Math.round(+getAPCA(contrastAdjustedShade) * 10); // Contrast is an integer like 0, 1, 8, 1058)
+        if (Math.abs(adjustedShadeContrast - referenceShadeContrast) < CONTRAST_THRESHOLD) {
+          return contrastAdjustedShade;
+        }
+      }
+    }
+    return contrastAdjustedShade;
+  });
+  return contrastAdjustedScale;
+}
+
 
 // FIND THE CLOSEST HUE AND SHADE FROM ARRAY OF REFERENCE COLOR SCALES AND RETURN THE CLOSEST COLOR SCALE THAT WILL BE ADJUSTED BASE ON THE INPUT COLOR
 // Function to get closest color based on distance
@@ -189,6 +286,15 @@ export function printHSL(hex: string) {
   const lightness = Math.round(hsl[2] * 100);
 
   return `H${hue} S${saturation}% L${lightness}%`;
+}
+
+export function printOKLCH(hex: string) {
+  const oklch = chroma(hex).oklch();
+  const l = Math.round(oklch[0]*100); // Default hue to 0 if NaN
+  const c = Math.round(oklch[1]*100);
+  const h = isNaN(oklch[2]) ? 0 : Math.round(oklch[2]); // Default hue to 0 if NaN
+
+  return `L${l} C${c} H${h}`;
 }
 
 // Get Color Scales from a tailwind reference families object

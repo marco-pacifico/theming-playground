@@ -109,7 +109,7 @@ export default function BuyBoxTailwind() {
   const [selectedSize, setSelectedSize] = useState<Size>(product.sizes[2]);
 
   return (
-    <div>
+
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -202,7 +202,7 @@ export default function BuyBoxTailwind() {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating ? 'text-[var(--color-input)]' : 'text-[var(--color-brand-300)]',
+                        reviews.average > rating ? 'text-[var(--color-input)]' : 'text-[var(--color-brand-200)]',
                         'h-5 w-5 flex-shrink-0'
                       )}
                       aria-hidden="true"
@@ -273,7 +273,7 @@ export default function BuyBoxTailwind() {
                         className={({ active }) =>
                           classNames(
                             size.inStock
-                              ? 'cursor-pointer bg-white text-[var(--color-brand-900)] shadow-sm'
+                              ? 'cursor-pointer bg-white text-[var(--color-brand-900)]'
                               : 'cursor-not-allowed bg-[var(--brand-50)] text-gray-200',
                             active ? 'ring-2 ring-[var(--color-input)]' : '',
                             'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-[var(--color-brand-50)] focus:outline-none sm:flex-1 sm:py-6'
@@ -286,8 +286,9 @@ export default function BuyBoxTailwind() {
                             {size.inStock ? (
                               <span
                                 className={classNames(
+                        
                                   active ? 'border' : 'border-2',
-                                  checked ? 'border-[var(--color-input)]' : 'border-transparent',
+                                  checked ? 'border-[var(--color-input)]' : 'border-[var(--color-brand-100)]',
                                   'pointer-events-none absolute -inset-px rounded-md'
                                 )}
                                 aria-hidden="true"
@@ -358,6 +359,5 @@ export default function BuyBoxTailwind() {
           </div>
         </div>
       </div>
-    </div>
   )
 }
