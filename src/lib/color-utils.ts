@@ -146,7 +146,10 @@ function adjustScaleContrast(
           .set("oklch.c", chroma(shade).get("oklch.c"))
           .hex();
         // Set the OKLCH hue to match the input color
-        contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(inputHex).get("oklch.h")).hex();
+        // contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(inputHex).get("oklch.h")).hex();
+        // Set the OKLCH hue to match the HSL adjusted shade
+        contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(shade).get("oklch.h")).hex();
+
 
         // When the contrast is close to the reference shade, return the adjusted shade
         const CONTRAST_THRESHOLD = 50;
@@ -171,7 +174,9 @@ function adjustScaleContrast(
           .set("oklch.c", chroma(shade).get("oklch.c"))
           .hex();
         // Set the OKLCH hue to match the input color
-        contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(inputHex).get("oklch.h")).hex();
+        // contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(inputHex).get("oklch.h")).hex();
+        // Set the OKLCH hue to match the HSL adjusted shade
+        contrastAdjustedShade = chroma(contrastAdjustedShade).set("oklch.h", chroma(shade).get("oklch.h")).hex();
 
         // When the contrast is close to the reference shade, return the adjusted shade
         const CONTRAST_THRESHOLD = 50;
