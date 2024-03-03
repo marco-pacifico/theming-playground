@@ -32,35 +32,15 @@ function ColorScaleGenerator() {
   const [printColorSpace, setPrintColorSpace] = useState<"hsl" | "oklch">(
     "hsl"
   );
-  const [newColor, setNewColor] = useState<NewColor>(
+  const newColor: NewColor = 
     generateColor(
       inputColor,
       referenceColors,
       filterNeutrals,
       lockInputColor,
       adjustContrast
-    )
-  );
-  const closestColor = newColor.closestColor;
-
-  // Watch for changes in input color, reference colors, and filterNeutrals
-  useEffect(() => {
-    setNewColor(
-      generateColor(
-        inputColor,
-        referenceColors,
-        filterNeutrals,
-        lockInputColor,
-        adjustContrast
-      )
     );
-  }, [
-    inputColor,
-    referenceColors,
-    filterNeutrals,
-    lockInputColor,
-    adjustContrast,
-  ]);
+  const closestColor = newColor.closestColor;
 
   return (
     <div className="pt-4 w-full lg:max-w-7xl lg:px-8">
@@ -68,8 +48,7 @@ function ColorScaleGenerator() {
         type="color"
         value={inputColor}
         onChange={(e) => {
-          const newHex = e.target.value;
-          setInputColor(newHex);
+          setInputColor(e.target.value);
         }}
         className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
       />
