@@ -5,7 +5,7 @@ import {
   TAILWIND_REFERENCE_COLORS,
 } from "@/CONSTANTS";
 import chroma from "chroma-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   generateColor,
   getAPCA,
@@ -43,7 +43,7 @@ function ColorScaleGenerator() {
   const closestColor = newColor.closestColor;
 
   return (
-    <div className="pt-4 w-full lg:max-w-7xl lg:px-8">
+    <div className="pt-4">
       <input
         type="color"
         value={inputColor}

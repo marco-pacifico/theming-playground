@@ -20,7 +20,7 @@ export default function ReferenceColorScales({
     : allReferenceColorScales;
 
   return (
-    <div className="flex flex-col gap-10 mt-10 pt-4 w-full lg:max-w-7xl lg:px-8">
+    <div className="flex flex-col gap-10 mt-10 pt-4 w-full">
       {filteredColorScales.map(({ name, scale }) => (
         <div key={name}>
           <h2>{name}</h2> {/* Display the name of the color */}
