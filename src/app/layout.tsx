@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +17,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} overflow-y-scroll`}>{children}</body>
+      <body className={`${inter.className} overflow-y-scroll`}>
+        <header>
+          <nav
+            className="flex items-start gap-4 p-6 lg:px-8"
+            aria-label="Global"
+          >
+            <Link href="/">Theming</Link>
+            <Link href="/tailwind-colors">Tailwind Colors</Link>
+            <Link href="/radix-colors">Radix Colors</Link>
+          </nav>
+        </header>
+        {children}
+      </body>
     </html>
   );
 }

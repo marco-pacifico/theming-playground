@@ -5,7 +5,7 @@ import {
   TAILWIND_REFERENCE_COLORS,
 } from "@/CONSTANTS";
 import chroma from "chroma-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   generateColor,
   getAPCA,
@@ -13,6 +13,7 @@ import {
   printOKLCH,
 } from "../lib/color-utils";
 import { NewColor, ReferenceColor } from "../lib/types";
+import ButtonToggle from "./button-toggle";
 import BuyBoxTailwind from "./buy-box-tailwind";
 import ColorScale from "./color-scale";
 import HeroSectionTailwind from "./hero-section-tailwind";
@@ -31,44 +32,23 @@ function ColorScaleGenerator() {
   const [printColorSpace, setPrintColorSpace] = useState<"hsl" | "oklch">(
     "hsl"
   );
-  const [newColor, setNewColor] = useState<NewColor>(
+  const newColor: NewColor = 
     generateColor(
       inputColor,
       referenceColors,
       filterNeutrals,
       lockInputColor,
       adjustContrast
-    )
-  );
+    );
   const closestColor = newColor.closestColor;
 
-  // Watch for changes in input color, reference colors, and filterNeutrals
-  useEffect(() => {
-    setNewColor(
-      generateColor(
-        inputColor,
-        referenceColors,
-        filterNeutrals,
-        lockInputColor,
-        adjustContrast
-      )
-    );
-  }, [
-    inputColor,
-    referenceColors,
-    filterNeutrals,
-    lockInputColor,
-    adjustContrast,
-  ]);
-
   return (
-    <div className="pt-4 w-full lg:max-w-7xl lg:px-8">
+    <div className="pt-4">
       <input
         type="color"
         value={inputColor}
         onChange={(e) => {
-          const newHex = e.target.value;
-          setInputColor(newHex);
+          setInputColor(e.target.value);
         }}
         className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
       />
@@ -87,15 +67,7 @@ function ColorScaleGenerator() {
         >
           {showClosestColor ? "Hide" : "Show"} Closest Color
         </button>
-        {/* Filter neutrals color toggle */}
-        <button
-          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
-          onClick={() => {
-            setFilterNeutrals(!filterNeutrals);
-          }}
-        >
-          Neutrals {filterNeutrals ? "Filtered" : "Included"}
-        </button>
+        
         {/* Reference colors toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
@@ -110,25 +82,6 @@ function ColorScaleGenerator() {
           Using{" "}
           {referenceColors === TAILWIND_REFERENCE_COLORS ? "Tailwind" : "Radix"}
         </button>
-        {/* Lock Input Color Toggle */}
-        <button
-          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
-          onClick={() => {
-            setLockInputColor(!lockInputColor);
-          }}
-        >
-          Input Color {lockInputColor ? "Locked" : "Unlocked"}
-        </button>
-        {/* Adjust Contrast Toggle */}
-        <button
-          className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
-          onClick={() => {
-            setAdjustContrast(!adjustContrast);
-          }}
-        >
-          Contrast {adjustContrast ? "Adjusted" : "Not Adjusted"}
-        </button>
-        {/* Print Color Space Toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
           onClick={() => {
@@ -138,6 +91,17 @@ function ColorScaleGenerator() {
           {printColorSpace === "hsl" ? "Displaying HSL" : "Displaying OKLCH"}
         </button>
       </div>
+      <div className="mb-10 flex justify-center gap-3 flex-wrap">
+        
+          {/* Lock Input Color Toggle */}
+          <ButtonToggle stateValue={lockInputColor} setStateValue={setLockInputColor}>Input Locked</ButtonToggle>
+        {/* Adjust Contrast Toggle */}
+        <ButtonToggle stateValue={adjustContrast} setStateValue={setAdjustContrast}>Adjust Contrast</ButtonToggle>
+        {/* Print Color Space Toggle */}
+        {/* Filter neutrals color toggle */}
+        <ButtonToggle stateValue={filterNeutrals} setStateValue={setFilterNeutrals}>Neutrals filtered</ButtonToggle>
+      </div>
+      
       {showClosestColor && closestColor && (
         <>
           <div className="flex flex-col gap-3">
