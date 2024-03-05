@@ -1,11 +1,11 @@
 import {
   CONTRAST_TARGETS,
-  SHADE_NUMBERS,
-  TAILWIND_REFERENCE_COLORS,
+  TAILWIND_REFERENCE_COLORS
 } from "@/CONSTANTS";
 import { calcAPCA } from "apca-w3";
 import chroma from "chroma-js";
 import { ClosestColor, NewColor, ReferenceColor } from "./types";
+import { createCSSVariables } from "./theme-vars";
 
 export function generateColor(
   inputHex: string,
@@ -33,7 +33,7 @@ export function generateColor(
 
   // OPTIONALLY ADJUST THE CONTRAST OF THE ADJUSTED SCALE TO MATCH THE REFERENCE SCALE CONTRAST
   if (adjustContrast) {
-    // adjustedScale = adjustContrastBasedOnAPCA(
+    // adjustedScale = adjustContrastBasedOnAPCATargets(
     //   inputHex,
     //   closestColor.inputIndex,
     //   lockInputColor,
@@ -48,37 +48,19 @@ export function generateColor(
   }
 
   // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
-  createCSSVariables(adjustedScale, lockInputColor, closestColor);
+  if (typeof window !== "undefined") {
+
+    createCSSVariables(
+      adjustedScale,
+      lockInputColor,
+      closestColor
+    );
+  }
 
   return {
     closestColor: closestColor,
     scale: adjustedScale,
   };
-}
-
-function createCSSVariables(
-  adjustedScale: string[],
-  lockInputColor: boolean,
-  closestColor: ClosestColor
-) {
-  if (typeof window !== "undefined") {
-    // Clear existing variables
-    Array.from(document.documentElement.style).forEach((variable) => {
-      document.documentElement.style.removeProperty(variable);
-      // }
-    });
-
-    // Convert adjusted scale to css variables in root element
-    adjustedScale.forEach((shade, index) => {
-      if (lockInputColor && index === closestColor.inputIndex) {
-        document.documentElement.style.setProperty(`--color-input`, shade);
-      }
-      document.documentElement.style.setProperty(
-        `--color-brand-${SHADE_NUMBERS[index]}`,
-        shade
-      );
-    });
-  }
 }
 
 function adjustScaleUsingHSLDifference(
@@ -300,6 +282,7 @@ export function getClosestColor(
     hexcode: "#000000",
     inputIndex: 0,
     indexHexcode: "#000000",
+    referenceColorSystem: referenceColors === TAILWIND_REFERENCE_COLORS ? "tailwind" : "radix",
   };
   // Go through every color and shade to find the closest match
   colorsToCompareAgainst.forEach((hue) => {

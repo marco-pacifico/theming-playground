@@ -27,7 +27,7 @@ export default function HeroSectionTailwind() {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[var(--color-brand-950)]"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[var(--color-icon-brand)]"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
@@ -39,7 +39,7 @@ export default function HeroSectionTailwind() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-semibold leading-6 text-[var(--color-brand-950)] hover:text-[var(--color-brand-700)]"
+                className="text-sm font-semibold leading-6 text-[var(--color-text-brand)] hover:text-[var(--color-text-brand-hover)]"
               >
                 {item.name}
               </a>
@@ -48,7 +48,7 @@ export default function HeroSectionTailwind() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
               href="#"
-              className="text-sm font-semibold leading-6 text-text-[var(--color-brand-950)] hover:text-[var(--color-brand-700)]"
+              className="text-sm font-semibold leading-6 text-[var(--color-text-brand)] hover:text-[var(--color-text-brand-hover)]"
             >
               Log in <span aria-hidden="true">&rarr;</span>
             </a>
@@ -75,7 +75,7 @@ export default function HeroSectionTailwind() {
               </a>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-[var(--color-brand-950)] hover:text-[var(--color-brand-700)]"
+                className="-m-2.5 rounded-md p-2.5 text-[var(--color-icon-brand)] hover:text-[var(--color-icon-brand-hover)]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
@@ -89,7 +89,7 @@ export default function HeroSectionTailwind() {
                     <a
                       key={item.name}
                       href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-[var(--color-brand-950)] hover:text-[var(--color-brand-800)] hover:bg-[var(--color-brand-50)]"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-[var(--color-text-brand)] hover:text-[var(--color-text-brand-hover)] hover:bg-[var(--color-bg-brand-surface-1)]"
                     >
                       {item.name}
                     </a>
@@ -98,7 +98,7 @@ export default function HeroSectionTailwind() {
                 <div className="py-6">
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[var(--color-brand-950)] hover:text-[var(--color-brand-800)] hover:bg-[var(--color-brand-50)]"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[var(--color-text-brand)] hover:text-[var(--color-text-brand-hover)] hover:bg-[var(--color-bg-brand-surface-1)]"
                   >
                     Log in
                   </a>
@@ -124,19 +124,19 @@ export default function HeroSectionTailwind() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-[var(--color-brand-900)] ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-[var(--color-text-brand-secondary)] ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Limited time only {" "}
-              <a href="#" className="font-semibold text-[var(--color-input)]">
+              <a href="#" className="font-semibold text-[var(--color-text-brand)]">
                 <span className="absolute inset-0" aria-hidden="true" />
                 Special offer <span aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-[var(--color-brand-950)] sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-[var(--color-text-brand)] sm:text-6xl">
               Sample hero section for your storefront
             </h1>
-            <p className="mt-6 text-lg leading-8 text-[var(--color-brand-900)]">
+            <p className="mt-6 text-lg leading-8 text-[var(--color-text-brand-secondary)]">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
               fugiat aliqua.
@@ -144,13 +144,13 @@ export default function HeroSectionTailwind() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
-                className="rounded-md bg-[var(--color-input)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-brand-50)] shadow-sm hover:bg-[var(--color-brand-600)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-600)]"
+                className="rounded-md bg-[var(--color-bg-brand)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-text-brand-foreground)] shadow-sm hover:bg-[var(--color-bg-brand-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-600)]"
               >
                 Get started
               </a>
               <a
                 href="#"
-                className="text-sm font-semibold leading-6 text-[var(--color-brand-900)]"
+                className="text-sm font-semibold leading-6 text-[var(--color-text-brand)]"
               >
                 Learn more <span aria-hidden="true">→</span>
               </a>
