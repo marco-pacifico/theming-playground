@@ -90,7 +90,7 @@ function getThemeColorMap(
           primary: lockInputColor ? brandInputIndex : 8,
           hover: lockInputColor ? brandInputIndex + 1 : 9,
           pressed: lockInputColor ? brandInputIndex + 2 : 10,
-          disabled: 5,
+          disabled: 3,
         },
       },
     },
