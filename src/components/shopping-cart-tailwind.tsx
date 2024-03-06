@@ -45,11 +45,11 @@ export default function ShoppingCartTailwind() {
               <div className="mt-8 flex flex-col lg:max-w-7xl lg:px-8">
                 <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                   <div className="flex items-start justify-between">
-                    <h2 className="text-lg font-medium text-[var(--color-brand-950)]">Shopping cart</h2>
+                    <h2 className="text-lg font-medium text-[var(--color-text-brand)]">Shopping cart</h2>
                     <div className="ml-3 flex h-7 items-center">
                       <button
                         type="button"
-                        className="relative -m-2 p-2 text-[var(--color-brand-800)] hover:text-[var(--color-brand-500)]"
+                        className="relative -m-2 p-2 text-[var(--color-icon-brand)] hover:text-[var(--color-icon-brand-hover)]"
                       >
                         <span className="sr-only">Close panel</span>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -74,21 +74,21 @@ export default function ShoppingCartTailwind() {
 
                             <div className="ml-4 flex flex-1 flex-col">
                               <div>
-                                <div className="flex justify-between text-base font-medium text-[var(--color-brand-950)]">
+                                <div className="flex justify-between text-base font-medium text-[var(--color-text-brand)]">
                                   <h3>
                                     <a href={product.href}>{product.name}</a>
                                   </h3>
                                   <p className="ml-4">{product.price}</p>
                                 </div>
-                                <p className="mt-1 text-sm text-[var(--color-brand-900)]">{product.color}</p>
+                                <p className="mt-1 text-sm text-[var(--color-text-brand-secondary)]">{product.color}</p>
                               </div>
                               <div className="flex flex-1 items-end justify-between text-sm">
-                                <p className="text-[var(--color-brand-900)]">Qty {product.quantity}</p>
+                                <p className="text-[var(--color-text-brand-secondary)]">Qty {product.quantity}</p>
 
                                 <div className="flex">
                                   <button
                                     type="button"
-                                    className="font-medium text-[var(--color-input)] hover:text-[var(--color-brand-500)]"
+                                    className="font-medium text-[var(--color-text-brand-secondary)] hover:text-[var(--color-text-brand-hover)]"
                                   >
                                     Remove
                                   </button>
@@ -103,25 +103,25 @@ export default function ShoppingCartTailwind() {
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                  <div className="flex justify-between text-base font-medium text-[var(--color-brand-950)]">
+                  <div className="flex justify-between text-base font-medium text-[var(--color-text-brand)]">
                     <p>Subtotal</p>
                     <p>$262.00</p>
                   </div>
-                  <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                  <p className="mt-0.5 text-sm text-[var(--color-text-brand-secondary)]">Shipping and taxes calculated at checkout.</p>
                   <div className="mt-6">
                     <a
                       href="#"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-[var(--color-input)] px-6 py-3 text-base font-medium text-[var(--color-brand-50)] shadow-sm hover:bg-[var(--color-brand-700)]"
+                      className="flex items-center justify-center rounded-md border border-transparent bg-[var(--color-bg-brand)] px-6 py-3 text-base font-medium text-[var(--color-text-brand-foreground)] shadow-sm hover:bg-[var(--color-bg-brand-hover)]"
                     >
                       Checkout
                     </a>
                   </div>
-                  <div className="mt-6 flex justify-center text-center text-sm text-[var(--color-brand-900)]">
+                  <div className="mt-6 flex justify-center text-center text-sm text-[var(--color-text-brand)]">
                     <p>
                       or{' '}
                       <button
                         type="button"
-                        className="font-medium text-[var(--color-input)] hover:text-[var(--color-brand-500)]"
+                        className="font-medium text-[var(--color-text-brand-secondary)] hover:text-[var(--color-text-brand-hover)]"
                       >
                         Continue Shopping<span aria-hidden="true"> &rarr;</span>
                       </button>

@@ -18,9 +18,12 @@ export type ClosestColor = {
   distance: number;
   inputIndex: number;
   indexHexcode: string;
+  referenceColorSystem: ColorSystem;
 };
 
 export type NewColor = {
     closestColor: ClosestColor;
     scale: string[]
 }
+
+export type ColorSystem = "tailwind" | "radix";

@@ -3,9 +3,9 @@ export const SHADE_NUMBERS = [
 ];
 
 export const CONTRAST_TARGETS = [
-  1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, ];
+  1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
+];
 
-  
 export const APCA_CONTRAST_TARGETS = [
   {
     number: 50,
@@ -1741,3 +1741,165 @@ export const RADIX_REFERENCE_COLORS = [
     ],
   },
 ];
+
+const THEME_COLOR_VARS = {
+  tailwind: {
+    "--color-text-brand": "var(--color-brand-900)",
+    "--color-text-secondary": "var(--color-brand-800)",
+    "--color-bg-brand": "var(--color-brand-600)",
+  },
+};
+
+export const THEME_COLOR_MAP = {
+  tailwind: {
+    text: {
+      brand: {
+        primary: 9,
+        secondary: 8,
+      },
+    },
+    bg: {
+      brand: {
+        primary: "brandInputIndex" || 6,
+        hover: "brandInputIndex + 1" || 7,
+        pressed: "brandInputIndex + 2" || 8,
+        "surface-0": 0,
+        "surface-1": 1,
+        "surface-2": 2,
+      },
+    },
+    border: {
+      brand: {
+        primary: "brandInputIndex" || 6,
+        hover: "brandInputIndex + 1" || 7,
+        pressed: "brandInputIndex + 2" || 8,
+        secondary: 2,
+        tertiary: 1,
+      },
+    },
+    icon: {
+      brand: {
+        primary: "brandInputIndex" || 6,
+        hover: "brandInputIndex + 1" || 7,
+        pressed: "brandInputIndex + 2" || 8,
+      },
+    },
+  },
+  radix: {
+    text: {
+      brand: {
+        primary: 11,
+        secondary: 10,
+      },
+    },
+    bg: {
+      brand: {
+        primary: "brandInputIndex" || 8,
+        hover: "brandInputIndex + 1" || 9,
+        pressed: "brandInputIndex + 2" || 10,
+        "surface-0": 0,
+        "surface-1": 1,
+        "surface-2": 2,
+      },
+    },
+    border: {
+      brand: {
+        primary: "brandInputIndex" || 8,
+        hover: "brandInputIndex + 1" || 9,
+        pressed: "brandInputIndex + 2" || 10,
+        secondary: 7,
+        tertiary: 6,
+      },
+    },
+    icon: {
+      brand: {
+        primary: "brandInputIndex" || 8,
+        hover: "brandInputIndex + 1" || 9,
+        pressed: "brandInputIndex + 2" || 10,
+      },
+    },
+  },
+};
+
+
+// const THEME_COLOR_MAP = {
+//   tailwind: {
+//     text: {
+//       // neutral: {
+//       //   primary: 8,
+//       //   secondary: 6,
+//       //   tertiary: 5,
+//       //   // interactive
+//       //   hover: 10,
+//       //   placeholder: 4,
+//       //   disabled: 4,
+//       // },
+//       brand: {
+//         primary: 9,
+//         secondary: 8,
+//       },
+//     },
+//     // link: {
+//     //   primary: 9,
+//     //   secondary: 8,
+//     //   // interactive
+//     //   hover: 10,
+//     // },
+//     bg: {
+//       // neutral: {
+//       //   base: 'white',
+//       //   secondary: 50,
+//       //   tertiary: 200,
+//       //   hover: 50,
+//       //   selected: 100,
+//       //   pressed: 50,
+//       //   disabled: 100,
+//       // },
+//       brand: {
+//         primary: "inputIndex" || 6,
+//         hover: "inputIndex + 1" || 7,
+//         pressed: "inputIndex + 2" || 8,
+//         "surface-0": 0,
+//         "surface-1": 1,
+//         "surface-2": 2,
+//       },
+//     },
+//     border: {
+//       brand: {
+//         primary: "inputIndex" || 6,
+//         hover: "inputIndex + 1" || 7,
+//         pressed: "inputIndex + 2" || 8,
+//         secondary: 2,
+//         tertiary: 1,
+//       },
+//       // 'on-brand': {
+//       //   base: SHADE[BASE['on-brand']],
+//       //   hover: SHADE[BASE['on-brand'] - 1] || 'white',
+//       // },
+//     },
+//     icon: {
+//       // neutral: {
+//       //   base: 400,
+//       //   secondary: 300,
+//       //   disabled: 300,
+//       //   'on-brand-disabled': SHADE[BASE.brand - 2],
+//       // },
+//       brand: {
+//         base: "inputIndex" || 6,
+//       },
+//       // 'on-brand': {
+//       //   base: SHADE[BASE['on-brand']],
+//       // },
+//     },
+//   },
+//   radix: {
+//     text: {
+//       brand: {
+//         primary: 11,
+//         secondary: 10,
+//         // interactive
+//         hover: 10,
+//       },
+//     },
+//   },
+// };
