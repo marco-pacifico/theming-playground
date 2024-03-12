@@ -5,8 +5,8 @@ import { ClosestColor, ColorSystem } from "./types";
 type ColorMap = {
     [type: string]: {
         [role: string]: {
-            [prominence: string]: number | string; // For numerical values and special strings   
-        }; // For numerical values and special strings
+            [prominence: string]: number | string; // number is the index of the shade, string is white 
+        };
     };
 };
 
