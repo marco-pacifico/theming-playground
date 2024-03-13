@@ -65,104 +65,53 @@ export const APCA_CONTRAST_TARGETS = [
 ];
 export const TAILWIND_REFERENCE_COLORS = [
   {
-    name: "Slate",
-    id: "slate",
+    name: "Neutral",
+    id: "neutral",
     isNeutral: true,
     shades: [
       {
         number: 50,
-        hexcode: "#f8fafc",
+        hexcode: "#fafafa",
       },
       {
         number: 100,
-        hexcode: "#f1f5f9",
+        hexcode: "#f5f5f5",
       },
       {
         number: 200,
-        hexcode: "#e2e8f0",
+        hexcode: "#e5e5e5",
       },
       {
         number: 300,
-        hexcode: "#cbd5e1",
+        hexcode: "#d4d4d4",
       },
       {
         number: 400,
-        hexcode: "#94a3b8",
+        hexcode: "#a3a3a3",
       },
       {
         number: 500,
-        hexcode: "#64748b",
+        hexcode: "#737373",
       },
       {
         number: 600,
-        hexcode: "#475569",
+        hexcode: "#525252",
       },
       {
         number: 700,
-        hexcode: "#334155",
+        hexcode: "#404040",
       },
       {
         number: 800,
-        hexcode: "#1e293b",
+        hexcode: "#262626",
       },
       {
         number: 900,
-        hexcode: "#0f172a",
+        hexcode: "#171717",
       },
       {
         number: 950,
-        hexcode: "#020617",
-      },
-    ],
-  },
-  {
-    name: "Gray",
-    id: "gray",
-    isNeutral: true,
-    shades: [
-      {
-        number: 50,
-        hexcode: "#f9fafb",
-      },
-      {
-        number: 100,
-        hexcode: "#f3f4f6",
-      },
-      {
-        number: 200,
-        hexcode: "#e5e7eb",
-      },
-      {
-        number: 300,
-        hexcode: "#d1d5db",
-      },
-      {
-        number: 400,
-        hexcode: "#9ca3af",
-      },
-      {
-        number: 500,
-        hexcode: "#6b7280",
-      },
-      {
-        number: 600,
-        hexcode: "#4b5563",
-      },
-      {
-        number: 700,
-        hexcode: "#374151",
-      },
-      {
-        number: 800,
-        hexcode: "#1f2937",
-      },
-      {
-        number: 900,
-        hexcode: "#111827",
-      },
-      {
-        number: 950,
-        hexcode: "#030712",
+        hexcode: "#0a0a0a",
       },
     ],
   },
@@ -218,56 +167,262 @@ export const TAILWIND_REFERENCE_COLORS = [
     ],
   },
   {
-    name: "Neutral",
-    id: "neutral",
+    name: "Gray",
+    id: "gray",
     isNeutral: true,
     shades: [
       {
         number: 50,
-        hexcode: "#fafafa",
+        hexcode: "#f9fafb",
       },
       {
         number: 100,
-        hexcode: "#f5f5f5",
+        hexcode: "#f3f4f6",
       },
       {
         number: 200,
-        hexcode: "#e5e5e5",
+        hexcode: "#e5e7eb",
       },
       {
         number: 300,
-        hexcode: "#d4d4d4",
+        hexcode: "#d1d5db",
       },
       {
         number: 400,
-        hexcode: "#a3a3a3",
+        hexcode: "#9ca3af",
       },
       {
         number: 500,
-        hexcode: "#737373",
+        hexcode: "#6b7280",
       },
       {
         number: 600,
-        hexcode: "#525252",
+        hexcode: "#4b5563",
       },
       {
         number: 700,
-        hexcode: "#404040",
+        hexcode: "#374151",
       },
       {
         number: 800,
-        hexcode: "#262626",
+        hexcode: "#1f2937",
       },
       {
         number: 900,
-        hexcode: "#171717",
+        hexcode: "#111827",
       },
       {
         number: 950,
-        hexcode: "#0a0a0a",
+        hexcode: "#030712",
       },
     ],
   },
+  
+   
+  {
+    name: "Slate",
+    id: "slate",
+    isNeutral: true,
+    shades: [
+      {
+        number: 50,
+        hexcode: "#f8fafc",
+      },
+      {
+        number: 100,
+        hexcode: "#f1f5f9",
+      },
+      {
+        number: 200,
+        hexcode: "#e2e8f0",
+      },
+      {
+        number: 300,
+        hexcode: "#cbd5e1",
+      },
+      {
+        number: 400,
+        hexcode: "#94a3b8",
+      },
+      {
+        number: 500,
+        hexcode: "#64748b",
+      },
+      {
+        number: 600,
+        hexcode: "#475569",
+      },
+      {
+        number: 700,
+        hexcode: "#334155",
+      },
+      {
+        number: 800,
+        hexcode: "#1e293b",
+      },
+      {
+        number: 900,
+        hexcode: "#0f172a",
+      },
+      {
+        number: 950,
+        hexcode: "#020617",
+      },
+    ],
+  },
+  {
+    name: "Mauve",
+    id: "mauve",
+    isNeutral: true,
+    shades: [
+      {
+        number: 50,
+        hexcode: "#f9f8fa",
+      },
+      {
+        number: 100,
+        hexcode: "#f3f2f5",
+      },
+      {
+        number: 200,
+        hexcode: "#eae8ec",
+      },
+      {
+        number: 300,
+        hexcode: "#d8d5dd",
+      },
+      {
+        number: 400,
+        hexcode: "#c2bcc9",
+      },
+      {
+        number: 500,
+        hexcode: "#aaa0b2",
+      },
+      {
+        number: 600,
+        hexcode: "#95899e",
+      },
+      {
+        number: 700,
+        hexcode: "#83768b",
+      },
+      {
+        number: 800,
+        hexcode: "#6e6275",
+      },
+      {
+        number: 900,
+        hexcode: "#5b5260",
+      },
+      {
+        number: 950,
+        hexcode: "#3b3540",
+      }
+    ]
+  }, 
+  {
+    name: "Sage",
+    id: "sage",
+    isNeutral: true,
+    shades: [
+      {
+        number: 50,
+        hexcode: "#f7f8f8",
+      },
+      {
+        number: 100,
+        hexcode: "#eef0ef",
+      },
+      {
+        number: 200,
+        hexcode: "#dadddc",
+      },
+      {
+        number: 300,
+        hexcode: "#b9c0bc",
+      },
+      {
+        number: 400,
+        hexcode: "#939d98",
+      },
+      {
+        number: 500,
+        hexcode: "#76817b",
+      },
+      {
+        number: 600,
+        hexcode: "#5f6a64",
+      },
+      {
+        number: 700,
+        hexcode: "#4e5652",
+      },
+      {
+        number: 800,
+        hexcode: "#434946",
+      },
+      {
+        number: 900,
+        hexcode: "#3a403d",
+      },
+      {
+        number: 950,
+        hexcode: "#272a29",
+      }
+    ]
+  },  
+  {
+    name: "Olive",
+    id: "olive",
+    isNeutral: true,
+    shades: [
+      {
+        number: 50,
+        hexcode: "#f7f8f7",
+      },
+      {
+        number: 100,
+        hexcode: "#eff0ee",
+      },
+      {
+        number: 200,
+        hexcode: "#dbddda",
+      },
+      {
+        number: 300,
+        hexcode: "#bcbfba",
+      },
+      {
+        number: 400,
+        hexcode: "#979c94",
+      },
+      {
+        number: 500,
+        hexcode: "#7a8077",
+      },
+      {
+        number: 600,
+        hexcode: "#636960",
+      },
+      {
+        number: 700,
+        hexcode: "#51554f",
+      },
+      {
+        number: 800,
+        hexcode: "#454943",
+      },
+      {
+        number: 900,
+        hexcode: "#3c3f3b",
+      },
+      {
+        number: 950,
+        hexcode: "#282a27",
+      }
+    ]
+  },  
   {
     name: "Stone",
     id: "stone",
