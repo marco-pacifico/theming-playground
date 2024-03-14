@@ -116,7 +116,7 @@ export default function BuyBoxTailwind() {
             {product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
-                  <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-[var(--color-text-brand)]">
+                  <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-[var(--color-text-secondary)]">
                     {breadcrumb.name}
                   </a>
                   <svg
@@ -125,7 +125,7 @@ export default function BuyBoxTailwind() {
                     viewBox="0 0 16 20"
                     fill="currentColor"
                     aria-hidden="true"
-                    className="h-5 w-4 text-[var(--color-brand-800)]"
+                    className="h-5 w-4 text-[var(--color-icon-secondary)]"
                   >
                     <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                   </svg>
@@ -185,7 +185,7 @@ export default function BuyBoxTailwind() {
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-[var(--color-brand-200)]lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-[var(--color-text-brand)] sm:text-3xl">{product.name}</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-[var(--color-text)] sm:text-3xl">{product.name}</h1>
           </div>
 
           {/* Options */}
@@ -202,7 +202,7 @@ export default function BuyBoxTailwind() {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating ? 'text-[var(--color-icon-brand)]' : 'text-[var(--color-icon-brand-disabled)]',
+                        reviews.average > rating ? 'text-[var(--color-icon-brand)]' : 'text-[var(--color-icon-disabled)]',
                         'h-5 w-5 flex-shrink-0'
                       )}
                       aria-hidden="true"
@@ -219,7 +219,7 @@ export default function BuyBoxTailwind() {
             <form className="mt-10">
               {/* Colors */}
               <div>
-                <h3 className="text-sm font-medium text-[var(--color-text-brand)]">Color</h3>
+                <h3 className="text-sm font-medium text-[var(--color-text)]">Color</h3>
 
                 <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                   <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
@@ -244,7 +244,7 @@ export default function BuyBoxTailwind() {
                           aria-hidden="true"
                           className={classNames(
                             color.class,
-                            'h-8 w-8 rounded-full border border-black border-opacity-10'
+                            'h-8 w-8 rounded-full border border-[var(--color-border)]'
                           )}
                         />
                       </RadioGroup.Option>
@@ -256,7 +256,7 @@ export default function BuyBoxTailwind() {
               {/* Sizes */}
               <div className="mt-10">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-[var(--color-text-brand)]">Size</h3>
+                  <h3 className="text-sm font-medium text-[var(--color-text)]">Size</h3>
                   <a href="#" className="text-sm font-medium text-[var(--color-text-brand-secondary)] hover:text-[var(--color-text-brand-hover)]">
                     Size guide
                   </a>
@@ -274,9 +274,9 @@ export default function BuyBoxTailwind() {
                           classNames(
                             size.inStock
                               ? 'cursor-pointer bg-white text-[var(--color-text-brand)]'
-                              : 'cursor-not-allowed bg-[var(--color-bg-brand-surface-1)] text-gray-200',
-                            active ? 'ring-2 ring-[var(--color-input)]' : '',
-                            'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-[var(--color-bg-brand-surface-2)] focus:outline-none sm:flex-1 sm:py-6'
+                              : 'cursor-not-allowed bg-[var(--color-bg-brand-tertiary)] text-[var(--color-text-disabled)]',
+                            active ? 'ring-2 ring-[var(--color-border-brand)]' : '',
+                            'group relative flex items-center justify-center rounded-md py-3 px-4 text-sm font-medium uppercase hover:bg-[var(--color-bg-brand-surface-1)] border border-[var(--color-border-brand-secondary)] hover:border-[var(--color-border-brand)] focus:outline-none sm:flex-1 sm:py-6'
                           )
                         }
                       >
@@ -287,8 +287,8 @@ export default function BuyBoxTailwind() {
                               <span
                                 className={classNames(
                         
-                                  active ? 'border-2' : 'border-2',
-                                  checked ? 'border-[var(--color-border-brand)]' : 'border-[var(--color-border-brand-tertiary)]',
+                                  active ? 'border-1' : 'border-1',
+                                  checked ? 'border-[var(--color-border-brand)]' : 'border-[var(--color-border-tertiary)]',
                                   'pointer-events-none absolute -inset-px rounded-md'
                                 )}
                                 aria-hidden="true"
@@ -296,10 +296,10 @@ export default function BuyBoxTailwind() {
                             ) : (
                               <span
                                 aria-hidden="true"
-                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-[var(--color-border-brand-tertiary)]"
+                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-[var(--color-border-secondary)]"
                               >
                                 <svg
-                                  className="absolute inset-0 h-full w-full stroke-2 text-[var(--color-border-brand-tertiary)]"
+                                  className="absolute inset-0 h-full w-full stroke-2 text-[var(--color-border-secondary)]"
                                   viewBox="0 0 100 100"
                                   preserveAspectRatio="none"
                                   stroke="currentColor"
@@ -331,18 +331,18 @@ export default function BuyBoxTailwind() {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-500">{product.description}</p>
+                <p className="text-base text-[var(--color-text-secondary)]">{product.description}</p>
               </div>
             </div>
 
             <div className="mt-10">
-              <h3 className="text-sm font-medium text-[var(--color-text-brand)]">Highlights</h3>
+              <h3 className="text-sm font-medium text-[var(--color-text)]">Highlights</h3>
 
               <div className="mt-4">
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                   {product.highlights.map((highlight) => (
                     <li key={highlight} className="text-[var(--color-icon-brand)]">
-                      <span className="text-gray-500">{highlight}</span>
+                      <span className="text-[var(--color-text-secondary)]">{highlight}</span>
                     </li>
                   ))}
                 </ul>
@@ -350,10 +350,10 @@ export default function BuyBoxTailwind() {
             </div>
 
             <div className="mt-10">
-              <h2 className="text-sm font-medium text-[var(--color-text-brand)]">Details</h2>
+              <h2 className="text-sm font-medium text-[var(--color-text)]">Details</h2>
 
               <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-500">{product.details}</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">{product.details}</p>
               </div>
             </div>
           </div>

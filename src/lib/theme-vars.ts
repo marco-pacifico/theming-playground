@@ -23,10 +23,11 @@ function getThemeColorMap(
     tailwind: {
       text: {
         neutral: {
-          primary: 9,
-          secondary: 6,
+          primary: 8,
+          secondary: 5,
           hover: 7,
-          foreground: 0,
+          foreground: "white",
+          disabled: 3,
         },
         brand: {
           primary: 9,
@@ -52,7 +53,8 @@ function getThemeColorMap(
       },
       border: {
         neutral: {
-          primary: 6,
+          strong: 6,
+          primary: 3,
           secondary: 2,
           tertiary: 1,
         },
@@ -67,7 +69,7 @@ function getThemeColorMap(
       icon: {
         neutral: {
           primary: 9,
-          secondary: 8,
+          secondary: 4,
           hover: 7,
           disabled: 3,
         },
@@ -86,6 +88,7 @@ function getThemeColorMap(
           secondary: 10,
           hover: 8,
           foreground: 0,
+          disabled: 3,
         },
         brand: {
           primary: 11,
