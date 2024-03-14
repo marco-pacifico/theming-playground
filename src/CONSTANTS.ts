@@ -217,8 +217,7 @@ export const TAILWIND_REFERENCE_COLORS = [
       },
     ],
   },
-  
-   
+
   {
     name: "Slate",
     id: "slate",
@@ -277,50 +276,50 @@ export const TAILWIND_REFERENCE_COLORS = [
     shades: [
       {
         number: 50,
-        hexcode: "#f9f8fa",
+        hexcode: "#faf9fb",
       },
       {
         number: 100,
-        hexcode: "#f3f2f5",
+        hexcode: "#f4f3f7",
       },
       {
         number: 200,
-        hexcode: "#eae8ec",
+        hexcode: "#e9e6ec",
       },
       {
         number: 300,
-        hexcode: "#d8d5dd",
+        hexcode: "#d5d1db",
       },
       {
         number: 400,
-        hexcode: "#c2bcc9",
+        hexcode: "#a59fad",
       },
       {
         number: 500,
-        hexcode: "#aaa0b2",
+        hexcode: "#776f80",
       },
       {
         number: 600,
-        hexcode: "#95899e",
+        hexcode: "#57515f",
       },
       {
         number: 700,
-        hexcode: "#83768b",
+        hexcode: "#433d4b",
       },
       {
         number: 800,
-        hexcode: "#6e6275",
+        hexcode: "#2c2633",
       },
       {
         number: 900,
-        hexcode: "#5b5260",
+        hexcode: "#1d1722",
       },
       {
         number: 950,
-        hexcode: "#3b3540",
-      }
-    ]
-  }, 
+        hexcode: "#0e0811",
+      },
+    ],
+  },
   {
     name: "Sage",
     id: "sage",
@@ -369,9 +368,9 @@ export const TAILWIND_REFERENCE_COLORS = [
       {
         number: 950,
         hexcode: "#272a29",
-      }
-    ]
-  },  
+      },
+    ],
+  },
   {
     name: "Olive",
     id: "olive",
@@ -420,9 +419,9 @@ export const TAILWIND_REFERENCE_COLORS = [
       {
         number: 950,
         hexcode: "#282a27",
-      }
-    ]
-  },  
+      },
+    ],
+  },
   {
     name: "Stone",
     id: "stone",
@@ -1994,7 +1993,6 @@ export const THEME_COLOR_MAP = {
     },
   },
 };
-
 
 // const THEME_COLOR_MAP = {
 //   tailwind: {

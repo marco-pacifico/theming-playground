@@ -4,15 +4,16 @@ import {
 } from "@/CONSTANTS";
 import { calcAPCA } from "apca-w3";
 import chroma from "chroma-js";
+import { createCSSVariables, createNeutralCSSVariables } from "./theme-vars";
 import { ClosestColor, NewColor, ReferenceColor } from "./types";
-import { createCSSVariables } from "./theme-vars";
 
 export function generateColor(
   inputHex: string,
   referenceColors: ReferenceColor[] = TAILWIND_REFERENCE_COLORS,
   filterNeutrals: boolean = true,
   lockInputColor: boolean = true,
-  adjustContrast: boolean = true
+  adjustContrast: boolean = true,
+  neutral: string = "gray"
 ): NewColor {
   // GET CLOESET COLOR FROM REFERENCE COLOR SCALES, USING THE SPECIFIED DISTANCE CALCULATION METHOD
   // DETERMINE WHAT INDEX THE INPUT COLOR SHOULD BE IN WITHIN THE CLOSEST COLOR SCALE, BASED ON THE SPECIFIED LIGHTNESS VALUE BY COLOR SPACE
@@ -49,6 +50,8 @@ export function generateColor(
 
   // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
   if (typeof window !== "undefined") {
+
+    createNeutralCSSVariables(neutral, referenceColors);
 
     createCSSVariables(
       adjustedScale,
@@ -167,7 +170,7 @@ function adjustScaleContrast(
       (Math.abs(HSLAdjustedShadeContrast - referenceShadeContrast) /
         referenceShadeContrast) *
       100;
-    const LIFT_THRESHOLD = 30;
+    const LIFT_THRESHOLD = 5;
     if (contrastLift < LIFT_THRESHOLD) return shade;
 
     // ADJUST OKLCH LIGHTNESS OF SHADE TO MATCH CONTRAST OF REFERENCE SHADE

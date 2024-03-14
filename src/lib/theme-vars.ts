@@ -1,5 +1,5 @@
 import { SHADE_NUMBERS } from "@/CONSTANTS";
-import { ClosestColor, ColorSystem } from "./types";
+import { ClosestColor, ColorSystem, ReferenceColor } from "./types";
 
 
 type ColorMap = {
@@ -22,6 +22,12 @@ function getThemeColorMap(
   const THEME_COLOR_VAR_MAP = {
     tailwind: {
       text: {
+        neutral: {
+          primary: 9,
+          secondary: 6,
+          hover: 7,
+          foreground: 0,
+        },
         brand: {
           primary: 9,
           secondary: 8,
@@ -30,6 +36,11 @@ function getThemeColorMap(
         },
       },
       bg: {
+        neutral: {
+          "surface-0": 0,
+          "surface-1": 1,
+          "surface-2": 2,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 6,
           hover: lockInputColor ? brandInputIndex + 1 : 7,
@@ -40,6 +51,11 @@ function getThemeColorMap(
         },
       },
       border: {
+        neutral: {
+          primary: 6,
+          secondary: 2,
+          tertiary: 1,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 6,
           hover: lockInputColor ? brandInputIndex + 1 : 7,
@@ -49,6 +65,12 @@ function getThemeColorMap(
         },
       },
       icon: {
+        neutral: {
+          primary: 9,
+          secondary: 8,
+          hover: 7,
+          disabled: 3,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 6,
           hover: lockInputColor ? brandInputIndex + 1 : 7,
@@ -59,6 +81,12 @@ function getThemeColorMap(
     },
     radix: {
       text: {
+        neutral: {
+          primary: 11,
+          secondary: 10,
+          hover: 8,
+          foreground: 0,
+        },
         brand: {
           primary: 11,
           secondary: 10,
@@ -67,6 +95,12 @@ function getThemeColorMap(
         },
       },
       bg: {
+        neutral: {
+          primary: 8,
+          "surface-0": 0,
+          "surface-1": 1,
+          "surface-2": 2,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 8,
           hover: lockInputColor ? brandInputIndex + 1 : 9,
@@ -77,6 +111,11 @@ function getThemeColorMap(
         },
       },
       border: {
+        neutral: {
+          primary: 8,
+          secondary: 7,
+          tertiary: 3,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 8,
           hover: lockInputColor ? brandInputIndex + 1 : 9,
@@ -86,6 +125,10 @@ function getThemeColorMap(
         },
       },
       icon: {
+        neutral: {
+          primary: 8,
+          disabled: 3,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 8,
           hover: lockInputColor ? brandInputIndex + 1 : 9,
@@ -98,16 +141,36 @@ function getThemeColorMap(
   return THEME_COLOR_VAR_MAP[referenceColorSystem];
 }
 
+export function createNeutralCSSVariables(neutral: string, referenceColors: ReferenceColor[]) {
+
+  // Get array of hex codes from the reference color system that matches the neutral color
+  const neutrals = referenceColors.find((color) => color.id === neutral)?.shades.map((shade) => shade.hexcode);
+  console.log({neutrals});
+  if (!neutrals) {
+    console.error("Neutral color not found");
+    return;
+  }
+
+  // Convert adjusted scale to css variables in root element
+  neutrals.forEach((shade, index) => {
+    document.documentElement.style.setProperty(
+      `--color-neutral-${SHADE_NUMBERS[index]}`,
+      shade
+    );
+  });
+
+};
+
 export function createCSSVariables(
   adjustedScale: string[],
   lockInputColor: boolean,
   closestColor: ClosestColor
 ) {
   // Clear existing variables
-  Array.from(document.documentElement.style).forEach((variable) => {
-    document.documentElement.style.removeProperty(variable);
-    // }
-  });
+  // Array.from(document.documentElement.style).forEach((variable) => {
+  //   document.documentElement.style.removeProperty(variable);
+  //   // }
+  // });
 
   // Convert adjusted scale to css variables in root element
   adjustedScale.forEach((shade, index) => {

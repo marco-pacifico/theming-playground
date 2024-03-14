@@ -14,6 +14,7 @@ import {
 } from "../lib/color-utils";
 import { NewColor, ReferenceColor } from "../lib/types";
 import ButtonToggle from "./button-toggle";
+import Radio from "./radio";
 import BuyBoxTailwind from "./buy-box-tailwind";
 import ColorScale from "./color-scale";
 import HeroSectionTailwind from "./hero-section-tailwind";
@@ -21,10 +22,13 @@ import ReferenceColorScales from "./reference-color-scale";
 import ShoppingCartTailwind from "./shopping-cart-tailwind";
 
 function ColorScaleGenerator() {
+   
   const [inputColor, setInputColor] = useState<string>("#a56f8e");
   const [referenceColors, setReferenceColors] = useState<ReferenceColor[]>(
     TAILWIND_REFERENCE_COLORS
   );
+  const neutrals = referenceColors.filter((color) => color.isNeutral).map((color) => color.id);
+  const [neutral, setNeutral] = useState<string>(neutrals[0]); // neutrals[0] is the default value
   const [lockInputColor, setLockInputColor] = useState<boolean>(true);
   const [filterNeutrals, setFilterNeutrals] = useState<boolean>(true);
   const [showClosestColor, setShowClosestColor] = useState<boolean>(true);
@@ -38,25 +42,31 @@ function ColorScaleGenerator() {
       referenceColors,
       filterNeutrals,
       lockInputColor,
-      adjustContrast
+      adjustContrast,
+      neutral
     );
   const closestColor = newColor.closestColor;
 
   return (
     <div className="pt-4">
+      <label htmlFor="color-picker" className="mt-4 flex flex-col gap-1 font-semibold text-neutral-800">
+        Brand Color
       <input
         type="color"
         value={inputColor}
         onChange={(e) => {
           setInputColor(e.target.value);
         }}
-        className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
+        className="w-10 h-10 border-4 border-[var(--color-brand-950)] rounded-full shadow-sm overflow-hidden"
+        style = {{backgroundColor: inputColor}}
       />
+      </label>
       <ColorScale
         scale={newColor.scale}
         inputHex={inputColor}
         printColorSpace={printColorSpace}
       />
+      <Radio title="Neutral Color" options={neutrals} stateValue={neutral} setStateValue={setNeutral}/>
       <div className="my-10 flex justify-center gap-3 flex-wrap">
         {/* Show closest color toggle */}
         <button
