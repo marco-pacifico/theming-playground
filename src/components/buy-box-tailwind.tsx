@@ -72,9 +72,9 @@ const product = {
     },
   ],
   colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-[var(--color-bg-brand)]' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-[var(--color-bg-brand)]' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-[var(--color-bg-brand)]' },
+    { name: 'White', class: 'bg-white', selectedClass: 'ring-[var(--color-border-brand)]' },
+    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-[var(--color-border-brand)]' },
+    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-[var(--color-border-brand)]' },
   ],
   sizes: [
     { name: 'XXS', inStock: false },
