@@ -1,5 +1,5 @@
 import { SHADE_NUMBERS } from "@/CONSTANTS";
-import { ClosestColor, ColorSystem, ReferenceColor } from "./types";
+import { ColorSystem, NewColor, ReferenceColor } from "./types";
 
 
 type ColorMap = {
@@ -148,7 +148,6 @@ export function createNeutralCSSVariables(neutral: string, referenceColors: Refe
 
   // Get array of hex codes from the reference color system that matches the neutral color
   const neutrals = referenceColors.find((color) => color.id === neutral)?.shades.map((shade) => shade.hexcode);
-  console.log({neutrals});
   if (!neutrals) {
     console.error("Neutral color not found");
     return;
@@ -164,11 +163,11 @@ export function createNeutralCSSVariables(neutral: string, referenceColors: Refe
 
 };
 
-export function createCSSVariables(
-  adjustedScale: string[],
-  lockInputColor: boolean,
-  closestColor: ClosestColor
-) {
+export function createCSSVariables(newColor: NewColor, lockInputColor: boolean) {
+  // adjustedScale: string[],
+  // lockInputColor: boolean,
+  // closestColor: ClosestColor
+
   // Clear existing variables
   // Array.from(document.documentElement.style).forEach((variable) => {
   //   document.documentElement.style.removeProperty(variable);
@@ -176,7 +175,7 @@ export function createCSSVariables(
   // });
 
   // Convert adjusted scale to css variables in root element
-  adjustedScale.forEach((shade, index) => {
+  newColor.scale.forEach((shade, index) => {
     // if (lockInputColor && index === closestColor.inputIndex) {
     //   document.documentElement.style.setProperty(`--color-brand-input`, shade);
     // }
@@ -188,8 +187,8 @@ export function createCSSVariables(
 
   // Get color map used generate semantic theme variables names and values
   const THEME_COLOR_VAR_MAP: ColorMap = getThemeColorMap(
-    closestColor.inputIndex,
-    closestColor.referenceColorSystem,
+    newColor.closestColor.inputIndex,
+    newColor.closestColor.referenceColorSystem,
     lockInputColor
   );
 

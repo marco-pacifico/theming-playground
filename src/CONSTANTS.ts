@@ -423,8 +423,8 @@ export const TAILWIND_REFERENCE_COLORS = [
     ],
   },
   {
-    name: "Stone",
-    id: "stone",
+    name: "Sand",
+    id: "sand",
     isNeutral: true,
     shades: [
       {

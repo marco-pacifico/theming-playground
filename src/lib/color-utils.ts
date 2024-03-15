@@ -4,8 +4,7 @@ import {
 } from "@/CONSTANTS";
 import { calcAPCA } from "apca-w3";
 import chroma from "chroma-js";
-import { createCSSVariables, createNeutralCSSVariables } from "./theme-vars";
-import { ClosestColor, NewColor, ReferenceColor } from "./types";
+import { ClosestColor, ColorSystem, NewColor, ReferenceColor } from "./types";
 
 export function generateColor(
   inputHex: string,
@@ -45,18 +44,6 @@ export function generateColor(
       closestColor,
       lockInputColor,
       adjustedScale
-    );
-  }
-
-  // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
-  if (typeof window !== "undefined") {
-
-    createNeutralCSSVariables(neutral, referenceColors);
-
-    createCSSVariables(
-      adjustedScale,
-      lockInputColor,
-      closestColor
     );
   }
 
@@ -286,6 +273,7 @@ export function getClosestColor(
     inputIndex: 0,
     indexHexcode: "#000000",
     referenceColorSystem: referenceColors === TAILWIND_REFERENCE_COLORS ? "tailwind" : "radix",
+    matchingNeutral: "gray"
   };
   // Go through every color and shade to find the closest match
   colorsToCompareAgainst.forEach((hue) => {
@@ -313,10 +301,13 @@ export function getClosestColor(
     closestColor
   );
 
+  const matchingNeutral = getMatchingNeutral(closestColor.hueName, closestColor.referenceColorSystem);
+
   return {
     ...closestColor,
     inputIndex: inputColorIndex,
     indexHexcode: closestColor.scale[inputColorIndex].hexcode,
+    matchingNeutral
   };
 }
 
@@ -344,70 +335,72 @@ function findInputColorShadeIndexBasedOnLightnessDifference(
 }
 
 // GET MATHCING NEUTRAL COLOR FROM REFERENCE COLOR SCALES
-export function getMatchingNeutral(closestColor: ClosestColor) {
-  const colorSystem = closestColor.referenceColorSystem;
-  if (colorSystem === "radix") {
-    switch (closestColor.hueName) {
-      case "tomato":
-      case "red":
-      case "ruby":
-      case "crimson":
-      case "pink":
-      case "plum":
-      case "purple":
-      case "violet":
+export function getMatchingNeutral(hueName: string, referenceColorSystem: ColorSystem) {
+
+  if (referenceColorSystem === "radix") {
+    switch (hueName) {
+      case "Tomato":
+      case "Red":
+      case "Ruby":
+      case "Crimson":
+      case "Pink":
+      case "Plum":
+      case "Purple":
+      case "Violet":
         return "mauve";
-      case "iris":
-      case "indigo":
-      case "blue":
-      case "sky":
-      case "cyan":
+      case "Iris":
+      case "Indigo":
+      case "Blue":
+      case "Sky":
+      case "Cyan":
         return "slate";
-      case "teal":
-      case "jade":
-      case "mint":
-      case "green":
+      case "Teal":
+      case "Jade":
+      case "Mint":
+      case "Green":
         return "sage";
-      case "grass":
-      case "lime":
+      case "Grass":
+      case "Lime":
         return "olive";
-      case "yellow":
-      case "amber":
-      case "orange":
-      case "brown":
-      case "gold":
-      case "bronze":
+      case "Yellow":
+      case "Amber":
+      case "Orange":
+      case "Brown":
+      case "Gold":
+      case "Bronze":
         return "sand";
-      case "gray":
+      case "Gray":
         return "gray";
     }
-  } else if (colorSystem === "tailwind") {
-    switch (closestColor.hueName) {
-      case "red":
-      case "rose":
-      case "pink":
-      case "fuchsia":
-      case "purple":
-      case "violet":
+  } else if (referenceColorSystem === "tailwind") {
+    switch (hueName) {
+      case "Red":
+      case "Rose":
+      case "Pink":
+      case "Fuchsia":
+      case "Purple":
+      case "Violet":
         return "mauve";
-      case "indigo":
-      case "blue":
-      case "sky":
-      case "cyan":
+      case "Indigo":
+      case "Blue":
+      case "Sky":
+      case "Cyan":
         return "slate";
-      case "teal":
-      case "emerald":
-      case "green":
+      case "Teal":
+      case "Emerald":
+      case "Green":
         return "sage";
-      case "lime":
+      case "Lime":
         return "olive";
-      case "yellow":
-      case "amber":
-      case "orange":
+      case "Yellow":
+      case "Amber":
+      case "Orange":
         return "sand";
-      case "gray":
+      case "Gray":
         return "gray";
     }
+  } else {
+    return "gray";
   }
   return "gray";
 };
