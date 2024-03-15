@@ -4,15 +4,15 @@ import {
 } from "@/CONSTANTS";
 import { calcAPCA } from "apca-w3";
 import chroma from "chroma-js";
-import { ClosestColor, NewColor, ReferenceColor } from "./types";
-import { createCSSVariables } from "./theme-vars";
+import { ClosestColor, ColorSystem, NewColor, ReferenceColor } from "./types";
 
 export function generateColor(
   inputHex: string,
   referenceColors: ReferenceColor[] = TAILWIND_REFERENCE_COLORS,
   filterNeutrals: boolean = true,
   lockInputColor: boolean = true,
-  adjustContrast: boolean = true
+  adjustContrast: boolean = true,
+  neutral: string = "gray"
 ): NewColor {
   // GET CLOESET COLOR FROM REFERENCE COLOR SCALES, USING THE SPECIFIED DISTANCE CALCULATION METHOD
   // DETERMINE WHAT INDEX THE INPUT COLOR SHOULD BE IN WITHIN THE CLOSEST COLOR SCALE, BASED ON THE SPECIFIED LIGHTNESS VALUE BY COLOR SPACE
@@ -44,16 +44,6 @@ export function generateColor(
       closestColor,
       lockInputColor,
       adjustedScale
-    );
-  }
-
-  // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
-  if (typeof window !== "undefined") {
-
-    createCSSVariables(
-      adjustedScale,
-      lockInputColor,
-      closestColor
     );
   }
 
@@ -167,7 +157,7 @@ function adjustScaleContrast(
       (Math.abs(HSLAdjustedShadeContrast - referenceShadeContrast) /
         referenceShadeContrast) *
       100;
-    const LIFT_THRESHOLD = 30;
+    const LIFT_THRESHOLD = 5;
     if (contrastLift < LIFT_THRESHOLD) return shade;
 
     // ADJUST OKLCH LIGHTNESS OF SHADE TO MATCH CONTRAST OF REFERENCE SHADE
@@ -283,6 +273,7 @@ export function getClosestColor(
     inputIndex: 0,
     indexHexcode: "#000000",
     referenceColorSystem: referenceColors === TAILWIND_REFERENCE_COLORS ? "tailwind" : "radix",
+    matchingNeutral: "gray"
   };
   // Go through every color and shade to find the closest match
   colorsToCompareAgainst.forEach((hue) => {
@@ -310,10 +301,13 @@ export function getClosestColor(
     closestColor
   );
 
+  const matchingNeutral = getMatchingNeutral(closestColor.hueName, closestColor.referenceColorSystem);
+
   return {
     ...closestColor,
     inputIndex: inputColorIndex,
     indexHexcode: closestColor.scale[inputColorIndex].hexcode,
+    matchingNeutral
   };
 }
 
@@ -339,6 +333,78 @@ function findInputColorShadeIndexBasedOnLightnessDifference(
   });
   return closestShadeIndex;
 }
+
+// GET MATHCING NEUTRAL COLOR FROM REFERENCE COLOR SCALES
+export function getMatchingNeutral(hueName: string, referenceColorSystem: ColorSystem) {
+
+  if (referenceColorSystem === "radix") {
+    switch (hueName) {
+      case "Tomato":
+      case "Red":
+      case "Ruby":
+      case "Crimson":
+      case "Pink":
+      case "Plum":
+      case "Purple":
+      case "Violet":
+        return "mauve";
+      case "Iris":
+      case "Indigo":
+      case "Blue":
+      case "Sky":
+      case "Cyan":
+        return "slate";
+      case "Teal":
+      case "Jade":
+      case "Mint":
+      case "Green":
+        return "sage";
+      case "Grass":
+      case "Lime":
+        return "olive";
+      case "Yellow":
+      case "Amber":
+      case "Orange":
+      case "Brown":
+      case "Gold":
+      case "Bronze":
+        return "sand";
+      case "Gray":
+        return "gray";
+    }
+  } else if (referenceColorSystem === "tailwind") {
+    switch (hueName) {
+      case "Red":
+      case "Rose":
+      case "Pink":
+      case "Fuchsia":
+      case "Purple":
+      case "Violet":
+        return "mauve";
+      case "Indigo":
+      case "Blue":
+      case "Sky":
+      case "Cyan":
+        return "slate";
+      case "Teal":
+      case "Emerald":
+      case "Green":
+        return "sage";
+      case "Lime":
+        return "olive";
+      case "Yellow":
+      case "Amber":
+      case "Orange":
+        return "sand";
+      case "Gray":
+        return "gray";
+    }
+  } else {
+    return "gray";
+  }
+  return "gray";
+};
+
 
 // DISPLAY PURPOSES
 // Get the APCA contrast ratio between two colors

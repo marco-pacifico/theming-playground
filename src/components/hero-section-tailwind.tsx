@@ -124,7 +124,7 @@ export default function HeroSectionTailwind() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-[var(--color-text-brand-secondary)] ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-[var(--color-text-brand-secondary)] ring-1 ring-[var(--color-border-brand-secondary)] hover:bg-[var(--color-border-brand-secondary)] hover:ring-[var(--color-border-brand)] transition-colors">
               Limited time only {" "}
               <a href="#" className="font-semibold text-[var(--color-text-brand)]">
                 <span className="absolute inset-0" aria-hidden="true" />
@@ -136,7 +136,7 @@ export default function HeroSectionTailwind() {
             <h1 className="text-4xl font-bold tracking-tight text-[var(--color-text-brand)] sm:text-6xl">
               Sample hero section for your storefront
             </h1>
-            <p className="mt-6 text-lg leading-8 text-[var(--color-text-brand-secondary)]">
+            <p className="mt-6 text-lg leading-8 text-[var(--color-text-secondary)]">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
               fugiat aliqua.

@@ -24,6 +24,7 @@ export default function RootLayout({
             aria-label="Global"
           >
             <Link href="/">Theming</Link>
+            <Link href="/color-playground">Color Playground</Link>
             <Link href="/tailwind-colors">Tailwind Colors</Link>
             <Link href="/radix-colors">Radix Colors</Link>
           </nav>

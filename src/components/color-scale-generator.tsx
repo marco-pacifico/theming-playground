@@ -5,7 +5,7 @@ import {
   TAILWIND_REFERENCE_COLORS,
 } from "@/CONSTANTS";
 import chroma from "chroma-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   generateColor,
   getAPCA,
@@ -17,8 +17,10 @@ import ButtonToggle from "./button-toggle";
 import BuyBoxTailwind from "./buy-box-tailwind";
 import ColorScale from "./color-scale";
 import HeroSectionTailwind from "./hero-section-tailwind";
+import NeutralsRadio from "./neutrals-radio";
 import ReferenceColorScales from "./reference-color-scale";
 import ShoppingCartTailwind from "./shopping-cart-tailwind";
+import { createCSSVariables } from "@/lib/theme-vars";
 
 function ColorScaleGenerator() {
   const [inputColor, setInputColor] = useState<string>("#a56f8e");
@@ -32,30 +34,52 @@ function ColorScaleGenerator() {
   const [printColorSpace, setPrintColorSpace] = useState<"hsl" | "oklch">(
     "hsl"
   );
-  const newColor: NewColor = 
-    generateColor(
-      inputColor,
-      referenceColors,
-      filterNeutrals,
-      lockInputColor,
-      adjustContrast
-    );
+  // const neutralsRadioOptions = referenceColors
+  // .filter((color) => color.isNeutral)
+  // .map((color) => color.id);
+
+  const newColor: NewColor = generateColor(
+    inputColor,
+    referenceColors,
+    filterNeutrals,
+    lockInputColor,
+    adjustContrast
+  );
   const closestColor = newColor.closestColor;
+  // const [neutral, setNeutral] = useState<string>(closestColor.matchingNeutral); // default to the matching
+
+  useEffect(() => {
+    // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
+    createCSSVariables(newColor, lockInputColor);
+  }, [newColor, lockInputColor]);
 
   return (
     <div className="pt-4">
-      <input
-        type="color"
-        value={inputColor}
-        onChange={(e) => {
-          setInputColor(e.target.value);
-        }}
-        className="w-20 h-10 border-2 border-gray-300 rounded-md shadow-sm"
-      />
+      <label
+        htmlFor="color-picker"
+        className="mt-4 flex flex-col gap-1 font-semibold text-neutral-800"
+      >
+        Brand Color
+        <input
+          type="color"
+          value={inputColor}
+          onChange={(e) => {
+            setInputColor(e.target.value);
+          }}
+          className="w-10 h-10 border-4 border-[var(--color-brand-950)] rounded-full shadow-sm overflow-hidden"
+          style={{ backgroundColor: inputColor }}
+        />
+      </label>
       <ColorScale
         scale={newColor.scale}
         inputHex={inputColor}
         printColorSpace={printColorSpace}
+      />
+      <p className="mt-4">Matching neutral: {closestColor.matchingNeutral}</p>
+      <NeutralsRadio
+        referenceColors={referenceColors}
+        closestColor={closestColor}
+        key={closestColor.matchingNeutral}
       />
       <div className="my-10 flex justify-center gap-3 flex-wrap">
         {/* Show closest color toggle */}
@@ -67,7 +91,7 @@ function ColorScaleGenerator() {
         >
           {showClosestColor ? "Hide" : "Show"} Closest Color
         </button>
-        
+
         {/* Reference colors toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
@@ -92,16 +116,30 @@ function ColorScaleGenerator() {
         </button>
       </div>
       <div className="mb-10 flex justify-center gap-3 flex-wrap">
-        
-          {/* Lock Input Color Toggle */}
-          <ButtonToggle stateValue={lockInputColor} setStateValue={setLockInputColor}>Input Locked</ButtonToggle>
+        {/* Lock Input Color Toggle */}
+        <ButtonToggle
+          stateValue={lockInputColor}
+          setStateValue={setLockInputColor}
+        >
+          Input Locked
+        </ButtonToggle>
         {/* Adjust Contrast Toggle */}
-        <ButtonToggle stateValue={adjustContrast} setStateValue={setAdjustContrast}>Adjust Contrast</ButtonToggle>
+        <ButtonToggle
+          stateValue={adjustContrast}
+          setStateValue={setAdjustContrast}
+        >
+          Adjust Contrast
+        </ButtonToggle>
         {/* Print Color Space Toggle */}
         {/* Filter neutrals color toggle */}
-        <ButtonToggle stateValue={filterNeutrals} setStateValue={setFilterNeutrals}>Neutrals filtered</ButtonToggle>
+        <ButtonToggle
+          stateValue={filterNeutrals}
+          setStateValue={setFilterNeutrals}
+        >
+          Neutrals filtered
+        </ButtonToggle>
       </div>
-      
+
       {showClosestColor && closestColor && (
         <>
           <div className="flex flex-col gap-3">

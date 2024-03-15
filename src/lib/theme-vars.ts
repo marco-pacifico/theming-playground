@@ -1,5 +1,5 @@
 import { SHADE_NUMBERS } from "@/CONSTANTS";
-import { ClosestColor, ColorSystem } from "./types";
+import { ColorSystem, NewColor, ReferenceColor } from "./types";
 
 
 type ColorMap = {
@@ -22,6 +22,13 @@ function getThemeColorMap(
   const THEME_COLOR_VAR_MAP = {
     tailwind: {
       text: {
+        neutral: {
+          primary: 8,
+          secondary: 5,
+          hover: 7,
+          foreground: "white",
+          disabled: 3,
+        },
         brand: {
           primary: 9,
           secondary: 8,
@@ -30,6 +37,11 @@ function getThemeColorMap(
         },
       },
       bg: {
+        neutral: {
+          "surface-0": 0,
+          "surface-1": 1,
+          "surface-2": 2,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 6,
           hover: lockInputColor ? brandInputIndex + 1 : 7,
@@ -40,6 +52,12 @@ function getThemeColorMap(
         },
       },
       border: {
+        neutral: {
+          strong: 6,
+          primary: 3,
+          secondary: 2,
+          tertiary: 1,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 6,
           hover: lockInputColor ? brandInputIndex + 1 : 7,
@@ -49,6 +67,12 @@ function getThemeColorMap(
         },
       },
       icon: {
+        neutral: {
+          primary: 9,
+          secondary: 4,
+          hover: 7,
+          disabled: 3,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 6,
           hover: lockInputColor ? brandInputIndex + 1 : 7,
@@ -59,6 +83,13 @@ function getThemeColorMap(
     },
     radix: {
       text: {
+        neutral: {
+          primary: 11,
+          secondary: 10,
+          hover: 8,
+          foreground: 0,
+          disabled: 3,
+        },
         brand: {
           primary: 11,
           secondary: 10,
@@ -67,6 +98,12 @@ function getThemeColorMap(
         },
       },
       bg: {
+        neutral: {
+          primary: 8,
+          "surface-0": 0,
+          "surface-1": 1,
+          "surface-2": 2,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 8,
           hover: lockInputColor ? brandInputIndex + 1 : 9,
@@ -77,6 +114,11 @@ function getThemeColorMap(
         },
       },
       border: {
+        neutral: {
+          primary: 8,
+          secondary: 7,
+          tertiary: 3,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 8,
           hover: lockInputColor ? brandInputIndex + 1 : 9,
@@ -86,6 +128,10 @@ function getThemeColorMap(
         },
       },
       icon: {
+        neutral: {
+          primary: 8,
+          disabled: 3,
+        },
         brand: {
           primary: lockInputColor ? brandInputIndex : 8,
           hover: lockInputColor ? brandInputIndex + 1 : 9,
@@ -98,19 +144,38 @@ function getThemeColorMap(
   return THEME_COLOR_VAR_MAP[referenceColorSystem];
 }
 
-export function createCSSVariables(
-  adjustedScale: string[],
-  lockInputColor: boolean,
-  closestColor: ClosestColor
-) {
-  // Clear existing variables
-  Array.from(document.documentElement.style).forEach((variable) => {
-    document.documentElement.style.removeProperty(variable);
-    // }
-  });
+export function createNeutralCSSVariables(neutral: string, referenceColors: ReferenceColor[]) {
+
+  // Get array of hex codes from the reference color system that matches the neutral color
+  const neutrals = referenceColors.find((color) => color.id === neutral)?.shades.map((shade) => shade.hexcode);
+  if (!neutrals) {
+    console.error("Neutral color not found");
+    return;
+  }
 
   // Convert adjusted scale to css variables in root element
-  adjustedScale.forEach((shade, index) => {
+  neutrals.forEach((shade, index) => {
+    document.documentElement.style.setProperty(
+      `--color-neutral-${SHADE_NUMBERS[index]}`,
+      shade
+    );
+  });
+
+};
+
+export function createCSSVariables(newColor: NewColor, lockInputColor: boolean) {
+  // adjustedScale: string[],
+  // lockInputColor: boolean,
+  // closestColor: ClosestColor
+
+  // Clear existing variables
+  // Array.from(document.documentElement.style).forEach((variable) => {
+  //   document.documentElement.style.removeProperty(variable);
+  //   // }
+  // });
+
+  // Convert adjusted scale to css variables in root element
+  newColor.scale.forEach((shade, index) => {
     // if (lockInputColor && index === closestColor.inputIndex) {
     //   document.documentElement.style.setProperty(`--color-brand-input`, shade);
     // }
@@ -122,8 +187,8 @@ export function createCSSVariables(
 
   // Get color map used generate semantic theme variables names and values
   const THEME_COLOR_VAR_MAP: ColorMap = getThemeColorMap(
-    closestColor.inputIndex,
-    closestColor.referenceColorSystem,
+    newColor.closestColor.inputIndex,
+    newColor.closestColor.referenceColorSystem,
     lockInputColor
   );
 

@@ -19,6 +19,7 @@ export type ClosestColor = {
   inputIndex: number;
   indexHexcode: string;
   referenceColorSystem: ColorSystem;
+  matchingNeutral: string;
 };
 
 export type NewColor = {
