@@ -26,18 +26,22 @@ export default function NeutralsRadio({
   }, [neutral, referenceColors]);
 
   return (
-    <>
+    <div>
       <p
         id="neutral-color"
-        className="font-semibold text-neutral-800 mt-8 mb-2"
+        className="font-semibold text-neutral-800 mb-2"
       >
         Neutral Color
       </p>
-      <div role="group" aria-labelledby="neutral-color" className="flex gap-4">
+      <div
+        role="group"
+        aria-labelledby="neutral-color"
+        className="flex gap-4 flex-wrap"
+      >
         {neutralsRadioOptions.map((option) => (
           <label
             key={option.id}
-            className="flex flex-col items-center gap-2 text-sm text-neutral-600 cursor-pointer"
+            className="flex flex-col items-center gap-2 text-sm text-neutral-600 cursor-pointer "
           >
             <input
               className="appearance-none"
@@ -55,13 +59,15 @@ export default function NeutralsRadio({
               }`}
               style={{ background: option.hexcode }}
             ></div>
-            {capitalizeFirstLetter(option.id)}
-            {option.id === closestColor.matchingNeutral && (
-              <span className="text-xs text-green-600">Match</span>
-            )}
+            <div className="flex flex-col gap-1 relative">
+              {capitalizeFirstLetter(option.id)}
+              {option.id === closestColor.matchingNeutral && (
+                <span className="text-xs text-green-600 absolute top-6">Match</span>
+              )}
+            </div>
           </label>
         ))}
       </div>
-    </>
+    </div>
   );
 }

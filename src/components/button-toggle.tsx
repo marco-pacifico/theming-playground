@@ -25,10 +25,10 @@ function ButtonToggle({
   return (
     <button
       {...rest}
-      className={`px-4 py-2 rounded-full shadow-sm border border-transparent ${
+      className={`px-4 py-2 rounded-full border border-transparent text-sm ${
         stateValue
-          ? "bg-gray-950 text-gray-50"
-          : "bg-white text-gray-600 border-gray-100 border"
+          ? "bg-neutral-600 text-white"
+          : "bg-white text-neutral-600 border-neutral-200 border"
       }`}
       onClick={handleToggle}
     >
