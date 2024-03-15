@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={`${inter.className} overflow-y-scroll`}>
         <header>
           <nav
-            className="flex items-start gap-4 p-6 lg:px-8"
+            className="flex items-start gap-4 p-6 lg:px-8 border-b border-neutral-200"
             aria-label="Global"
           >
             <Link href="/">Theming</Link>

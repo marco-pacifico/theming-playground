@@ -34,9 +34,6 @@ function ColorScaleGenerator() {
   const [printColorSpace, setPrintColorSpace] = useState<"hsl" | "oklch">(
     "hsl"
   );
-  // const neutralsRadioOptions = referenceColors
-  // .filter((color) => color.isNeutral)
-  // .map((color) => color.id);
 
   const newColor: NewColor = generateColor(
     inputColor,
@@ -46,7 +43,6 @@ function ColorScaleGenerator() {
     adjustContrast
   );
   const closestColor = newColor.closestColor;
-  // const [neutral, setNeutral] = useState<string>(closestColor.matchingNeutral); // default to the matching
 
   useEffect(() => {
     // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
@@ -106,6 +102,7 @@ function ColorScaleGenerator() {
           Using{" "}
           {referenceColors === TAILWIND_REFERENCE_COLORS ? "Tailwind" : "Radix"}
         </button>
+        {/* Print Color Space Toggle */}
         <button
           className="px-4 py-2 bg-slate-100 rounded-full shadow-sm text-gray-950"
           onClick={() => {
@@ -130,7 +127,6 @@ function ColorScaleGenerator() {
         >
           Adjust Contrast
         </ButtonToggle>
-        {/* Print Color Space Toggle */}
         {/* Filter neutrals color toggle */}
         <ButtonToggle
           stateValue={filterNeutrals}
