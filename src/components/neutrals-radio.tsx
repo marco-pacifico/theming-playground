@@ -59,10 +59,10 @@ export default function NeutralsRadio({
               }`}
               style={{ background: option.hexcode }}
             ></div>
-            <div className="flex flex-col gap-1 relative">
+            <div className="flex flex-col gap-1 relative items-center">
               {capitalizeFirstLetter(option.id)}
               {option.id === closestColor.matchingNeutral && (
-                <span className="text-xs text-green-600 absolute top-6">Match</span>
+                <span className="text-xs text-green-600 absolute top-6">Best</span>
               )}
             </div>
           </label>

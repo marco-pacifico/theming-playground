@@ -10,7 +10,7 @@ export default function SmallColorScale({
       {scale.map((color, index) => (
         <div
           key={index}
-          className={`w-full h-16 rounded shadow ${
+          className={`w-full h-16 rounded-sm ${
             color === inputHex ? "ring-[6px] ring-[rgb(var(--foreground-rgb))] z-10" : ""
           }`}
           style={{ backgroundColor: color }}
