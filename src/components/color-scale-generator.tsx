@@ -4,6 +4,7 @@ import {
   SHADE_NUMBERS,
   TAILWIND_REFERENCE_COLORS,
 } from "@/CONSTANTS";
+import { createCSSVariables } from "@/lib/theme-vars";
 import chroma from "chroma-js";
 import { useEffect, useState } from "react";
 import {
@@ -20,7 +21,6 @@ import HeroSectionTailwind from "./hero-section-tailwind";
 import NeutralsRadio from "./neutrals-radio";
 import ReferenceColorScales from "./reference-color-scale";
 import ShoppingCartTailwind from "./shopping-cart-tailwind";
-import { createCSSVariables } from "@/lib/theme-vars";
 
 function ColorScaleGenerator() {
   const [inputColor, setInputColor] = useState<string>("#a56f8e");
@@ -75,7 +75,7 @@ function ColorScaleGenerator() {
         inputHex={inputColor}
         printColorSpace={printColorSpace}
       />
-      <p className="mt-4">Matching neutral: {closestColor.matchingNeutral}</p>
+      
       <NeutralsRadio
         referenceColors={referenceColors}
         closestColor={closestColor}
