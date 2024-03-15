@@ -50,7 +50,7 @@ export default function NeutralsRadio({
             <div
               className={`w-12 h-12 rounded-full  ${
                 neutral === option.id
-                  ? "ring-neutral-950 ring-4"
+                  ? "ring-neutral-950 ring-[6px]"
                   : "border-neutral-950/30 border-4"
               }`}
               style={{ background: option.hexcode }}
