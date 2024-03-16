@@ -27,12 +27,12 @@ export default function NeutralsRadio({
 
   return (
     <div>
-      <p
+      <h2
         id="neutral-color"
         className="font-semibold text-neutral-800 mb-2"
       >
         Neutral Color
-      </p>
+      </h2>
       <div
         role="group"
         aria-labelledby="neutral-color"
@@ -44,7 +44,7 @@ export default function NeutralsRadio({
             className="flex flex-col items-center gap-2 text-sm text-neutral-600 cursor-pointer "
           >
             <input
-              className="appearance-none"
+              className="appearance-none absolute"
               type="radio"
               name="radio"
               value={option.id}
@@ -59,10 +59,10 @@ export default function NeutralsRadio({
               }`}
               style={{ background: option.hexcode }}
             ></div>
-            <div className="flex flex-col gap-1 relative items-center">
+            <div className="flex flex-col relative items-center">
               {capitalizeFirstLetter(option.id)}
               {option.id === closestColor.matchingNeutral && (
-                <span className="text-xs text-green-600 absolute top-6">Best</span>
+                <span className="text-xs text-green-600 absolute top-5 text-center w-20">Best match</span>
               )}
             </div>
           </label>

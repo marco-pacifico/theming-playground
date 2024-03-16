@@ -29,23 +29,27 @@ export default function ThemeOptions() {
     createCSSVariables(newBrandColor, lockInputColor);
   }, [newBrandColor, lockInputColor]);
   return (
-    <div className="flex flex-col gap-12">
-    <div>
-      <p id="brand-color" className="font-semibold text-neutral-800 mb-2">
-        Brand Color
-      </p>
-      <label className="inline-flex items-center gap-4 text-sm text-neutral-600 cursor-pointer">
-        <input
-          className="w-[60px] h-[60px] rounded-full border-neutral-950/30 border-[6px] overflow-hidden"
-          style={{ background: brandColor }}
-          type="color"
-          name="brandColor"
-          value={brandColor}
-          onChange={(event) => setBrandColor(event.target.value)}
-        />
-        {brandColor.toLocaleUpperCase()}
-      </label>
-      <SmallColorScale inputHex={brandColor} scale={newBrandColor.scale} />
+    <div className="flex flex-col gap-8">
+      <div>
+        <h2 id="brand-color" className="font-semibold text-neutral-800 mb-2">
+          Brand Color
+        </h2>
+        <div className="flex items-center gap-4">
+          <label className="inline-flex items-center gap-4 text-sm text-neutral-600">
+            <input
+              className="w-[60px] h-[60px] rounded-full border-neutral-950/30 border-[6px] overflow-hidden cursor-pointer"
+              style={{ background: brandColor }}
+              type="color"
+              name="brandColor"
+              value={brandColor}
+              onChange={(event) => setBrandColor(event.target.value)}
+            />
+          </label>
+          <p className="text-sm text-neutral-600">
+            {brandColor.toLocaleUpperCase()}
+          </p>
+        </div>
+        <SmallColorScale inputHex={brandColor} scale={newBrandColor.scale} />
       <div className="mt-6 flex justify-center gap-2 flex-wrap">
         {/* Lock Input Color Toggle */}
         <ButtonToggle
@@ -70,6 +74,8 @@ export default function ThemeOptions() {
         </ButtonToggle>
       </div>
       </div>
+
+      
 
       <NeutralsRadio
         key={newBrandColor.closestColor.matchingNeutral}
