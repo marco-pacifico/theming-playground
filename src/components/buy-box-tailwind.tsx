@@ -142,7 +142,7 @@ export default function BuyBoxTailwind() {
 
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-[var(--radius-lg)] lg:block">
             <Image
               src={product.images[0].src}
               alt={product.images[0].alt}
@@ -152,7 +152,7 @@ export default function BuyBoxTailwind() {
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-[var(--radius-lg)]">
               <Image
                 src={product.images[1].src}
                 alt={product.images[1].alt}
@@ -161,7 +161,7 @@ export default function BuyBoxTailwind() {
                 className="h-full w-full object-cover object-center"
               />
             </div>
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-[var(--radius-lg)]">
               <Image
                 src={product.images[2].src}
                 alt={product.images[2].alt}
@@ -171,7 +171,7 @@ export default function BuyBoxTailwind() {
               />
             </div>
           </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-[var(--radius-lg)]">
             <Image
               src={product.images[3].src}
               alt={product.images[3].alt}
@@ -233,7 +233,7 @@ export default function BuyBoxTailwind() {
                             color.selectedClass,
                             active && checked ? 'ring ring-offset-1' : '',
                             !active && checked ? 'ring-2' : '',
-                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none'
+                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-[var(--radius)] p-0.5 focus:outline-none'
                           )
                         }
                       >
@@ -244,7 +244,7 @@ export default function BuyBoxTailwind() {
                           aria-hidden="true"
                           className={classNames(
                             color.class,
-                            'h-8 w-8 rounded-full border border-[var(--color-border)]'
+                            'h-8 w-8 rounded-[var(--radius)] border border-[var(--color-border)]'
                           )}
                         />
                       </RadioGroup.Option>
@@ -276,7 +276,7 @@ export default function BuyBoxTailwind() {
                               ? 'cursor-pointer bg-white text-[var(--color-text-brand)]'
                               : 'cursor-not-allowed bg-[var(--color-bg-brand-tertiary)] text-[var(--color-text-disabled)]',
                             active ? 'ring-2 ring-[var(--color-border-brand)]' : '',
-                            'group relative flex items-center justify-center rounded-md py-3 px-4 text-sm font-medium uppercase hover:bg-[var(--color-bg-brand-surface-1)] border border-[var(--color-border-brand-secondary)] hover:border-[var(--color-border-brand)] focus:outline-none sm:flex-1 sm:py-6'
+                            'group relative flex items-center justify-center rounded-[var(--radius-md)] py-3 px-4 text-sm font-medium uppercase hover:bg-[var(--color-bg-brand-surface-1)] border border-[var(--color-border-brand-secondary)] hover:border-[var(--color-border-brand)] focus:outline-none sm:flex-1 sm:py-6'
                           )
                         }
                       >
@@ -289,14 +289,14 @@ export default function BuyBoxTailwind() {
                         
                                   active ? 'border-1' : 'border-1',
                                   checked ? 'border-[var(--color-border-brand)]' : 'border-[var(--color-border-tertiary)]',
-                                  'pointer-events-none absolute -inset-px rounded-md'
+                                  'pointer-events-none absolute -inset-px rounded-[var(--radius-md)]'
                                 )}
                                 aria-hidden="true"
                               />
                             ) : (
                               <span
                                 aria-hidden="true"
-                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-[var(--color-border-secondary)]"
+                                className="pointer-events-none absolute -inset-px rounded-[var(--radius-md)] border-2 border-[var(--color-border-secondary)]"
                               >
                                 <svg
                                   className="absolute inset-0 h-full w-full stroke-2 text-[var(--color-border-secondary)]"
@@ -318,7 +318,7 @@ export default function BuyBoxTailwind() {
 
               <button
                 type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[var(--color-bg-brand)] px-8 py-3 text-base font-medium text-[var(--color-text-brand-foreground)] hover:bg-[var(--color-bg-brand-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-border-brand)] focus:ring-offset-2"
+                className="mt-10 flex w-full items-center justify-center rounded-[var(--radius)] border border-transparent bg-[var(--color-bg-brand)] px-8 py-3 text-base font-medium text-[var(--color-text-brand-foreground)] hover:bg-[var(--color-bg-brand-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-border-brand)] focus:ring-offset-2"
               >
                 Add to bag
               </button>
