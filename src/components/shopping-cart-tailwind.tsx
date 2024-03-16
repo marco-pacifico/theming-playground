@@ -62,7 +62,7 @@ export default function ShoppingCartTailwind() {
                       <ul role="list" className="-my-6 divide-y divide-[var(--color-border-secondary)]">
                         {products.map((product) => (
                           <li key={product.id} className="flex py-6">
-                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-[var(--color-border-secondary)]">
+                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--color-border-secondary)]">
                               <Image
                                 src={product.imageSrc}
                                 alt={product.imageAlt}
@@ -111,7 +111,7 @@ export default function ShoppingCartTailwind() {
                   <div className="mt-6">
                     <a
                       href="#"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-[var(--color-bg-brand)] px-6 py-3 text-base font-medium text-[var(--color-text-brand-foreground)] shadow-sm hover:bg-[var(--color-bg-brand-hover)]"
+                      className="flex items-center justify-center rounded-[var(--radius)] border border-transparent bg-[var(--color-bg-brand)] px-6 py-3 text-base font-medium text-[var(--color-text-brand-foreground)] shadow-sm hover:bg-[var(--color-bg-brand-hover)]"
                     >
                       Checkout
                     </a>
