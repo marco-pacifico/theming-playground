@@ -1,18 +1,38 @@
 import { SHADE_NUMBERS } from "@/CONSTANTS";
 import { ColorSystem, NewColor, ReferenceColor } from "./types";
 
-
 type ColorMap = {
-    [type: string]: {
-        [role: string]: {
-            [prominence: string]: number | string; // number is the index of the shade, string is white 
-        };
+  [type: string]: {
+    [role: string]: {
+      [prominence: string]: number | string; // number is the index of the shade, string is white
     };
+  };
+};
+
+type RadiusMap = {
+  [mode: string]: {
+    [size: string]: string;
+  };
 };
 
 type ColorType = "text" | "bg" | "border" | "icon" | "link";
-type ColorRole = "neutral" | "brand" | "on-brand" | "accent" | "success" | "warning" | "danger";
-type ColorProminence = "primary" | "secondary" | "tertiary" | "hover" | "pressed" | "surface-0" | "surface-1" | "surface-2";
+type ColorRole =
+  | "neutral"
+  | "brand"
+  | "on-brand"
+  | "accent"
+  | "success"
+  | "warning"
+  | "danger";
+type ColorProminence =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "hover"
+  | "pressed"
+  | "surface-0"
+  | "surface-1"
+  | "surface-2";
 
 function getThemeColorMap(
   brandInputIndex: number,
@@ -144,10 +164,71 @@ function getThemeColorMap(
   return THEME_COLOR_VAR_MAP[referenceColorSystem];
 }
 
-export function createNeutralCSSVariables(neutral: string, referenceColors: ReferenceColor[]) {
+const THEME_RADIUS_VAR_MAP = {
+  none: {
+    base: "none",
+    xs: "none",
+    sm: "none",
+    md: "none",
+    lg: "none",
+  },
+  small: {
+    base: "0.125rem", // 2px or 0.125rem
+    xs: "0.125rem", // 2px or 0.125rem
+    sm: "0.25rem", // 4px or 0.25rem
+    md: "0.5rem", // 8px or 0.5rem
+    lg: "1rem", // 16px or 1rem
+  },
+  medium: {
+    base: "0.375rem", // 6px or 0.375rem
+    xs: "0.25rem", // 4px or 0.25rem
+    sm: "0.5rem", // 8px or 0.5rem
+    md: "0.75rem", // 12px or 0.75rem
+    lg: "1.25rem", // 20px or 1.25rem
+  },
+  large: {
+    base: "0.5rem", // 0.5rem or 8px
+    xs: "0.25rem", // 0.25rem or 4px
+    sm: "0.5rem", // 0.5rem or 8px
+    md: "1rem", // 1rem or 16px
+    lg: "1.5rem", // 24px or 1.5rem
+  },
+  full: {
+    base: "9999px", // 9999px
+    xs: "0.25rem", // 0.25rem or 4px
+    sm: "0.5rem", // 0.5rem or 8px
+    md: "1rem", // 1rem or 16px
+    lg: "1.5rem", // 1.5rem or 24px
+  },
+} as RadiusMap;
 
+export function createRadiusCSSVariables(radiusMode: string) {
+  const radiusValues = THEME_RADIUS_VAR_MAP[radiusMode];
+
+  for (const radiusSizeKey in radiusValues) {
+    // Don't add base to the variable name
+    if (radiusSizeKey === "base") {
+      document.documentElement.style.setProperty(
+        `--radius`,
+        radiusValues[radiusSizeKey]
+      );
+    }
+
+    document.documentElement.style.setProperty(
+      `--radius-${radiusSizeKey}`,
+      radiusValues[radiusSizeKey]
+    );
+  }
+}
+
+export function createNeutralCSSVariables(
+  neutral: string,
+  referenceColors: ReferenceColor[]
+) {
   // Get array of hex codes from the reference color system that matches the neutral color
-  const neutrals = referenceColors.find((color) => color.id === neutral)?.shades.map((shade) => shade.hexcode);
+  const neutrals = referenceColors
+    .find((color) => color.id === neutral)
+    ?.shades.map((shade) => shade.hexcode);
   if (!neutrals) {
     console.error("Neutral color not found");
     return;
@@ -160,10 +241,12 @@ export function createNeutralCSSVariables(neutral: string, referenceColors: Refe
       shade
     );
   });
+}
 
-};
-
-export function createCSSVariables(newColor: NewColor, lockInputColor: boolean) {
+export function createCSSVariables(
+  newColor: NewColor,
+  lockInputColor: boolean
+) {
   // adjustedScale: string[],
   // lockInputColor: boolean,
   // closestColor: ClosestColor
@@ -208,22 +291,19 @@ export function createCSSVariables(newColor: NewColor, lockInputColor: boolean) 
           variableName += `-${colorProminence}`;
         }
 
-        // --color-text-brand = var(--color-brand-900);
-        // --color-text-on-brand = var(--color-brand-0) || "white";
-
         // Check if the value is a number or a special string
-        const prominenceValue = THEME_COLOR_VAR_MAP[colorType][colorRole][colorProminence];
+        const prominenceValue =
+          THEME_COLOR_VAR_MAP[colorType][colorRole][colorProminence];
         let variableValue;
         if (typeof prominenceValue === "number") {
-            variableValue = `var(--color-${colorRole}-${SHADE_NUMBERS[prominenceValue]})`;
+          variableValue = `var(--color-${colorRole}-${SHADE_NUMBERS[prominenceValue]})`;
         } else {
-            variableValue = prominenceValue;
+          variableValue = prominenceValue;
         }
         document.documentElement.style.setProperty(
           `--color-${variableName}`,
           variableValue
         );
-
       }
     }
   }

@@ -27,8 +27,8 @@ function ButtonToggle({
       {...rest}
       className={`px-4 py-2 rounded-full border text-sm ${
         stateValue
-          ? "bg-neutral-600 text-white border-transparent"
-          : "bg-white text-neutral-600 border-neutral-200 border"
+          ? "bg-neutral-600 text-white border-transparent hover:bg-neutral-700 transition-colors"
+          : "bg-white text-neutral-600 border-neutral-200 border hover:bg-neutral-100 transition-colors"
       }`}
       onClick={handleToggle}
     >

@@ -124,7 +124,7 @@ export default function HeroSectionTailwind() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-[var(--color-text-brand-secondary)] ring-1 ring-[var(--color-border-brand-secondary)] hover:bg-[var(--color-border-brand-secondary)] hover:ring-[var(--color-border-brand)] transition-colors">
+            <div className="relative rounded-[var(--radius)] px-3 py-1 text-sm leading-6 text-[var(--color-text-brand-secondary)] ring-1 ring-[var(--color-border-brand-secondary)] hover:bg-[var(--color-border-brand-secondary)] hover:ring-[var(--color-border-brand)] transition-colors">
               Limited time only {" "}
               <a href="#" className="font-semibold text-[var(--color-text-brand)]">
                 <span className="absolute inset-0" aria-hidden="true" />
@@ -144,7 +144,7 @@ export default function HeroSectionTailwind() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
-                className="rounded-md bg-[var(--color-bg-brand)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-text-brand-foreground)] shadow-sm hover:bg-[var(--color-bg-brand-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-border-brand)]"
+                className="rounded-[var(--radius)] bg-[var(--color-bg-brand)] px-3.5 py-2.5 text-sm font-semibold text-[var(--color-text-brand-foreground)] shadow-sm hover:bg-[var(--color-bg-brand-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-border-brand)]"
               >
                 Get started
               </a>
