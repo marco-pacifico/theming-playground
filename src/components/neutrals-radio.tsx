@@ -41,7 +41,7 @@ export default function NeutralsRadio({
         {neutralsRadioOptions.map((option) => (
           <label
             key={option.id}
-            className="flex flex-col items-center gap-2 text-sm text-neutral-600 cursor-pointer "
+            className="flex flex-col items-center gap-2 text-sm text-neutral-600 cursor-pointer"
           >
             <input
               className="appearance-none absolute"
@@ -54,8 +54,8 @@ export default function NeutralsRadio({
             <div
               className={`w-12 h-12 rounded-full  ${
                 neutral === option.id
-                  ? "ring-neutral-950 ring-[6px]"
-                  : "border-neutral-950/30 border-4"
+                  ? "ring-neutral-950/80 ring-[6px]"
+                  : "border-neutral-950/30 border-4 hover:-translate-y-1 transition-transform"
               }`}
               style={{ background: option.hexcode }}
             ></div>

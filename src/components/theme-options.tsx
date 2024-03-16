@@ -37,7 +37,7 @@ export default function ThemeOptions() {
         <div className="flex items-center gap-4">
           <label className="inline-flex items-center gap-4 text-sm text-neutral-600">
             <input
-              className="w-[60px] h-[60px] rounded-full border-neutral-950/30 border-[6px] overflow-hidden cursor-pointer"
+              className="w-[60px] h-[60px] rounded-full border-neutral-950/30 border-[6px] overflow-hidden cursor-pointer hover:border-neutral-950/40 transition-colors"
               style={{ background: brandColor }}
               type="color"
               name="brandColor"
