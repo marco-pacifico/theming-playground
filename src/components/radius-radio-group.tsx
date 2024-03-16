@@ -10,7 +10,7 @@ export default function RadiusRadioGroup() {
     { id: "large", specimenSize: 16 },
     { id: "full", specimenSize: 9999 },
   ];
-  const [radius, setRadius] = useState<string>("rounded-md");
+  const [radius, setRadius] = useState<string>("medium");
 
   useEffect(() => {
     // CREATE CSS VARIABLES FOR THE RADIUS
