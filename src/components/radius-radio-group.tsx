@@ -1,5 +1,6 @@
 import { capitalizeFirstLetter } from "@/lib/helpers";
-import { useState } from "react";
+import { createRadiusCSSVariables } from "@/lib/theme-vars";
+import { useEffect, useState } from "react";
 
 export default function RadiusRadioGroup() {
   const RADIUS_OPTIONS = [
@@ -10,6 +11,12 @@ export default function RadiusRadioGroup() {
     { id: "full", specimenSize: 9999 },
   ];
   const [radius, setRadius] = useState<string>("rounded-md");
+
+  useEffect(() => {
+    // CREATE CSS VARIABLES FOR THE RADIUS
+    createRadiusCSSVariables(radius);
+  }, [radius]);
+
   return (
     <div>
       <h2 id="corner-radius" className="font-semibold text-neutral-800 mb-2">
@@ -37,7 +44,7 @@ export default function RadiusRadioGroup() {
               className={`w-16 h-16 bg-neutral-100 ${
                 radius === option.id
                   ? "border-neutral-950/70 border-4 scale-110"
-                  : "border-neutral-950/30 border-4 hover:-translate-y-1 transition-transform"
+                  : "border-neutral-950/30 border-2 hover:-translate-y-1 transition-transform"
               }`}
               style={{ borderRadius: option.specimenSize }}
             ></div>
