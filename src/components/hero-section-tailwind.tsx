@@ -133,7 +133,7 @@ export default function HeroSectionTailwind() {
             </div>
           </div>
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-[var(--color-text-brand)] sm:text-6xl">
+            <h1 className="text-4xl font-bold font-heading tracking-tight text-[var(--color-text-brand)] sm:text-6xl">
               Sample hero section for your storefront
             </h1>
             <p className="mt-6 text-lg leading-8 text-[var(--color-text-secondary)]">

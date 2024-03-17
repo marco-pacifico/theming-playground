@@ -6,6 +6,7 @@ import { createCSSVariables } from "@/lib/theme-vars";
 import { NewColor, ReferenceColor } from "@/lib/types";
 import { useEffect, useState } from "react";
 import ButtonToggle from "./button-toggle";
+import HeadingFontSelection from "./heading-font-selection";
 import NeutralsRadio from "./neutrals-radio";
 import RadiusRadioGroup from "./radius-radio-group";
 import SmallColorScale from "./small-color-scale";
@@ -83,6 +84,7 @@ export default function ThemeOptions() {
       />
 
       <RadiusRadioGroup />
+      <HeadingFontSelection />
     </div>
   );
 }

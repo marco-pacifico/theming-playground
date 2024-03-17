@@ -202,6 +202,15 @@ const THEME_RADIUS_VAR_MAP = {
   },
 } as RadiusMap;
 
+export function createHeadingFontVariables(varName: string) {
+  // Convert adjusted scale to css variables in body element
+  
+  document.body.style.setProperty(
+    `--font-heading`,
+    varName
+  );
+}
+
 export function createRadiusCSSVariables(radiusMode: string) {
   const radiusValues = THEME_RADIUS_VAR_MAP[radiusMode];
 
