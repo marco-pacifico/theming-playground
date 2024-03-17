@@ -45,14 +45,14 @@ export default function HeadingFontSelection() {
               onChange={(event) => setFont(event.target.value)}
             />
             <div
-              className={`w-full h-16  px-8 rounded-lg grid place-items-center ${
+              className={`w-full h-14  px-6 rounded-lg grid place-items-center ${
                 font === option.id
-                  ? "border-neutral-400  border bg-neutral-600 text-white"
-                  : "border-neutral-400 border hover:bg-neutral-100 transition-colors"
+                  ? "border-neutral-600  border bg-neutral-600 text-white"
+                  : "border-neutral-200 border hover:bg-neutral-100 transition-colors"
               }`}
               style={{ fontFamily: option.varName }}
             >
-              <p className="text-3xl" style={{ fontFamily: option.varName }}>
+              <p className="text-2xl" style={{ fontFamily: option.varName }}>
                 {capitalizeFirstLetter(option.id)}
               </p>
             </div>
