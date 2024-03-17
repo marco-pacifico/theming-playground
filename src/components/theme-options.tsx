@@ -13,6 +13,7 @@ import SmallColorScale from "./small-color-scale";
 
 export default function ThemeOptions() {
   const [brandColor, setBrandColor] = useState<string>("#a56f8e");
+  const [showBrandOptions, setShowBrandOptions] = useState<boolean>(true);
   const [referenceColors, setReferenceColors] = useState<ReferenceColor[]>(
     TAILWIND_REFERENCE_COLORS
   );
@@ -31,7 +32,7 @@ export default function ThemeOptions() {
     createCSSVariables(newBrandColor, lockInputColor);
   }, [newBrandColor, lockInputColor]);
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-12">
       <div>
         <h2 id="brand-color" className="font-semibold text-neutral-800 mb-2">
           Brand Color
@@ -50,31 +51,44 @@ export default function ThemeOptions() {
           <p className="text-sm text-neutral-600">
             {brandColor.toLocaleUpperCase()}
           </p>
+          <button
+            onClick={() => setShowBrandOptions(!showBrandOptions)}
+            className="px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-100 rounded-lg"
+          >
+            {showBrandOptions ? "Hide" : "Show"} Options
+          </button>
         </div>
-        <SmallColorScale inputHex={brandColor} scale={newBrandColor.scale} />
-        <div className="mt-6 flex justify-center gap-2 flex-wrap">
-          {/* Lock Input Color Toggle */}
-          <ButtonToggle
-            stateValue={lockInputColor}
-            setStateValue={setLockInputColor}
-          >
-            Input Locked
-          </ButtonToggle>
-          {/* Adjust Contrast Toggle */}
-          <ButtonToggle
-            stateValue={adjustContrast}
-            setStateValue={setAdjustContrast}
-          >
-            Adjust Contrast
-          </ButtonToggle>
-          {/* Filter neutrals color toggle */}
-          <ButtonToggle
-            stateValue={filterNeutrals}
-            setStateValue={setFilterNeutrals}
-          >
-            Neutrals filtered
-          </ButtonToggle>
-        </div>
+        {showBrandOptions && (
+          <>
+            <SmallColorScale
+              inputHex={brandColor}
+              scale={newBrandColor.scale}
+            />
+            <div className="mt-6 flex justify-center gap-2 flex-wrap">
+              {/* Lock Input Color Toggle */}
+              <ButtonToggle
+                stateValue={lockInputColor}
+                setStateValue={setLockInputColor}
+              >
+                Input Locked
+              </ButtonToggle>
+              {/* Adjust Contrast Toggle */}
+              <ButtonToggle
+                stateValue={adjustContrast}
+                setStateValue={setAdjustContrast}
+              >
+                Adjust Contrast
+              </ButtonToggle>
+              {/* Filter neutrals color toggle */}
+              <ButtonToggle
+                stateValue={filterNeutrals}
+                setStateValue={setFilterNeutrals}
+              >
+                Neutrals filtered
+              </ButtonToggle>
+            </div>
+          </>
+        )}
       </div>
 
       <NeutralsRadio
