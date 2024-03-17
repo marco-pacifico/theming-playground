@@ -7,9 +7,9 @@ export default function ThemingLaout({ children }: Readonly<{ children: React.Re
       <section className="flex-1 mb-12">
        <nav className="flex items-start gap-4 p-6 lg:px-8" aria-label="Global">
         <Link href="/">Ecommerce</Link>
-        <Link href="/ui">UI Components</Link>
+        <Link href="/ui-sample">UI Components</Link>
       </nav>
-      <div className="px-4 md:px-8">
+      <div className="mt-4 px-6 md:px-8">
         { children }
       </div>
       </section>
