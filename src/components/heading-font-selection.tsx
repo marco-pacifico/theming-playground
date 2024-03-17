@@ -5,18 +5,20 @@ import { useEffect, useState } from "react";
 export default function HeadingFontSelection() {
   const FONT_OPTIONS = [
     { id: "inter", varName: "var(--font-inter)" },
+    { id: "Roobert", varName: "var(--font-roobert)" },
+    { id: "Playfair", varName: "var(--font-playfair)" },
     { id: "louize", varName: "var(--font-louize)" },
-    { id: "DM Sans", varName: "var(--font-dm-sans)" },
-   
+    { id: "space Mono", varName: "var(--font-space-mono)" },
   ];
   const [font, setFont] = useState<string>("inter");
 
   useEffect(() => {
-
-    const varName = FONT_OPTIONS.find((option) => option.id === font)?.varName || FONT_OPTIONS[0].varName;
+    const varName =
+      FONT_OPTIONS.find((option) => option.id === font)?.varName ||
+      FONT_OPTIONS[0].varName;
     // CREATE CSS VARIABLES FOR THE RADIUS
     createHeadingFontVariables(varName);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [font]);
 
   return (
@@ -50,7 +52,9 @@ export default function HeadingFontSelection() {
               }`}
               style={{ fontFamily: option.varName }}
             >
-                <p className="text-3xl" style={{fontFamily: option.varName}}>{capitalizeFirstLetter(option.id)}</p>
+              <p className="text-3xl" style={{ fontFamily: option.varName }}>
+                {capitalizeFirstLetter(option.id)}
+              </p>
             </div>
           </label>
         ))}

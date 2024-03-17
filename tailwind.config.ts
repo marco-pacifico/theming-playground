@@ -11,9 +11,11 @@ const config: Config = {
       fontFamily: {
         heading: "var(--font-heading)",
         ui: "var(--font-ui)",
-        "dm-sans": "var(--font-dm-sans)",
         inter: "var(--font-inter)",
         louize: "var(--font-louize)",
+        playfair: "var(--font-playfair)",
+        roobert: "var(--font-roobert)",
+        spacemono: "var(--font-space-mono)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
