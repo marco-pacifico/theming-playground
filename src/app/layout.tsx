@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair, Space_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Link from "next/link";
 import "./globals.css";
-import localFont from "next/font/local";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter"});
 const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair"});
@@ -46,9 +46,7 @@ export default function RootLayout({
             aria-label="Global"
           >
             <Link href="/">Theming</Link>
-            <Link href="/color-playground">Color Playground</Link>
-            <Link href="/tailwind-colors">Tailwind Colors</Link>
-            <Link href="/radix-colors">Radix Colors</Link>
+            <Link href="/colors">Colors</Link>
           </nav>
         </header>
         {children}
