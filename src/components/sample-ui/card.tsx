@@ -2,12 +2,12 @@ export function CardA() {
     const backgroundImageUrl = "https://images.unsplash.com/photo-1611244419377-b0a760c19719?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b0NvbnRlbnx8fHx8fHx8MA%3D%3D";
 
     return (
-        <div className="card-shadow rounded-2xl p-0 bg-cover bg-center h-96 relative overflow-hidden"
+        <div className="card-shadow rounded-[var(--radius-lg)] p-0 bg-cover bg-center h-96 relative overflow-hidden"
              style={{ backgroundImage: `url('${backgroundImageUrl}')` }}>
           <div className="absolute inset-0" 
                style={{ backgroundImage: 'linear-gradient(transparent 0%, var(--color-brand-800) 100%)' }}>
             <div className="h-full flex">
-              <div className="leading-none p-6 rounded-2xl mt-auto mb-2 text-4xl font-heading font-semibold drop-shadow-sm tracking-tight text-[var(--color-brand-50)]">
+              <div className="leading-none p-6 rounded-[var(--radius-lg)] mt-auto mb-2 text-4xl font-heading font-semibold drop-shadow-sm tracking-tight text-[var(--color-brand-50)]">
                 Create
                 <br />
                 <span className="text-[var(--color-brand-200)]">
@@ -30,7 +30,7 @@ export function CardB() {
     "https://images.unsplash.com/photo-1611244419377-b0a760c19719?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b0NvbnRlbnx8fHx8fHx8MA%3D%3D";
   
   return (
-    <div className="card-shadow rounded-2xl p-2 bg-cover bg-bottom h-96 relative overflow-hidden"
+    <div className="card-shadow rounded-[var(--radius-lg)] p-2 bg-cover bg-bottom h-96 relative overflow-hidden"
          style={{ backgroundColor: "var(--color-brand-200)" }}>
       <div className="absolute inset-0">
         <div className="absolute rounded-full z-0"
@@ -74,10 +74,10 @@ export function CardC() {
     "https://images.unsplash.com/photo-1611244419377-b0a760c19719?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90b0NvbnRlbnx8fHx8fHx8MA%3D%3D";
   
     return (
-        <div className="card-shadow rounded-2xl p-2 bg-cover bg-center h-96 relative overflow-hidden"
+        <div className="card-shadow rounded-[var(--radius-lg)] p-2 bg-cover bg-center h-96 relative overflow-hidden"
              style={{ backgroundImage: `url('${backgroundImageUrl}')` }}>
           <div className="h-full flex">
-            <div className="leading-none p-4 rounded-2xl mt-auto mb-2 border w-full bg-opacity-80 bg-brand backdrop-filter backdrop-blur-sm opacity-80"
+            <div className="leading-none p-4 rounded-[var(--radius-lg)] mt-auto mb-2 border w-full bg-opacity-80 bg-brand backdrop-filter backdrop-blur-sm opacity-80"
                  style={{ 
                    borderColor: 'var(--color-brand-600)' 
                  }}>

@@ -176,8 +176,8 @@ const THEME_RADIUS_VAR_MAP = {
     base: "0.125rem", // 2px or 0.125rem
     xs: "0.125rem", // 2px or 0.125rem
     sm: "0.25rem", // 4px or 0.25rem
-    md: "0.5rem", // 8px or 0.5rem
-    lg: "1rem", // 16px or 1rem
+    md: "0.5rem", // 12px or 0.75rem
+    lg: "0.75rem", // 12px or 1rem
   },
   medium: {
     base: "0.375rem", // 6px or 0.375rem
