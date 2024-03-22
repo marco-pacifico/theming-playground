@@ -9,7 +9,7 @@ export default function ThemingLaout({ children }: Readonly<{ children: React.Re
         <Link href="/">Ecommerce</Link>
         <Link href="/ui-sample">UI Components</Link>
       </nav>
-      <div className="mt-4 px-6 md:px-8">
+      <div className="mt-4 px-6 lg:px-8">
         { children }
       </div>
       </section>
