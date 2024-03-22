@@ -13,7 +13,7 @@ export default function ThemingLaout({ children }: Readonly<{ children: React.Re
         { children }
       </div>
       </section>
-      <aside className="md:max-w-[512px] p-8 md:border-l border-b border-neutral-200 ">
+      <aside className="md:max-w-[512px] p-8 md:border-l border-b border-neutral-200">
           <h2 className="text-2xl mb-8 text-neutral-600">Theme</h2>
         <ThemeOptions />
       </aside>

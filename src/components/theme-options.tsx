@@ -32,7 +32,7 @@ export default function ThemeOptions() {
     createCSSVariables(newBrandColor, lockInputColor);
   }, [newBrandColor, lockInputColor]);
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-12 sticky top-10">
       <div>
         <h2 id="brand-color" className="font-semibold text-neutral-800 mb-2">
           Brand Color
