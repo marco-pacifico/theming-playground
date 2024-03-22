@@ -81,7 +81,7 @@ export function CardC() {
                  style={{ 
                    borderColor: 'var(--color-brand-600)' 
                  }}>
-              <div className="text-4xl font-semibold tracking-tight text-white">
+              <div className="text-4xl font-semibold font-heading tracking-tight text-white">
               Create
               <br />
               color scales
