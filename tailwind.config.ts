@@ -25,6 +25,9 @@ const config: Config = {
       gridTemplateRows: {
         "[auto,auto,1fr]": "auto auto 1fr",
       },
+      backgroundColor: {
+        "brand": "var(--color-bg-brand)",
+      },
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],

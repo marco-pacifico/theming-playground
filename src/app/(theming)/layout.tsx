@@ -9,11 +9,11 @@ export default function ThemingLaout({ children }: Readonly<{ children: React.Re
         <Link href="/">Ecommerce</Link>
         <Link href="/ui-sample">UI Components</Link>
       </nav>
-      <div className="mt-4 px-6 md:px-8">
+      <div className="mt-4 px-6 lg:px-8">
         { children }
       </div>
       </section>
-      <aside className="md:max-w-[512px] p-8 md:border-l border-b border-neutral-200 ">
+      <aside className="md:max-w-[512px] p-8 md:border-l border-b border-neutral-200">
           <h2 className="text-2xl mb-8 text-neutral-600">Theme</h2>
         <ThemeOptions />
       </aside>
