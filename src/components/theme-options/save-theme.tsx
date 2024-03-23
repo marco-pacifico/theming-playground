@@ -13,11 +13,11 @@ import { forwardRef } from "react";
 export default function SaveTheme() {
   return (
     <Dialog>
-      <footer className="sticky bottom-0 mt-12 flex justify-end bg-white/60 px-8 pb-6 pt-2 backdrop-blur-sm">
-        <DialogTrigger asChild>
+      <DialogTrigger asChild>
+        <footer className="sticky bottom-0 mt-12 flex justify-end bg-white/60 px-8 pb-6 pt-2 backdrop-blur-sm">
           <SaveThemeButton />
-        </DialogTrigger>
-      </footer>
+        </footer>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-2xl">Sign in</DialogTitle>
