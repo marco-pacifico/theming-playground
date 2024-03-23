@@ -3,7 +3,7 @@ import {
   RADIX_REFERENCE_COLORS,
   SHADE_NUMBERS,
   TAILWIND_REFERENCE_COLORS,
-} from "@/CONSTANTS";
+} from "@/data/CONSTANTS";
 import { capitalizeFirstLetter } from "@/lib/helpers";
 import chroma from "chroma-js";
 import { useState } from "react";

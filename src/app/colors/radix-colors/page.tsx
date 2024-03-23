@@ -1,5 +1,5 @@
 "use client";
-import { RADIX_REFERENCE_COLORS } from "@/CONSTANTS";
+import { RADIX_REFERENCE_COLORS } from "@/data/CONSTANTS";
 import ReferenceColorScales from "@/components/color-display/reference-color-scale";
 import { useState } from "react";
 
