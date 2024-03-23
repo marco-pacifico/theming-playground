@@ -1,4 +1,4 @@
-import ThemeOptions from "@/components/theme-options";
+import ThemeOptions from "@/components/theme-options/theme-options";
 import Link from "next/link";
 
 export default function ThemingLaout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -14,12 +14,12 @@ import {
   printOKLCH,
 } from "../lib/color-utils";
 import { NewColor, ReferenceColor } from "../lib/types";
-import ButtonToggle from "./button-toggle";
-import ColorScale from "./color-scale";
-import ReferenceColorScales from "./reference-color-scale";
+import ButtonToggle from "./theme-options/button-toggle";
+import ColorScale from "./color-display/color-scale";
+import ReferenceColorScales from "./color-display/reference-color-scale";
 
 
-function ColorScaleGenerator() {
+export default function ColorPlayground() {
   const [inputColor, setInputColor] = useState<string>("#a56f8e");
   const [referenceColors, setReferenceColors] = useState<ReferenceColor[]>(
     TAILWIND_REFERENCE_COLORS
@@ -177,4 +177,3 @@ function ColorScaleGenerator() {
   );
 }
 
-export default ColorScaleGenerator;
