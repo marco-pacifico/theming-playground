@@ -1,5 +1,5 @@
-import { Button } from "@/components/sample-ui/button";
-import { CardA, CardB, CardC } from "@/components/sample-ui/card";
+import { Button } from "@/components/sample-ui/sample-button";
+import { CardA, CardB, CardC } from "@/components/sample-ui/sample-card";
 
 export default function EcommerceSampleUI() {
   return (
