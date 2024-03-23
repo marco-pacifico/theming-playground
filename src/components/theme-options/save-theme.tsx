@@ -9,6 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { forwardRef } from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export default function SaveTheme() {
   return (
@@ -18,15 +20,27 @@ export default function SaveTheme() {
           <SaveThemeButton />
         </footer>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl bg-neutral-50">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Sign in</DialogTitle>
-          <DialogDescription className="text-lg">
-            Sign in to save a theme.
+          <DialogTitle className="text-2xl text-neutral-700">Sign in</DialogTitle>
+          <DialogDescription className="text-lg text-neutral-500">
+            Sign in to save your theme
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">Sign in options go here...</div>
-        {/* <DialogFooter>Dialog Footer</DialogFooter> */}
+        <div className="flex flex-col gap-4 py-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email" className="text-neutral-700">Email</Label>
+            <Input id="email" type="email" placeholder="Enter your email" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="password" className="text-neutral-700">Password</Label>
+            <Input id="password" type="password" placeholder="Enter your password" />
+          </div>
+        </div>
+        <DialogFooter>
+          <button className="inline-flex w-full items-center 
+justify-center whitespace-nowrap rounded-full  bg-neutral-800 px-4 py-3 text-lg font-medium text-neutral-50 shadow-sm transition-colors hover:bg-neutral-950 hover:text-neutral-50 focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50">Sign in</button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
