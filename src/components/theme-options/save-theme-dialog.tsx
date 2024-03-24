@@ -1,37 +1,42 @@
 "use client";
 import SignInForm from "@/components/auth/sign-in-form";
+import SaveThemeForm from "@/components/theme-options/save-theme-form";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@/components/ui/dialog";
+import { Session } from "next-auth";
 import { forwardRef } from "react";
 
-export default function SaveTheme() {
-
+export default function SaveThemeDialog({
+  session,
+}: {
+  session: Session | null;
+}) {
   return (
     <Dialog>
-
-
       <DialogTrigger asChild>
         <footer className="sticky bottom-0 mt-12 flex justify-end bg-white/60 px-8 pb-6 pt-2 backdrop-blur-sm">
           <SaveThemeButton />
         </footer>
       </DialogTrigger>
-
       <DialogContent className="rounded-2xl bg-neutral-50 sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-2xl text-neutral-900">
-            Sign in
+            {session ? "Save theme" : "Sign in"}
           </DialogTitle>
+
           <DialogDescription className="text-lg text-neutral-500">
-            Save, view, and edit your themes
+            {session
+              ? "Name your theme to save it"
+              : "Save, view, and edit your themes"}
           </DialogDescription>
         </DialogHeader>
-        <SignInForm />
+        {session ? <SaveThemeForm /> : <SignInForm />}
       </DialogContent>
     </Dialog>
   );
