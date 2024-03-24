@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client'
 import { env } from 'node:process';
-const bcrypt = require('bcrypt');
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient()
 
 async function main() {
 
- const hashedPassword = await bcrypt.hash(env.ADMIN_PW, 10);
+ const hashedPassword = await bcrypt.hash(env.ADMIN_PW as string, 10);
   const user = await prisma.user.create({
     data: {
       name: 'Marco',

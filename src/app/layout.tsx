@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import Link from "next/link";
 import "./globals.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter"});
 const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair"});
@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${Louize.variable} ${playfair.variable} ${Roobert.variable} ${spacemono.variable} overflow-y-scroll`}>
-        <header>
+      <header>
           <nav
             className="flex items-start gap-4 p-6 lg:px-8 border-b border-neutral-200"
             aria-label="Global"
