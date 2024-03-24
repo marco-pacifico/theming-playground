@@ -15,14 +15,9 @@ export default function HeroSectionTailwind() {
     <div className="relative">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
-          className="flex items-center justify-between p-6 lg:px-8"
+          className="flex items-center lg:justify-center justify-end p-6 lg:px-8"
           aria-label="Global"
         >
-          <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-            </a>
-          </div>
           <div className="flex lg:hidden">
             <button
               type="button"
@@ -33,7 +28,7 @@ export default function HeroSectionTailwind() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
+          <div className="hidden lg:flex lg:gap-x-12 ">
             {navigation.map((item) => (
               <a
                 key={item.name}
@@ -43,14 +38,6 @@ export default function HeroSectionTailwind() {
                 {item.name}
               </a>
             ))}
-          </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a
-              href="#"
-              className="text-sm font-semibold leading-6 text-[var(--color-text-brand)] hover:text-[var(--color-text-brand-hover)]"
-            >
-              Log in <span aria-hidden="true">&rarr;</span>
-            </a>
           </div>
         </nav>
         <Dialog

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import TopNav from "@/components/top-nav";
+import Header from "@/components/app-header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter"});
 const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair"});
@@ -41,7 +41,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${Louize.variable} ${playfair.variable} ${Roobert.variable} ${spacemono.variable} overflow-y-scroll`}>
-        <TopNav />
+        <Header />
         {children}
       </body>
     </html>
