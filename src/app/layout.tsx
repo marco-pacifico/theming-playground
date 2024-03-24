@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Playfair, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { auth } from "../../auth/auth";
 import "./globals.css";
-import { auth } from "@/auth";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter"});
 const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair"});
