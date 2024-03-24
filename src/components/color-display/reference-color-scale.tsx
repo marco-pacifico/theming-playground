@@ -1,4 +1,4 @@
-import { TAILWIND_REFERENCE_COLORS } from "@/CONSTANTS";
+import { TAILWIND_REFERENCE_COLORS } from "@/data/CONSTANTS";
 import { getColorScalesFromReference } from "@/lib/color-utils";
 import ColorScale from "./color-scale";
 import { ReferenceColor } from "@/lib/types";

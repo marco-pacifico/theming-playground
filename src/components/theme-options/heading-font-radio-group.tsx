@@ -2,7 +2,7 @@ import { capitalizeFirstLetter } from "@/lib/helpers";
 import { createHeadingFontVariables } from "@/lib/theme-vars";
 import { useEffect, useState } from "react";
 
-export default function HeadingFontSelection() {
+export default function HeadingFontRadioGroup() {
   const FONT_OPTIONS = [
     { id: "inter", varName: "var(--font-inter)" },
     { id: "Roobert", varName: "var(--font-roobert)" },

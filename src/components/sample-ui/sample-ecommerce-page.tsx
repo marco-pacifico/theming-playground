@@ -1,7 +1,7 @@
 "use client";
-import BuyBoxTailwind from "./buy-box-tailwind";
-import HeroSectionTailwind from "./hero-section-tailwind";
-import ShoppingCartTailwind from "./shopping-cart-tailwind";
+import BuyBoxTailwind from "./sample-buy-box";
+import HeroSectionTailwind from "./sample-hero-section";
+import ShoppingCartTailwind from "./sample-shopping-cart";
 
 export default function SampleUI() {
   return (

@@ -1,6 +1,5 @@
 import React from "react";
 
-// Using `type` for props definition
 type ButtonToggleProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   stateValue: boolean;
   setStateValue: React.Dispatch<React.SetStateAction<boolean>>;

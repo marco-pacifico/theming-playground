@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  password String
+  themes   Theme[]
+}
+
+model Theme {
+  id           Int      @id @default(autoincrement())
+  name         String
+  author       User     @relation(fields: [authorId], references: [id])
+  authorId     Int
+  brandColor   String
+  neutralColor String
+  radiusMode   String
+  headingFont  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// model BrandColor {
+//   id      Int    @id @default(autoincrement())
+//   hex     String
+//   theme   Theme  @relation(fields: [themeId], references: [id])
+//   themeId Int
+// }
+
+// model NeutralColor {
+//   id      Int    @id @default(autoincrement())
+//   hex     String
+//   theme   Theme  @relation(fields: [themeId], references: [id])
+//   themeId Int
+// }
+
+// model Radius {
+//   id      Int    @id @default(autoincrement())
+//   value   String
+//   theme   Theme  @relation(fields: [themeId], references: [id])
+//   themeId Int
+// }
