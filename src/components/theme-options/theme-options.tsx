@@ -10,7 +10,6 @@ import ButtonToggle from "./button-toggle";
 import HeadingFontRadioGroup from "./heading-font-radio-group";
 import NeutralsRadio from "./neutrals-radio-group";
 import RadiusRadioGroup from "./radius-radio-group";
-import SaveTheme from "./save-theme";
 
 export default function ThemeOptions() {
   const [brandColor, setBrandColor] = useState<string>("#a56f8e");

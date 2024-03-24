@@ -1,5 +1,6 @@
 "use client";
 import SignInForm from "@/components/auth/sign-in-form";
+import SaveThemeForm from "@/components/theme-options/save-theme-form";
 import {
   Dialog,
   DialogContent,
@@ -28,13 +29,14 @@ export default function SaveThemeDialog({
           <DialogTitle className="text-2xl text-neutral-900">
             {session ? "Save theme" : "Sign in"}
           </DialogTitle>
-          {!session && (
-            <DialogDescription className="text-lg text-neutral-500">
-              Save, view, and edit your themes
-            </DialogDescription>
-          )}
+
+          <DialogDescription className="text-lg text-neutral-500">
+            {session
+              ? "Name your theme to save it"
+              : "Save, view, and edit your themes"}
+          </DialogDescription>
         </DialogHeader>
-        {session ? "Save theme form" : <SignInForm />}
+        {session ? <SaveThemeForm /> : <SignInForm />}
       </DialogContent>
     </Dialog>
   );

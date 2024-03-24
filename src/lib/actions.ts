@@ -6,10 +6,8 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
   try {
-    await signIn('credentials', { redirect: false, email, password});
+    await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
