@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Playfair, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
 import Link from "next/link";
+import "./globals.css";
+import { auth } from "@/auth";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter"});
 const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair"});
@@ -32,11 +33,12 @@ export const metadata: Metadata = {
   description: "A playground for theme development",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html lang="en">
       <body className={`${inter.variable} ${Louize.variable} ${playfair.variable} ${Roobert.variable} ${spacemono.variable} overflow-y-scroll`}>
@@ -47,6 +49,11 @@ export default function RootLayout({
           >
             <Link href="/">Theming</Link>
             <Link href="/colors">Colors</Link>
+            <div className="flex w-full justify-end">
+              <p className="text-neutral-500 text-sm">
+            {session ? " Logged in" : "Logged out"}
+            </p>
+            </div>
           </nav>
         </header>
         {children}
