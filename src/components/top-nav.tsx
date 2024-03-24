@@ -1,18 +1,22 @@
-"use client"
+import SignIn from "@/components/auth/sign-in";
+import SignOut from "@/components/auth/sign-out";
+import Link from "next/link";
+import { auth } from "@/auth/auth";
 
-import Link from "next/link"
-
-
-export default function TopNav() {
-    return (
-        <header>
-          <nav
-            className="flex items-start gap-4 p-6 lg:px-8 border-b border-neutral-200"
-            aria-label="Global"
-          >
-            <Link href="/">Theming</Link>
-            <Link href="/colors">Colors</Link>
-          </nav>
-        </header>
-    )
+export default async function TopNav() {
+  const session = await auth();
+  return (
+    <header>
+      <nav
+        className="flex items-center gap-4 border-b border-neutral-200 py-4 pl-6 pr-3 lg:px-8"
+        aria-label="Global"
+      >
+        <Link href="/">Theming</Link>
+        <Link href="/colors">Colors</Link>
+        <div className="flex w-full justify-end">
+          {session ? <SignOut /> : <SignIn />}
+        </div>
+      </nav>
+    </header>
+  );
 }
