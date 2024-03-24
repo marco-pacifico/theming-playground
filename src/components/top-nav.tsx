@@ -1,5 +1,5 @@
-import SignIn from "@/components/auth/sign-in-button";
-import SignOut from "@/components/auth/sign-out-button";
+import SignIn from "@/components/auth/sign-in";
+import SignOut from "@/components/auth/sign-out";
 import Link from "next/link";
 import { auth } from "@/auth/auth";
 
