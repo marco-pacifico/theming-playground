@@ -7,14 +7,14 @@ export default function ThemingLaout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <main className="min-h-screen flex flex-col-reverse md:flex-row">
-      <section className="flex-1 mb-12">
+      <section className="flex-1 min-w-[50%] mb-12">
         <nav className="flex items-start gap-4 p-6 lg:px-8" aria-label="Global">
           <Link href="/">Ecommerce</Link>
           <Link href="/ui-sample">UI Components</Link>
         </nav>
         <div className="mt-4 px-6 lg:px-8">{children}</div>
       </section>
-      <aside className="md:max-w-[512px] md:border-l border-b border-neutral-200 flex flex-col bg-white">
+      <aside className="md:max-w-[512px] w-full md:border-l border-b border-neutral-200 flex flex-col bg-white">
         <div className="p-8 flex-grow">
           <h2 className="text-2xl mb-8 text-neutral-600">Theme</h2>
           <ThemeOptions />
