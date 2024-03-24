@@ -1,4 +1,5 @@
 "use client";
+import SignInForm from "@/components/auth/sign-in-form";
 import {
   Dialog,
   DialogContent,
@@ -8,17 +9,13 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 import { forwardRef } from "react";
-import SignInForm from "../auth/sign-in-form";
 
 export default function SaveTheme() {
-  // function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-  //   console.log("Form submitted");
-  //   alert("Form submitted");
-  // }
 
   return (
     <Dialog>
+
+
       <DialogTrigger asChild>
         <footer className="sticky bottom-0 mt-12 flex justify-end bg-white/60 px-8 pb-6 pt-2 backdrop-blur-sm">
           <SaveThemeButton />
