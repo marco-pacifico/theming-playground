@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import Link from "next/link";
-import { auth } from "../../auth/auth";
 import "./globals.css";
+import TopNav from "@/components/top-nav";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter"});
 const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair"});
@@ -30,7 +29,7 @@ const Roobert = localFont({
 
 export const metadata: Metadata = {
   title: "Theme Playground",
-  description: "A playground for theme development",
+  description: "Configure, save, and edit themes",
 };
 
 export default async function RootLayout({
@@ -38,24 +37,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
+
   return (
     <html lang="en">
       <body className={`${inter.variable} ${Louize.variable} ${playfair.variable} ${Roobert.variable} ${spacemono.variable} overflow-y-scroll`}>
-      <header>
-          <nav
-            className="flex items-start gap-4 p-6 lg:px-8 border-b border-neutral-200"
-            aria-label="Global"
-          >
-            <Link href="/">Theming</Link>
-            <Link href="/colors">Colors</Link>
-            <div className="flex w-full justify-end">
-              <p className="text-neutral-500 text-sm">
-            {session ? " Logged in" : "Logged out"}
-            </p>
-            </div>
-          </nav>
-        </header>
+        <TopNav />
         {children}
       </body>
     </html>
