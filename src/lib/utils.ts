@@ -9,3 +9,8 @@ export function cn(...inputs: ClassValue[]) {
 export function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// Function to create a slug from a string
+export function createSlug(name: string) {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}

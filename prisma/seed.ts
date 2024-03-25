@@ -1,6 +1,7 @@
-import { PrismaClient } from '@prisma/client'
-import { env } from 'node:process';
+import { createSlug } from '@/lib/utils';
+import { PrismaClient } from '@prisma/client';
 import bcrypt from "bcrypt";
+import { env } from 'node:process';
 
 const prisma = new PrismaClient()
 
@@ -14,6 +15,7 @@ async function main() {
       password: hashedPassword,
       themes: {
         create: {
+          id: createSlug("Test Theme"),
           name: "Test Theme",
           brandColor: "#FF0000",
           neutralColor: "Mauve",
