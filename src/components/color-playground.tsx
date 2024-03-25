@@ -3,8 +3,8 @@ import {
   RADIX_REFERENCE_COLORS,
   SHADE_NUMBERS,
   TAILWIND_REFERENCE_COLORS,
-} from "@/data/CONSTANTS";
-import { capitalizeFirstLetter } from "@/lib/helpers";
+} from "@/lib/CONSTANTS";
+import { capitalizeFirstLetter } from "@/lib/utils";
 import chroma from "chroma-js";
 import { useState } from "react";
 import {
@@ -14,9 +14,9 @@ import {
   printOKLCH,
 } from "../lib/color-utils";
 import { NewColor, ReferenceColor } from "../lib/types";
-import ButtonToggle from "./theme-options/button-toggle";
 import ColorScale from "./color-display/color-scale";
 import ReferenceColorScales from "./color-display/reference-color-scale";
+import ButtonToggle from "./theme-options/button-toggle";
 
 
 export default function ColorPlayground() {

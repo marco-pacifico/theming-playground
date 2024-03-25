@@ -1,5 +1,5 @@
 import { auth } from "@/auth/auth";
-import SavedThemes from "./saved-thems";
+import SavedThemes from "./saved-themes";
 
 export default async function SavedThemesPage() {
   const session = await auth();

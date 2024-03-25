@@ -1,6 +1,6 @@
 "use client";
-import { RADIX_REFERENCE_COLORS } from "@/data/CONSTANTS";
 import ReferenceColorScales from "@/components/color-display/reference-color-scale";
+import { RADIX_REFERENCE_COLORS } from "@/lib/CONSTANTS";
 import { useState } from "react";
 
 export default function RadixColors() {

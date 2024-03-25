@@ -1,4 +1,4 @@
-import { SHADE_NUMBERS } from "@/data/CONSTANTS";
+import { SHADE_NUMBERS } from "@/lib/CONSTANTS";
 import { ColorSystem, NewColor, ReferenceColor } from "./types";
 
 type ColorMap = {

@@ -1,7 +1,7 @@
 import {
   CONTRAST_TARGETS,
   TAILWIND_REFERENCE_COLORS
-} from "@/data/CONSTANTS";
+} from "@/lib/CONSTANTS";
 import { calcAPCA } from "apca-w3";
 import chroma from "chroma-js";
 import { ClosestColor, ColorSystem, NewColor, ReferenceColor } from "./types";
