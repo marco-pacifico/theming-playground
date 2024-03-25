@@ -14,11 +14,11 @@ export default function ThemingLaout({
         </nav>
         <div className="mt-4 px-6 lg:px-8">{children}</div>
       </section>
-      <aside className="md:max-w-[512px] w-full md:border-l border-b border-neutral-200 flex flex-col bg-white p-8">
-       
+      <aside className="md:max-w-[512px] w-full md:border-l border-b border-neutral-200 flex flex-col bg-white">
+        <div className="p-8 flex-grow">
           <h2 className="text-2xl mb-8 text-neutral-600">Theme</h2>
           <ThemeOptions />
-
+        </div>
         <SaveTheme />
       </aside>
       {/* <aside className="w-[512px] p-8 border-t border-l rounded-s-2xl border-neutral-200 fixed bg-white right-0 z-50 bottom-0 mb-4 shadow-lg">
