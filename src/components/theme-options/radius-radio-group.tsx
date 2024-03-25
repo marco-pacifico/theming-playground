@@ -1,8 +1,8 @@
-import { capitalizeFirstLetter } from "@/lib/utils";
 import { createRadiusCSSVariables } from "@/lib/theme-vars";
+import { capitalizeFirstLetter } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-export default function RadiusRadioGroup() {
+export default function RadiusRadioGroup({ initialRadiusMode }: { initialRadiusMode?: string }) {
   const RADIUS_OPTIONS = [
     { id: "none", specimenSize: 0 },
     { id: "small", specimenSize: 6 },
@@ -10,7 +10,7 @@ export default function RadiusRadioGroup() {
     { id: "large", specimenSize: 16 },
     { id: "full", specimenSize: 9999 },
   ];
-  const [radius, setRadius] = useState<string>("medium");
+  const [radius, setRadius] = useState<string>(initialRadiusMode || "medium");
 
   useEffect(() => {
     // CREATE CSS VARIABLES FOR THE RADIUS

@@ -19,8 +19,8 @@ model User {
 }
 
 model Theme {
-  id           Int      @id @default(autoincrement())
-  name         String
+  id           String   @id 
+  name         String   @unique
   author       User     @relation(fields: [authorId], references: [id])
   authorId     Int
   brandColor   String
