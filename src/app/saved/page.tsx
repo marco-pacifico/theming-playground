@@ -1,17 +1,18 @@
+import { auth } from "@/auth/auth";
+import SavedThemes from "./saved-themes";
 
-export default async function SavedThemes() {
+export default async function SavedThemesPage() {
+  const session = await auth();
 
   return (
-    <main className="min-h-screen flex flex-col-reverse md:flex-row">
-      <section className="flex-1 mb-12">
-        view sameple ui with theme vars applied
-      </section>
-      <aside className="md:max-w-[512px] flex-1 md:border-l border-b border-neutral-200 flex flex-col bg-white">
-        - Select a theme
-        - View theme details
-        - Option to update theme (if changes are made)
-        - Option to delete theme
-      </aside>
+    <main className="flex min-h-screen flex-col-reverse md:flex-row">
+      {session ? (
+        <SavedThemes />
+      ) : (
+        <div className="w-full px-6 py-80">
+          <p className="text-center text-lg text-neutral-500">Sign in to view saved themes</p>
+        </div>
+      )}
     </main>
   );
 }

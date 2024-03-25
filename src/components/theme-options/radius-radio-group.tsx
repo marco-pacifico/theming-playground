@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from "@/lib/helpers";
+import { capitalizeFirstLetter } from "@/lib/utils";
 import { createRadiusCSSVariables } from "@/lib/theme-vars";
 import { useEffect, useState } from "react";
 

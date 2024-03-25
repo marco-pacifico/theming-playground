@@ -1,7 +1,7 @@
-import { TAILWIND_REFERENCE_COLORS } from "@/data/CONSTANTS";
+import { TAILWIND_REFERENCE_COLORS } from "@/lib/CONSTANTS";
 import { getColorScalesFromReference } from "@/lib/color-utils";
-import ColorScale from "./color-scale";
 import { ReferenceColor } from "@/lib/types";
+import ColorScale from "./color-scale";
 
 export default function ReferenceColorScales({
   closestColor,

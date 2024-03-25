@@ -1,4 +1,4 @@
-import { SHADE_NUMBERS } from "@/data/CONSTANTS";
+import { SHADE_NUMBERS } from "@/lib/CONSTANTS";
 import { getAPCA, printHSL, printOKLCH } from "@/lib/color-utils";
 import chroma from "chroma-js";
 

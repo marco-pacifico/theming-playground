@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from "@/lib/helpers";
+import { capitalizeFirstLetter } from "@/lib/utils";
 import { createNeutralCSSVariables } from "@/lib/theme-vars";
 import { ClosestColor, ReferenceColor } from "@/lib/types";
 import { useEffect, useState } from "react";

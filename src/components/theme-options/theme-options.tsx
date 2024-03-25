@@ -1,6 +1,6 @@
 "use client";
 
-import { TAILWIND_REFERENCE_COLORS } from "@/data/CONSTANTS";
+import { TAILWIND_REFERENCE_COLORS } from "@/lib/CONSTANTS";
 import { generateColor } from "@/lib/color-utils";
 import { createCSSVariables } from "@/lib/theme-vars";
 import { NewColor, ReferenceColor } from "@/lib/types";
