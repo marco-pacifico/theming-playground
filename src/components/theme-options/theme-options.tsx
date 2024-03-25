@@ -11,8 +11,20 @@ import HeadingFontRadioGroup from "./heading-font-radio-group";
 import NeutralsRadio from "./neutrals-radio-group";
 import RadiusRadioGroup from "./radius-radio-group";
 
-export default function ThemeOptions() {
-  const [brandColor, setBrandColor] = useState<string>("#a56f8e");
+type ThemeOptionsProps = {
+  initialBrandColor?: string;
+  initialNeutralColor?: string;
+  initialRadiusMode?: string;
+  initialHeadingFont?: string;
+};
+
+export default function ThemeOptions({
+  initialBrandColor,
+  initialNeutralColor,
+  initialRadiusMode,
+  initialHeadingFont,
+}: ThemeOptionsProps) {
+  const [brandColor, setBrandColor] = useState<string>(initialBrandColor || "#a56f8e");
   const [showBrandOptions, setShowBrandOptions] = useState<boolean>(true);
   const [referenceColors, setReferenceColors] = useState<ReferenceColor[]>(
     TAILWIND_REFERENCE_COLORS
@@ -92,13 +104,14 @@ export default function ThemeOptions() {
         </div>
 
         <NeutralsRadio
+          initialNeutralColor={initialNeutralColor}
           key={newBrandColor.closestColor.matchingNeutral}
           referenceColors={referenceColors}
           closestColor={newBrandColor.closestColor}
         />
 
-        <RadiusRadioGroup />
-        <HeadingFontRadioGroup />
+        <RadiusRadioGroup initialRadiusMode={initialRadiusMode}/>
+        <HeadingFontRadioGroup initialHeadingFont={initialHeadingFont} />
       </div>
   );
 }

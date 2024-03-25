@@ -4,13 +4,15 @@ import { ClosestColor, ReferenceColor } from "@/lib/types";
 import { useEffect, useState } from "react";
 
 export default function NeutralsRadio({
+  initialNeutralColor,
   referenceColors,
   closestColor,
 }: {
+  initialNeutralColor?: string;
   referenceColors: ReferenceColor[];
   closestColor: ClosestColor;
 }) {
-  const [neutral, setNeutral] = useState<string>(closestColor.matchingNeutral); // default to the matching
+  const [neutral, setNeutral] = useState<string>(initialNeutralColor || closestColor.matchingNeutral); // default to the matching
   const neutralsRadioOptions = referenceColors
     .filter((color) => color.isNeutral)
     .map((color) => {

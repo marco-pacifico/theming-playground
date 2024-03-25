@@ -1,5 +1,6 @@
 import { fetchThemeById } from "@/lib/data";
 import { auth } from "@/auth/auth";
+import ThemeOptions from "@/components/theme-options/theme-options";
 
 export default async function ThemePage({
   params,
@@ -9,13 +10,13 @@ export default async function ThemePage({
   const theme = await fetchThemeById(params.theme);
   return (
     <>
-      <h2 className="mb-6">Theme: {theme?.name}</h2>
-      <ul>
-        <li>Brand color: {theme?.brandColor}</li>
-        <li>Neutral color: {theme?.neutralColor}</li>
-        <li>Radius Mode: {theme?.radiusMode}</li>
-        <li>Heading family: {theme?.headingFont}</li>
-      </ul>
+      <h2 className="text-2xl mb-8 text-neutral-600">{theme?.name}</h2>
+      <ThemeOptions
+        initialBrandColor={theme?.brandColor}
+        initialNeutralColor={theme?.neutralColor}
+        initialRadiusMode={theme?.radiusMode}
+        initialHeadingFont={theme?.headingFont}
+      />
     </>
   );
 }
