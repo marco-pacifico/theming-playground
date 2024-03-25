@@ -1,4 +1,4 @@
-import SaveTheme from "@/components/theme-options/save-theme-footer";
+import SaveTheme from "@/components/theme-options/save-theme";
 import ThemeOptions from "@/components/theme-options/theme-options";
 import Link from "next/link";
 

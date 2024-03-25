@@ -1,7 +1,7 @@
 'use client';
 import { createTheme } from "@/lib/actions";
 import { Label } from "@radix-ui/react-label";
-import { useFormStatus, useFormState } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { Input } from "../ui/input";
 
 export default function SaveThemeForm() {
@@ -24,7 +24,7 @@ export default function SaveThemeForm() {
           />
         </div>
         <input type="hidden" name="brandColor" value="#0000FF"/>
-        <input type="hidden" name="neutralColor" value="Slate"/>
+        <input type="hidden" name="neutralColor" value="slate"/>
         <input type="hidden" name="radiusMode" value="small"/>
         <input type="hidden" name="headingFont" value="louize"/>
       </div>
