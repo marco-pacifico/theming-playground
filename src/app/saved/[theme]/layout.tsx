@@ -29,7 +29,7 @@ export default async function SavedThemesLayout({
   }
 
   return (
-    <main className="flex min-h-screen flex-col-reverse md:flex-row">
+    <main className="flex min-h-screen flex-col-reverse lg:flex-row">
       <aside className="min-w-60 pb-20 bg-neutral-50 hidden md:block">
     
           <h2 className="font-medium mt-6 ml-8 mb-2 text-neutral-800">Saved Themes</h2>
@@ -50,7 +50,7 @@ export default async function SavedThemesLayout({
       <section className="mb-12 flex-1 p-6 md:border-l">
         Sample UI goes here...
       </section>
-      <aside className="flex flex-1 flex-col border-b border-neutral-200 bg-white p-8 md:max-w-[512px] md:border-l">
+      <aside className="flex flex-1 flex-col border-b border-neutral-200 bg-white p-8 lg:max-w-[512px] lg:border-l">
         {children}
       </aside>
     </main>
