@@ -1,6 +1,6 @@
 "use client";
-import SignInForm from "@/components/auth/sign-in-form";
-import SaveThemeForm from "@/components/theme-options/save-theme-form";
+import SaveThemeForm from "@/components/forms/save-theme-form";
+import SignInForm from "@/components/forms/sign-in-form";
 import {
   Dialog,
   DialogContent,

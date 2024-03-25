@@ -1,4 +1,4 @@
-import { createSlug } from '@/lib/utils';
+import { createSlug } from '../src/lib/utils';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from "bcrypt";
 import { env } from 'node:process';

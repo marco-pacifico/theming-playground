@@ -1,6 +1,6 @@
 import { auth } from "@/auth/auth";
-import SignIn from "@/components/auth/sign-in";
-import SignOut from "@/components/auth/sign-out";
+import SignIn from "@/components/auth/sign-in-dialog";
+import SignOut from "@/components/auth/sign-out-button";
 import Link from "next/link";
 
 export default async function Header() {
