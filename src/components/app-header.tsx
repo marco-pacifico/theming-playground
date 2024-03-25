@@ -8,7 +8,7 @@ export default async function Header() {
   return (
     <header>
       <nav
-        className="flex items-center gap-6 border-b border-neutral-200 py-4 pl-6 pr-3 lg:px-8"
+        className="flex items-center gap-6 border-b border-neutral-200 py-4 pl-6 pr-3"
         aria-label="Global"
       >
         <Link href="/">Create</Link>
