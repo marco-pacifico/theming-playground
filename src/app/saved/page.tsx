@@ -38,7 +38,11 @@ export default async function SavedThemesPage() {
                 href={`/saved/${theme.id}`}
                 className="text-neutral-80 block border-b border-neutral-100 px-8 py-4 hover:bg-neutral-100"
               >
+                <div className="flex justify-between items-center">
+
                 {theme.name}
+              <div style={{backgroundColor: theme.brandColor}} className="h-8 w-8 rounded-full border-4 border-white/80"></div>
+                </div>
               </Link>
             </li>
           ))}
