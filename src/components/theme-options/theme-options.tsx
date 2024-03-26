@@ -54,6 +54,7 @@ export default function ThemeOptions({
   const [neutral, setNeutral] = useState<string>(
     initialNeutralColor || matchingNeutral,
   ); // default to the matching
+
   // RADIUS MODE STATE
   const [radius, setRadius] = useState<string>(initialRadiusMode || "medium");
   // HEADINGS FONT STATE
@@ -95,7 +96,6 @@ export default function ThemeOptions({
         scale={newBrandColor.scale}
       />
       <NeutralsRadio
-        key={newBrandColor.closestColor.matchingNeutral}
         referenceColors={referenceColors}
         matchingNeutral={matchingNeutral}
         neutral={neutral}

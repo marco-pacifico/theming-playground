@@ -3,7 +3,6 @@ import { Inter, Playfair, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/app-header";
-import { ThemeOptionsProvider } from "@/contexts/theme-options-context-provider";
 
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -45,14 +44,13 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeOptionsProvider>
+
         <body
           className={`${inter.variable} ${Louize.variable} ${playfair.variable} ${Roobert.variable} ${spacemono.variable} overflow-y-scroll`}
         >
           <Header />
           {children}
         </body>
-      </ThemeOptionsProvider>
     </html>
   );
 }
