@@ -1,3 +1,4 @@
+import { auth } from "@/auth/auth";
 import ThemeOptions from "@/components/theme-options/theme-options";
 import deleteTheme from "@/lib/actions";
 import { fetchThemeById } from "@/lib/data";
@@ -8,6 +9,7 @@ export default async function ThemePage({
   params: { theme: string };
 }) {
   const theme = await fetchThemeById(params.theme);
+  const session = await auth();
   return (
     <>
       <div className="flex-grow mb-8">
@@ -17,6 +19,7 @@ export default async function ThemePage({
           initialNeutralColor={theme?.neutralColor}
           initialRadiusMode={theme?.radiusMode}
           initialHeadingFont={theme?.headingFont}
+          session={session}
         />
       </div>
       <form action={deleteTheme}>
