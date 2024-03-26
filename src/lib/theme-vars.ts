@@ -34,6 +34,14 @@ type ColorProminence =
   | "surface-1"
   | "surface-2";
 
+  export const HEADING_FONT_OPTIONS = [
+    { id: "inter", varName: "var(--font-inter)" },
+    { id: "Roobert", varName: "var(--font-roobert)" },
+    { id: "Playfair", varName: "var(--font-playfair)" },
+    { id: "louize", varName: "var(--font-louize)" },
+    { id: "space Mono", varName: "var(--font-space-mono)" },
+  ];
+
 function getThemeColorMap(
   brandInputIndex: number,
   referenceColorSystem: ColorSystem,

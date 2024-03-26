@@ -2,20 +2,28 @@
 
 import { TAILWIND_REFERENCE_COLORS } from "@/lib/CONSTANTS";
 import { generateColor } from "@/lib/color-utils";
-import { createCSSVariables } from "@/lib/theme-vars";
-import { NewColor, ReferenceColor } from "@/lib/types";
+import {
+  HEADING_FONT_OPTIONS,
+  createCSSVariables,
+  createHeadingFontVariables,
+  createNeutralCSSVariables,
+  createRadiusCSSVariables,
+} from "@/lib/theme-vars";
+import { NewColor } from "@/lib/types";
 import { useEffect, useState } from "react";
-import SmallColorScale from "../color-display/small-color-scale";
-import ButtonToggle from "./button-toggle";
+import BrandColorSelection from "./brand-color-selection";
 import HeadingFontRadioGroup from "./heading-font-radio-group";
 import NeutralsRadio from "./neutrals-radio-group";
 import RadiusRadioGroup from "./radius-radio-group";
+import SaveThemeNew from "./save-theme-new";
+import { Session } from "next-auth";
 
 type ThemeOptionsProps = {
   initialBrandColor?: string;
   initialNeutralColor?: string;
   initialRadiusMode?: string;
   initialHeadingFont?: string;
+  session: Session | null;
 };
 
 export default function ThemeOptions({
@@ -23,11 +31,13 @@ export default function ThemeOptions({
   initialNeutralColor,
   initialRadiusMode,
   initialHeadingFont,
+  session,
 }: ThemeOptionsProps) {
-  const [brandColor, setBrandColor] = useState<string>(initialBrandColor || "#a56f8e");
-  const [showBrandOptions, setShowBrandOptions] = useState<boolean>(true);
-  const [referenceColors, setReferenceColors] = useState<ReferenceColor[]>(
-    TAILWIND_REFERENCE_COLORS
+  const referenceColors = TAILWIND_REFERENCE_COLORS;
+
+  // BRAND COLOR STATE
+  const [brandColor, setBrandColor] = useState<string>(
+    initialBrandColor || "#a56f8e",
   );
   const [lockInputColor, setLockInputColor] = useState<boolean>(true);
   const [filterNeutrals, setFilterNeutrals] = useState<boolean>(true);
@@ -37,81 +47,81 @@ export default function ThemeOptions({
     referenceColors,
     filterNeutrals,
     lockInputColor,
-    adjustContrast
+    adjustContrast,
   );
+  // NEUTRAL COLOR STATE
+  const matchingNeutral = newBrandColor.closestColor.matchingNeutral;
+  const [neutral, setNeutral] = useState<string>(
+    initialNeutralColor || matchingNeutral,
+  ); // default to the matching
+  // RADIUS MODE STATE
+  const [radius, setRadius] = useState<string>(initialRadiusMode || "medium");
+  // HEADINGS FONT STATE
+  const [font, setFont] = useState<string>(initialHeadingFont || "inter");
+
+  // CREATE BRAND COLOR CSS VARIABLES
   useEffect(() => {
     // CREATE CSS VARIABLES FOR THE ADJUSTED SCALE
     createCSSVariables(newBrandColor, lockInputColor);
   }, [newBrandColor, lockInputColor]);
+  // CREATE NEUTRAL COLOR CSS VARIABLES
+  useEffect(() => {
+    createNeutralCSSVariables(neutral, referenceColors);
+  }, [neutral, referenceColors]);
+  // CREATE RADIUS CSS VARIABLES
+  useEffect(() => {
+    createRadiusCSSVariables(radius);
+  }, [radius]);
+  // CREATE HEADING FONT CSS VARIABLES
+  useEffect(() => {
+    const varName =
+      HEADING_FONT_OPTIONS.find((option) => option.id === font)?.varName ||
+      HEADING_FONT_OPTIONS[0].varName;
+    createHeadingFontVariables(varName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [font]);
+
   return (
-      <div className="flex flex-col gap-12 sticky top-10">
-        <div>
-          <h2 id="brand-color" className="font-semibold text-neutral-800 mb-2">
-            Brand Color
-          </h2>
-          <div className="flex items-center gap-4">
-            <label className="inline-flex items-center gap-4 text-sm text-neutral-600">
-              <input
-                className="w-[60px] h-[60px] rounded-full border-neutral-950/30 border-[6px] overflow-hidden cursor-pointer hover:border-neutral-950/40 transition-colors"
-                style={{ background: brandColor }}
-                type="color"
-                name="brandColor"
-                value={brandColor}
-                onChange={(event) => setBrandColor(event.target.value)}
-              />
-            </label>
-            <p className="text-sm text-neutral-600">
-              {brandColor.toLocaleUpperCase()}
-            </p>
-            <button
-              onClick={() => setShowBrandOptions(!showBrandOptions)}
-              className="px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-100 rounded-lg"
-            >
-              {showBrandOptions ? "Hide" : "Show"} Options
-            </button>
-          </div>
-          {showBrandOptions && (
-            <>
-              <SmallColorScale
-                inputHex={brandColor}
-                scale={newBrandColor.scale}
-              />
-              <div className="mt-6 flex justify-center gap-2 flex-wrap">
-                {/* Lock Input Color Toggle */}
-                <ButtonToggle
-                  stateValue={lockInputColor}
-                  setStateValue={setLockInputColor}
-                >
-                  Input Locked
-                </ButtonToggle>
-                {/* Adjust Contrast Toggle */}
-                <ButtonToggle
-                  stateValue={adjustContrast}
-                  setStateValue={setAdjustContrast}
-                >
-                  Adjust Contrast
-                </ButtonToggle>
-                {/* Filter neutrals color toggle */}
-                <ButtonToggle
-                  stateValue={filterNeutrals}
-                  setStateValue={setFilterNeutrals}
-                >
-                  Neutrals filtered
-                </ButtonToggle>
-              </div>
-            </>
-          )}
-        </div>
+    <div className="sticky top-10 flex flex-col gap-12">
+      <BrandColorSelection
+        brandColor={brandColor}
+        setBrandColor={setBrandColor}
+        lockInputColor={lockInputColor}
+        setLockInputColor={setLockInputColor}
+        filterNeutrals={filterNeutrals}
+        setFilterNeutrals={setFilterNeutrals}
+        adjustContrast={adjustContrast}
+        setAdjustContrast={setAdjustContrast}
+        scale={newBrandColor.scale}
+      />
+      <NeutralsRadio
+        key={newBrandColor.closestColor.matchingNeutral}
+        referenceColors={referenceColors}
+        matchingNeutral={matchingNeutral}
+        neutral={neutral}
+        setNeutral={setNeutral}
+      />
 
-        <NeutralsRadio
-          initialNeutralColor={initialNeutralColor}
-          key={newBrandColor.closestColor.matchingNeutral}
-          referenceColors={referenceColors}
-          closestColor={newBrandColor.closestColor}
-        />
-
-        <RadiusRadioGroup initialRadiusMode={initialRadiusMode}/>
-        <HeadingFontRadioGroup initialHeadingFont={initialHeadingFont} />
-      </div>
+      <RadiusRadioGroup radius={radius} setRadius={setRadius} />
+      <HeadingFontRadioGroup font={font} setFont={setFont} />
+      <footer className="sticky bottom-0 mt-12 flex justify-end bg-white/60 pb-6 pt-2 backdrop-blur-sm">
+        {session ? (
+          <SaveThemeNew
+            brandColor={brandColor}
+            neutralColor={neutral}
+            radiusMode={radius}
+            headingFont={font}
+          />
+        ) : (
+          <button
+            disabled
+            className="inline-flex w-full cursor-not-allowed 
+items-center justify-center whitespace-nowrap rounded-full border border-neutral-100 bg-neutral-50 px-4 py-3 text-lg font-medium text-neutral-400 shadow-sm"
+          >
+            Sign in to save theme
+          </button>
+        )}
+      </footer>
+    </div>
   );
 }

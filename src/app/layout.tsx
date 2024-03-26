@@ -3,10 +3,16 @@ import { Inter, Playfair, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/app-header";
+import { ThemeOptionsProvider } from "@/contexts/theme-options-context-provider";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter"});
-const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair"});
-const spacemono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"] ,variable: "--font-space-mono"});
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playfair = Playfair({ subsets: ["latin"], variable: "--font-playfair" });
+const spacemono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+});
 
 const Louize = localFont({
   src: [
@@ -37,13 +43,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${Louize.variable} ${playfair.variable} ${Roobert.variable} ${spacemono.variable} overflow-y-scroll`}>
-        <Header />
-        {children}
-      </body>
+      <ThemeOptionsProvider>
+        <body
+          className={`${inter.variable} ${Louize.variable} ${playfair.variable} ${Roobert.variable} ${spacemono.variable} overflow-y-scroll`}
+        >
+          <Header />
+          {children}
+        </body>
+      </ThemeOptionsProvider>
     </html>
   );
 }

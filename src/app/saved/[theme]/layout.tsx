@@ -1,4 +1,5 @@
 import { auth } from "@/auth/auth";
+import SampleUI from "@/components/sample-ui/sample-ecommerce-page";
 import { fetchThemes } from "@/lib/data";
 import Link from "next/link";
 
@@ -48,7 +49,7 @@ export default async function SavedThemesLayout({
        
       </aside>
       <section className="mb-12 flex-1 p-6 md:border-l">
-        Sample UI goes here...
+        <SampleUI />
       </section>
       <aside className="flex flex-1 flex-col border-b border-neutral-200 bg-white p-8 lg:max-w-[512px] lg:border-l">
         {children}

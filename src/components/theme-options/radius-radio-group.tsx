@@ -1,8 +1,12 @@
-import { createRadiusCSSVariables } from "@/lib/theme-vars";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import { useEffect, useState } from "react";
 
-export default function RadiusRadioGroup({ initialRadiusMode }: { initialRadiusMode?: string }) {
+export default function RadiusRadioGroup({
+  radius,
+  setRadius,
+}: {
+  radius: string;
+  setRadius: React.Dispatch<React.SetStateAction<string>>
+}) {
   const RADIUS_OPTIONS = [
     { id: "none", specimenSize: 0 },
     { id: "small", specimenSize: 6 },
@@ -10,30 +14,23 @@ export default function RadiusRadioGroup({ initialRadiusMode }: { initialRadiusM
     { id: "large", specimenSize: 16 },
     { id: "full", specimenSize: 9999 },
   ];
-  const [radius, setRadius] = useState<string>(initialRadiusMode || "medium");
-
-  useEffect(() => {
-    // CREATE CSS VARIABLES FOR THE RADIUS
-    createRadiusCSSVariables(radius);
-  }, [radius]);
-
   return (
     <div>
-      <h2 id="corner-radius" className="font-semibold text-neutral-800 mb-2">
+      <h2 id="corner-radius" className="mb-2 font-semibold text-neutral-800">
         Corner Radius
       </h2>
       <div
         role="group"
         aria-labelledby="corner-radius"
-        className="flex gap-4 flex-wrap"
+        className="flex flex-wrap gap-4"
       >
         {RADIUS_OPTIONS.map((option) => (
           <label
             key={option.id}
-            className="flex flex-col items-center gap-2 text-sm text-neutral-600 cursor-pointer"
+            className="flex cursor-pointer flex-col items-center gap-2 text-sm text-neutral-600"
           >
             <input
-              className="appearance-none absolute"
+              className="absolute appearance-none"
               type="radio"
               name="radio"
               value={option.id}
@@ -41,10 +38,10 @@ export default function RadiusRadioGroup({ initialRadiusMode }: { initialRadiusM
               onChange={(event) => setRadius(event.target.value)}
             />
             <div
-              className={`w-16 h-16 bg-neutral-100 ${
+              className={`h-16 w-16 bg-neutral-100 ${
                 radius === option.id
-                  ? "border-neutral-950/70 border-4 scale-110"
-                  : "border-neutral-950/30 border-2 hover:-translate-y-1 transition-transform"
+                  ? "scale-110 border-4 border-neutral-950/70"
+                  : "border-2 border-neutral-950/30 transition-transform hover:-translate-y-1"
               }`}
               style={{ borderRadius: option.specimenSize }}
             ></div>
