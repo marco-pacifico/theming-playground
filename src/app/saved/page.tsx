@@ -14,15 +14,12 @@ export default async function SavedThemesPage() {
     );
   }
 
-
   const themes = await fetchThemes();
 
   if (themes.length === 0) {
     return (
       <main className="w-full bg-white px-6 py-80">
-        <p className="text-center text-lg text-neutral-500">
-          No saved themes
-        </p>
+        <p className="text-center text-lg text-neutral-500">No saved themes</p>
       </main>
     );
   }
@@ -30,7 +27,9 @@ export default async function SavedThemesPage() {
   return (
     <main className="min-h-screen">
       <aside className="min-w-60 pb-20">
-        <h2 className="text-2xl mt-6 ml-8 mb-2 text-neutral-600">Saved Themes</h2>
+        <h2 className="mb-2 ml-8 mt-6 text-2xl text-neutral-600">
+          Saved Themes
+        </h2>
         <ul>
           {themes.map((theme) => (
             <li key={theme.id}>
@@ -38,14 +37,18 @@ export default async function SavedThemesPage() {
                 href={`/saved/${theme.id}`}
                 className="text-neutral-80 block border-b border-neutral-100 px-8 py-4 hover:bg-neutral-100"
               >
-                {theme.name}
+                <div className="flex items-center gap-4">
+                  <div
+                    style={{ backgroundColor: theme.brandColor }}
+                    className="h-8 w-8 rounded-full border-4 border-white/80"
+                  ></div>
+                  {theme.name}
+                </div>
               </Link>
             </li>
           ))}
         </ul>
       </aside>
-      
     </main>
   );
-
 }

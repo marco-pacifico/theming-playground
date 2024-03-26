@@ -1,43 +1,30 @@
+import { HEADING_FONT_OPTIONS } from "@/lib/theme-vars";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import { createHeadingFontVariables } from "@/lib/theme-vars";
-import { useEffect, useState } from "react";
 
-export default function HeadingFontRadioGroup({ initialHeadingFont }: { initialHeadingFont?: string }) {
-  const FONT_OPTIONS = [
-    { id: "inter", varName: "var(--font-inter)" },
-    { id: "Roobert", varName: "var(--font-roobert)" },
-    { id: "Playfair", varName: "var(--font-playfair)" },
-    { id: "louize", varName: "var(--font-louize)" },
-    { id: "space Mono", varName: "var(--font-space-mono)" },
-  ];
-  const [font, setFont] = useState<string>(initialHeadingFont || "inter");
-
-  useEffect(() => {
-    const varName =
-      FONT_OPTIONS.find((option) => option.id === font)?.varName ||
-      FONT_OPTIONS[0].varName;
-    // CREATE CSS VARIABLES FOR THE RADIUS
-    createHeadingFontVariables(varName);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [font]);
-
+export default function HeadingFontRadioGroup({
+  font,
+  setFont,
+}: {
+  font: string;
+  setFont: React.Dispatch<React.SetStateAction<string>>;
+}) {
   return (
     <div>
-      <h2 id="heading-font" className="font-semibold text-neutral-800 mb-2">
+      <h2 id="heading-font" className="mb-2 font-semibold text-neutral-800">
         Heading Font Family
       </h2>
       <div
         role="group"
         aria-labelledby="heading-font"
-        className="flex gap-4 flex-wrap"
+        className="flex flex-wrap gap-4"
       >
-        {FONT_OPTIONS.map((option) => (
+        {HEADING_FONT_OPTIONS.map((option) => (
           <label
             key={option.id}
-            className="flex flex-col items-center gap-2 text-sm text-neutral-600 cursor-pointer"
+            className="flex cursor-pointer flex-col items-center gap-2 text-sm text-neutral-600"
           >
             <input
-              className="appearance-none absolute"
+              className="absolute appearance-none"
               type="radio"
               name="radio"
               value={option.id}
@@ -45,10 +32,10 @@ export default function HeadingFontRadioGroup({ initialHeadingFont }: { initialH
               onChange={(event) => setFont(event.target.value)}
             />
             <div
-              className={`w-full h-14  px-6 rounded-lg grid place-items-center ${
+              className={`grid h-14  w-full place-items-center rounded-lg px-6 ${
                 font === option.id
-                  ? "border-neutral-600  border bg-neutral-600 text-white"
-                  : "border-neutral-200 border hover:bg-neutral-100 transition-colors"
+                  ? "border  border-neutral-600 bg-neutral-600 text-white"
+                  : "border border-neutral-200 transition-colors hover:bg-neutral-100"
               }`}
               style={{ fontFamily: option.varName }}
             >
